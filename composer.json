@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"indatus/dispatcher": "~1.4",
+		"jenssegers/mongodb": "~2.0"
 	},
 	"autoload": {
 		"classmap": [
