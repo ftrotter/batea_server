@@ -6,7 +6,7 @@ It is intended to work hand in hand with the [Wikiproject Medicine](https://en.w
 
 Or at least thats the idea anyway.
 
-This is a [DocGraph](docgraph.org)  project, generously sponsored by [RWJF](www.rwjf.org).
+This is a [DocGraph](http://docgraph.org)  project, generously sponsored by [RWJF](http://www.rwjf.org).
 
-Server side code is primarily by [Fred Trotter](fredtrotter.com).
+Server side code is primarily by [Fred Trotter](http://fredtrotter.com).
 
