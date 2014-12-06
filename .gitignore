@@ -36,14 +36,19 @@ intermediate
 publish
 .idea
 
-#Laravel 4 specific
+#Laravel 5 specific
 /bootstrap/compiled.php
 /vendor
 composer.phar
 composer.lock
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db
 
 
-#NOD specific
+
+#DocGraph specific
 */config/*
 */cache/*
 *tmp/*
