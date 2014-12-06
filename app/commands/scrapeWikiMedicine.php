@@ -43,6 +43,9 @@ class scrapeWikiMedicine extends ScheduledCommand {
 		return $scheduler->daily()->hours(4)->minutes(17);
 	}
 
+
+
+
 	/**
 	 * Execute the console command.
 	 *
@@ -50,35 +53,50 @@ class scrapeWikiMedicine extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-
-		//lets get a wikipedia page
-		//then save it to a database...
-		$WikiScrapper = new WikiScrapper();
-		$wikitext = $WikiScrapper->get_clean_wikitext("Myocardial_infarction");
-		$wikilines = explode("\n",$wikitext);
-		foreach($wikilines as $this_wikiline){
-			if(strpos($this_wikiline,'cite') !== false){
-				//echo "working on \n\n $this_wikiline \n\n";
-				$pmids = $WikiScrapper->get_all_pmids_from_wikiline($this_wikiline);
-				echo "PMIDS = \n";
-				var_export($pmids);
-				echo "\n";
-
-				$links = $WikiScrapper->get_links_from_wikiline($this_wikiline);
-				echo "Links \n";
-				var_export($links);
-				echo "\n";
-		
-
-			}
+		if(is_null($this->WikiScrapper)){
+                	$this->WikiScrapper = new WikiScrapper();
 		}
 
-		echo "/n";
-		var_export($WikiScrapper->redirect_cache);
-		echo "/n";
+		$starting_links = $this->WikiScrapper->get_clean_talkpage('Diabetes_mellitus');
+		//exit();
 
+
+		$starting_links = $this->recurse_wikipage('Diabetes_mellitus');
+		$two_degrees_links = array();
+		foreach($starting_links as $label => $wikititle){
+			$this_second_degree = $this->recurse_wikipage($wikititle);
+			$two_degrees_links = array_merge($two_degrees_links,$this_second_degree);
+		}
 
 	}
+
+	private $med_titles_array = array(); 
+	private $WikiScrapper = null;
+
+
+	function recurse_wikipage($wikititle){
+
+		if(is_null($this->WikiScrapper)){
+                	$this->WikiScrapper = new WikiScrapper();
+		}
+                $wikitext = $this->WikiScrapper->get_clean_wikitext($wikititle);
+                $wikilines = explode("\n",$wikitext);
+                $all_links = array();
+                foreach($wikilines as $this_wikiline){
+                        if(strpos($this_wikiline,'cite') !== false){
+                                //echo "working on \n\n $this_wikiline \n\n";
+                                $links = $this->WikiScrapper->get_medical_links_from_wikiline($this_wikiline);
+
+                                $all_links = array_merge($links,$all_links);
+
+                        }
+                }
+
+
+		return($all_links);
+
+	}
+
 
 	/**
 	 * Get the console command arguments.
