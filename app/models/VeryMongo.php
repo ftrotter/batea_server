@@ -16,12 +16,37 @@ class VeryMongo{
 
 		//I want this to be testable...
 		if(is_null($db_array)){
-			$db_array = Config::get('database.connections.mongo');
+			$db_array = Config::get('database.connections.mongodb',false);
+			if(!$db_array){
+				echo "There is no database configuration\n";
+				exit();
+			}
 		}
 
-		$host = $db_array['hostname'];
+		if(isset($db_array['host'])){
+			$host = $db_array['host'];
+		}else{
+			if(isset($db_array['hostname'])){
+				$host = $db_array['hostname'];
+			}else{
+				echo "Missing host or hostname configuration";
+				exit();
+			}
+		}
+		
 		$port = $db_array['port'];
-		$dbname = $db_array['db'];
+                if(isset($db_array['db'])){
+                        $dbname = $db_array['db'];
+                }else{
+                        if(isset($db_array['database'])){
+                                $dbname = $db_array['database'];
+                        }else{
+                                echo "Missing host or hostname configuration";
+                                exit();
+                        }
+                }
+
+
 		if(isset($db_array['username'])){
 			$user = $db_array['username'];
 			$passwd = $db_array['password'];
@@ -43,6 +68,9 @@ class VeryMongo{
 		catch( MongoCursorException $e){
 			//this usually means a poor connection
 			$this->_mongoFail($e);
+		} catch (Exception $e) {
+			$this->_mongoFail($e);
+			
 		}
                 $this->mongo = $db->$dbname;
         }
@@ -233,6 +261,16 @@ function arrayRecursiveDiff($aArray1, $aArray2) {
   return $aReturn;
 } 
 
+function fromJSON($json){
+	$this->data_array = json_decode($json,true);
+	$this->sync();
+}
+
+function toJSON(){
+
+	$json = json_encode($this->data_array);
+	return($json);
+}
 
 
 
