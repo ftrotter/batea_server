@@ -14,11 +14,17 @@ class VeryMongo{
 
         function __construct($db_array = null){
 
+		if(!is_array($db_array) || is_null($db_array)){
+			echo "VeryMongo: I need a db config array passed in... this... this.. is something else";
+			exit();
+		}
+
+
 		//I want this to be testable...
 		if(is_null($db_array)){
 			$db_array = Config::get('database.connections.mongodb',false);
 			if(!$db_array){
-				echo "There is no database configuration\n";
+				echo "VeryMongo: There is no database configuration\n";
 				exit();
 			}
 		}
@@ -29,7 +35,7 @@ class VeryMongo{
 			if(isset($db_array['hostname'])){
 				$host = $db_array['hostname'];
 			}else{
-				echo "Missing host or hostname configuration";
+				echo "VeryMongo: Missing host or hostname configuration";
 				exit();
 			}
 		}
@@ -41,7 +47,7 @@ class VeryMongo{
                         if(isset($db_array['database'])){
                                 $dbname = $db_array['database'];
                         }else{
-                                echo "Missing host or hostname configuration";
+                                echo "VeryMongo: Missing host or hostname configuration";
                                 exit();
                         }
                 }
@@ -77,9 +83,9 @@ class VeryMongo{
 
 function _mongoFail($e){
 
-                        echo "Died with ". $e->getMessage(). "\n";
-                        echo "Using PECL class $this->MongoClass\n";
-                        echo "Tried to connect with \n ".$this->mongo_url."\n";
+                        echo "VeryMongo: Died with ". $e->getMessage(). "\n";
+                        echo "VeryMongo: Using PECL class $this->MongoClass\n";
+                        echo "VeryMongo: Tried to connect with \n ".$this->mongo_url."\n";
                         exit();
 
 }
@@ -219,7 +225,7 @@ function sync($id = 0, $versioning = false){
 function remove($id = 0){
 
 	if($id === 0){
-		echo "Calling remove with no argument. Fail. $id";
+		echo "VeryMongo: Calling remove with no argument. Fail. $id";
 		die();
 	}
 
