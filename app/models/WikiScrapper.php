@@ -193,12 +193,13 @@ function wfUrlencode( $s ) {
 		$this->wpmed_cache[$title] = false;
 		if(strpos($results,"WPMED") !== false){
 				//then this is a wikiproject medicine project!!!
-			echo "CLINICAL Found WPMED \n";
+			//echo "CLINICAL Found WPMED \n";
+			echo 'c';
 			$this->wpmed_cache[$title] = true;	
 		}
 		if(strpos(strtolower($results),"wikiproject medicine") !== false){
 				//then this is a wikiproject medicine project!!!
-			echo "CLINICAL Found wikiproject medicine\n";
+			//echo "CLINICAL Found wikiproject medicine\n";
 			$this->wpmed_cache[$title] = true;	
 		}
 	
@@ -255,13 +256,12 @@ public function download_wiki_result($title,$id_to_get = null){
 
 
 		if(isset($this->wiki_json_cache[$title][$cache_id])){
-			echo "returning cache for $title\n";
+			//echo "returning cache for $title\n";
+			echo 'w';
 			return($this->wiki_json_cache[$title][$cache_id]);
 		}
 
-
-
-		echo "downloading $title\n";
+		echo "\t\tdownloading $title\n";
 		sleep(1); //lets slow this down.
 
                 $api_url = $this->get_wiki_api_url($title,$id_to_get);
@@ -513,8 +513,14 @@ http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 						return($pmid);
 
                                         }else{
-                                                //this is a shitty pmid... I have no idea what to make of it...
-						echo "thought I found a $pmid in \n\n$wikitext\n\n but failed\n";
+						if(strlen(trim($pmid)) == 0){
+							//then its just not there		
+							//it was only the tag..
+						}else{
+							//then there is "something" there...
+                                               	 	//this is a shitty pmid... I have no idea what to make of it...
+							echo "thought I found a pmid of '$pmid' in \n\n$wikitext\n\n but failed\n";
+						}
                                         }
 
                                 }
