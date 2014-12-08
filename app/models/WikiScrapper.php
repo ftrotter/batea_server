@@ -203,7 +203,7 @@ function wfUrlencode( $s ) {
 			$this->wpmed_cache[$title] = true;	
 		}
 	
-		$wikitag_id = $this->get_wikidata_id($title,$id_to_get);
+		$wikitag_id = WikiData::get_wikidata_id($title,$id_to_get);
 		foreach($this->talk_tags_map as $tag => $search_string){
 			if(strpos($results,$search_string) !== false){
 				$wiki_tag_array[$tag] = true;		
@@ -277,7 +277,7 @@ public function download_wiki_result($title,$id_to_get = null){
 
 		$WikiData = new WikiData();
 		$WikiData->fromJSON($result);
-		$wikidata_id = $this->get_wikidata_id($title,$cache_id);
+		$wikidata_id = WikiData::get_wikidata_id($title,$cache_id);
 		$WikiData->sync($wikidata_id);
 
 		$this->wiki_json_cache[$title][$cache_id] = $result;		
@@ -303,10 +303,6 @@ public function download_wiki_result($title,$id_to_get = null){
 	}
 
 
-	function get_wikidata_id($title,$cache_id){
-		$wikidata_id = "$title"."|$cache_id";
-		return($wikidata_id);
-	}
 	
 
 /*

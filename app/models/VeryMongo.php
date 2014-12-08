@@ -14,8 +14,8 @@ class VeryMongo{
 
         function __construct($db_array = null){
 
-		if(!is_array($db_array) || is_null($db_array)){
-			echo "VeryMongo: I need a db config array passed in... this... this.. is something else";
+		if(!is_array($db_array) && !is_null($db_array)){
+			echo "VeryMongo: I can read a config from the Laravel mongodb config, or can have a db_config array passed in... but this... this.. is something else";
 			exit();
 		}
 

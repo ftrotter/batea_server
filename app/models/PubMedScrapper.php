@@ -84,6 +84,13 @@ class PubMedScrapper{
 		//use sorpubdate to get a pubdate that the database can use.
 		$sortpubdate_time = strtotime($this_result_array['sortpubdate']);
 		$this_result_array['pubdate_js'] = new MongoDate($sortpubdate_time);
+
+
+		if(!is_array($this_result_array['history'])){
+			var_export($this_result_array);
+			exit();
+		}
+
 	
 		foreach($this_result_array['history'] as $id => $this_event_array){
 			$better_time = strtotime($this_event_array['date']);
@@ -116,7 +123,7 @@ class PubMedScrapper{
 		'is_pubtype_casestudy' => false,
 		'is_pubtype_bibliography' => false,
 		'is_pubtype_dataset' => false,
-		'is_pubtype_stronger_study_type' => false,
+		'is_pubtype_good_study_type' => false,
 		'is_pubtype_opinion' => false,
 		'is_pubtype_retracted' => false,
 		'is_pubtype_unknown' => false,
@@ -139,6 +146,12 @@ public function getOptomizedArticleArrayFromPubtype($pubtype_array){
 	}
 
 	$my_starting_array['pubtype_count'] = count($pubtype_array);
+
+	if(!is_array($pubtype_array)){
+		var_export($pubtype_array);	
+		exit();
+	}
+
 
 	foreach($pubtype_array as $this_pubtype){
 			if(in_array($this_pubtype,PubMedScrapper::$pubmed_opinion_types)){
