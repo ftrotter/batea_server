@@ -1,0 +1,1 @@
+(function(){dust.register("wiki_article.dust",body_0);function body_0(chk,ctx){return chk.write(" I will do the wiki interface later...but you can click the link below to look at the underlying json data source...");}return body_0;})();

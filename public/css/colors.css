@@ -1,0 +1,409 @@
+
+.antique_white, .antique_white a {
+    color: #FAEBD7;
+}
+.aqua, .aqua a {
+    color: #00FFFF;
+}
+.aquamarine, .aquamarine a {
+    color: #7FFFD4;
+}
+.azure, .azure a {
+    color: #F0FFFF;
+}
+.beige, .beige a {
+    color: #F5F5DC;
+}
+.bisque, .bisque a {
+    color: #FFE4C4;
+}
+.black, .black a {
+    color: #000000;
+}
+.blanched_almond, .blanched_almond a {
+    color: #FFEBCD;
+}
+.blue, .blue a {
+    color: #0000FF;
+}
+.blue_violet, .blue_violet a {
+    color: #8A2BE2;
+}
+.brown, .brown a {
+    color: #A52A2A;
+}
+.burly_wood, .burly_wood a {
+    color: #DEB887;
+}
+.cadet_blue, .cadet_blue a {
+    color: #5F9EA0;
+}
+.chartreuse, .chartreuse a {
+    color: #7FFF00;
+}
+.chocolate, .chocolate a {
+    color: #D2691E;
+}
+.coral, .coral a {
+    color: #FF7F50;
+}
+.corn_flower_blue, .corn_flower_blue a {
+    color: #6495ED;
+}
+.corn_silk, .corn_silk a {
+    color: #FFF8DC;
+}
+.crimson, .crimson a {
+    color: #DC143C;
+}
+.cyan, .cyan a {
+    color: #00FFFF;
+}
+.dark_blue, .dark_blue a {
+    color: #00008B;
+}
+.dark_cyan, .dark_cyan a {
+    color: #008B8B;
+}
+.dark_goldenrod, .dark_goldenrod a {
+    color: #B8860B;
+}
+.dark_gray, .dark_gray a {
+    color: #A9A9A9;
+}
+.dark_green, .dark_green a {
+    color: #006400;
+}
+.dark_khaki, .dark_khaki a {
+    color: #BDB76B;
+}
+.dark_magenta, .dark_magenta a {
+    color: #8B008B;
+}
+.dark_olive_green, .dark_olive_green a {
+    color: #556B2F;
+}
+.dark_orange, .dark_orange a {
+    color: #FF8C00;
+}
+.dark_orchid, .dark_orchid a {
+    color: #9932CC;
+}
+.dark_red, .dark_red a {
+    color: #8B0000;
+}
+.dark_salmon, .dark_salmon a {
+    color: #E9967A;
+}
+.dark_sea_green, .dark_sea_green a {
+    color: #8FBC8F;
+}
+.dark_slate_blue, .dark_slate_blue a {
+    color: #483D8B;
+}
+.dark_slate_gray, .dark_slate_gray a {
+    color: #2F4F4F;
+}
+.dark_turquoise, .dark_turquoise a {
+    color: #00CED1;
+}
+.dark_violet, .dark_violet a {
+    color: #9400D4;
+}
+.deep_pink, .deep_pink a {
+    color: #FF1493;
+}
+.deep_sky_blue, .deep_sky_blue a {
+    color: #00BFFF;
+}
+.dull_gray, .dull_gray a {
+    color: #696969;
+}
+.dodger_blue, .dodger_blue a {
+    color: #1E90FF;
+}
+.fire_brick, .fire_brick a {
+    color: #B22222;
+}
+.floral_white, .floral_white a {
+    color: #FFFAF0;
+}
+.forest_green, .forest_green a {
+    color: #228B22;
+}
+.fuchsia, .fuchsia a {
+    color: #FF00FF;
+}
+.gainsboro, .gainsboro a {
+    color: #DCDCDC;
+}
+.ghost_white, .ghost_white a {
+    color: #F8F8FF;
+}
+.gold, .gold a {
+    color: #FFD700;
+}
+.goldenrod, .goldenrod a {
+    color: #DAA520;
+}
+.gray, .gray a {
+    color: #808080;
+}
+.green, .green a {
+    color: #008000;
+}
+.green_yellow, .green_yellow a {
+    color: #ADFF2F;
+}
+.honeydew, .honeydew a {
+    color: #F0FFF0;
+}
+.hot_pink, .hot_pink a {
+    color: #FF69B4;
+}
+.indian_red, .indian_red a {
+    color: #CD5C5C;
+}
+.indigo, .indigo a {
+    color: #4B0082;
+}
+.ivory, .ivory a {
+    color: #FFFFF0;
+}
+.khaki, .khaki a {
+    color: #F0E68C;
+}
+.lavender, .lavender a {
+    color: #E6E6FA;
+}
+.lavender_blush, .lavender_blush a {
+    color: #FFF0F5;
+}
+.leaf, .leaf a {
+    color:     #6B8E23;
+}
+.lemon_chiffon, .lemon_chiffon a {
+    color: #FFFACD;
+}
+.light_blue, .light_blue a {
+    color: #ADD8E6;
+}
+.light_coral, .light_coral a {
+    color: #F08080;
+}
+.light_cyan, .light_cyan a {
+    color: #E0FFFF;
+}
+.light_goldenrod_yellow, .light_goldenrod_yellow a {
+    color: #FAFAD2;
+}
+.light_green, .light_green a {
+    color: #90EE90;
+}
+.light_gray, .light_gray a {
+    color: #D3D3D3;
+}
+.light_pink, .light_pink a {
+    color: #FF86C1;
+}
+.light_salmon, .light_salmon a {
+    color: #FFA07A;
+}
+.light_sea_green, .light_sea_green a {
+    color: #20B2AA;
+}
+.light_sky_blue, .light_sky_blue a {
+    color: #87CEFA;
+}
+.light_steel_blue, .light_steel_blue a {
+    color: #778899;
+}
+.light_yellow, .light_yellow a {
+    color: #FFFFE0;
+}
+.lime, .lime a {
+    color: #00FF00;
+}
+.lime_green, .lime_green a {
+    color: #32CD32;
+}
+.linen, .linen a {
+    color: #FAF0E6;
+}
+.magenta, .magenta a {
+    color: #FF00FF;
+}
+.maroon, .maroon a {
+    color: #800000;
+}
+.medium_aqua_marine, .medium_aqua_marine a {
+    color: #66CDAA;
+}
+.medium_blue, .medium_blue a {
+    color: #0000CD;
+}
+.medium_orchid, .medium_orchid a {
+    color: #BA55D3;
+}
+.medium_purple, .medium_purple a {
+    color: #9370DB;
+}
+.medium_sea_green, .medium_sea_green a {
+    color: #3CB371;
+}
+.medium_slate_blue, .medium_slate_blue a {
+    color: #7B68EE;
+}
+.medium_spring_blue, .medium_spring_blue a {
+    color: #00FA9A;
+}
+.medium_turquoise, .medium_turquoise a {
+    color: #48D1CC;
+}
+.medium_violet_red, .medium_violet_red a {
+    color: #C71585;
+}
+.midnight_blue, .midnight_blue a {
+    color: #191970;
+}
+.mint_cream, .mint_cream a {
+    color: #F5FFFA;
+}
+.misty_rose, .misty_rose a {
+    color: #FFE4E1;
+}
+.navajo_white, .navajo_white a {
+    color: #FFDEAD;
+}
+.navy, .navy a {
+    color: #000080;
+}
+.old_lace, .old_lace a {
+    color: #FDF5E6;
+}
+.olive, .olive a {
+    color: #808000;
+}
+.orange, .orange a {
+    color: #FFA500;
+}
+.orange_red, .orange_red a {
+    color: #FF4500;
+}
+.orchid, .orchid a {
+    color: #DA70D6;
+}
+.pale_goldenrod, .pale_goldenrod a {
+    color: #EEE8AA;
+}
+.pale_green, .pale_green a {
+    color: #98FB98;
+}
+.pale_turquoise, .pale_turquoise a {
+    color: #AFEEEE;
+}
+.pale_violet_red, .pale_violet_red a {
+    color: #DB7093;
+}
+.papayawhip, .papayawhip a {
+    color: #FFEFD5;
+}
+.peach_puff, .peach_puff a {
+    color: #FFDAB9;
+}
+.peru, .peru a {
+    color: #CD853F;
+}
+.pink, .pink a {
+    color: #FFC0CB;
+}
+.plum, .plum a {
+    color: #DDA0DD;
+}
+.powder_blue, .powder_blue a {
+    color: #B0E0E6;
+}
+.purple, .purple a {
+    color: #800080;
+}
+.red, .red a {
+    color: #FF0000;
+}
+.rosy_brown, .rosy_brown a {
+    color: #BC8F8F;
+}
+.royal_blue, .royal_blue a {
+    color: #4169E1;
+}
+.saddle_brown, .saddle_brown a {
+    color: #8B4513;
+}
+.salmon, .salmon a {
+    color: #FA8072;
+}
+.sandy_brown, .sandy_brown a {
+    color: #F4A460;
+}
+.sea_green, .sea_green a {
+    color: #2E8B57;
+}
+.seashell, .seashell a {
+    color: #FFF5EE;
+}
+.sienna, .sienna a {
+    color: #A0522D;
+}
+.silver, .silver a {
+    color: #C0C0C0;
+}
+.sky_blue, .sky_blue a {
+    color: #87CEEB;
+}
+.slate_blue, .slate_blue a {
+    color: #6A5ACD;
+}
+.slate_gray, .slate_gray a {
+    color: #708090;
+}
+.snow, .snow a {
+    color: #FFFAFA;
+}
+.spring_green, .spring_green a {
+    color: #00FF7F;
+}
+.steel_blue, .steel_blue a {
+    color: #4682B4;
+}
+.tan, .tan a {
+    color: #D2B48C;
+}
+.teal, .teal a {
+    color: #008080;
+}
+.thistle, .thistle a {
+    color: #D88FD8;
+}
+.tomato, .tomato a {
+    color: #FF6347;
+}
+.turquoise, .turquoise a {
+    color: #40E0D0;
+}
+.violet, .violet a {
+    color: #EE82EE;
+}
+.wheat, .wheat a {
+    color: #F5DEB3;
+}
+.white, .white a {
+    color: #FFFFFF;
+}
+.white_smoke, .white_smoke a {
+    color: #F5F5F5;
+}
+.yellow, .yellow a {
+    color: #FFFF00;
+}
+.yellow_green, .yellow_green a {
+    color: #9ACD32;
+}

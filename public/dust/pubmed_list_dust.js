@@ -1,0 +1,1 @@
+(function(){dust.register("pubmed_list.dust",body_0);function body_0(chk,ctx){return chk.write("Something is in the dust file...");}return body_0;})();

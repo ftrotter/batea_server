@@ -1,0 +1,8 @@
+/**
+ *  * Extra large button extensions. Extends `.btn`.
+ *   */
+.btn-xl {
+    padding: 18px 28px;
+    font-size: 22px;
+    border-radius: 8px;
+}

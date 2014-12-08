@@ -1,0 +1,56 @@
+body{
+	background-color: white;
+	text-transform: capitalize;
+	
+}
+#ul_top{
+	list-style-type:none;
+	font-size: 13pt;
+	display: inline-block;
+	
+}
+
+h3{
+padding-top: 50px;
+border-bottom: 1px;
+border-bottom-color: black;
+border-bottom-style: solid;
+}
+label{
+margin-bottom: 5px;
+padding-left: 2px;
+padding-right: 3px;
+display: inline;
+font-size: 87%;
+}
+.nav-list > li > a{
+padding-left: 11px;
+display: block;
+margin-left: 5px;
+width: 77px
+}
+
+li{
+float: left;
+padding-left: 5px;
+padding-bottom: 5px;
+list-style-type: none;
+}
+ul{
+float: left;
+
+padding-top 10px
+color: blue;
+}
+
+.sidebar-nav {
+     position:fixed;
+     top:60px;
+     width:17.97%;
+ }
+
+body ul input{
+	color: #781351;
+	background: #fee3ad;
+	border: 1px solid #781351
+}
