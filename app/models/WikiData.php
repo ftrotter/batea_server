@@ -146,6 +146,39 @@ static function wfUrlencode( $s ) {
 }
 
 /*
+        Given the json that comes from the API, get the wikitext...
+*/
+        static function get_wikitext_from_json($json){
+                $wiki_data = json_decode($json,true);
+
+        //echo "<pre>";
+        //var_export($wiki_data);       
+        //echo "</pre>";
+
+                if(isset($wiki_data['query']['pages'])){
+
+                        $page_array = $wiki_data['query']['pages'];
+                        //we don't know the page id, so lets pop instead..
+                        $page = array_pop($page_array);
+
+                        if(isset($page['revisions'][0]['*'])){
+                                $wiki_text = $page['revisions'][0]['*']; //does this work?
+                                return $wiki_text;
+                        }else{
+                                return(false);
+                        }
+                }else{
+                        return(false);
+                }
+
+        }
+
+
+
+
+
+
+/*
         Given template start and end characters (i.e. {{ and }})
         and some wikitext
         Compress the templates to single lines, returning valid wikitext, but that has the templates compressed
@@ -262,7 +295,7 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         does this wikitext contain a journal citation
 */
-        function is_wikiline_journal_citation($wikiline){
+        static function is_wikiline_journal_citation($wikiline){
                 if(WikiData::is_wikiline_citation($wikiline)){
                         return(false); //cant be a web citation if its not a citation..
                 }
@@ -274,7 +307,7 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         does this wikitext contain a book citation
 */
-        function is_wikiline_book_citation($wikiline){
+        static function is_wikiline_book_citation($wikiline){
                 if(!WikiData::is_wikiline_citation($wikiline)){
                         return(false); //cant be a web citation if its not a citation..
                 }
@@ -288,7 +321,7 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         does this wikitext contain a web citation
 */
-        function is_wikiline_web_citation($wikiline){
+        static function is_wikiline_web_citation($wikiline){
                 if(!WikiData::is_wikiline_citation($wikiline)){
                         return(false); //cant be a web citation if its not a citation..
                 }
@@ -297,6 +330,132 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
                 return($is_web);
 
         }
+
+
+/*
+        Attempts to get all of the simple links from a line of wikitext
+        this is tricky because there are links inside templates...
+        so we eliminate these first...
+*/
+        static function get_citation_templates_from_wikiline($wikiline){
+
+                                $regex = "/\{\{(.*?)\}\}/"; //should catch everything inside double curly braces..
+                                preg_match_all($regex,$wikiline,$matches);
+                                if(count($matches[0]) != 0){ //there were some templates here
+                                        return($matches[1]); //lets return the contents of the templates..
+                                }else{
+                                        return(array()); //nothing here return empty array
+                                }
+
+        }
+
+/*
+ * Takes a look at the json results from a wiki call, and determines if it is a redirect.
+ */
+static function is_redirect_from_json($wiki_json){
+        $redirect_string = '"#REDIRECT ';
+        if(strpos($wiki_json,$redirect_string) !== false){
+                return(true); // we found the string, which means this is a redirect file...
+        }else{
+                return(false);
+        }
+}
+
+/*
+ * if a given json is a redirect, get the place it redirects to and return the title for that page
+ */
+static function parse_redirect_from_json($wiki_json){
+
+        preg_match_all('/\[\[(.+?)\]\]/u',$wiki_json,$matches); // find any string inside the [[ ]] which form wiki links...
+
+        if(!isset($matches[1][0])){
+                echo json_encode(array('result' => 'error','problem' => 'regex fail on redirect'));
+                echo "REDIRECT PARSE ERRORS\n";
+                exit();
+        }
+
+        $new_string = $matches[1][0];
+
+        return($new_string); //we return only the first match... 
+
+}
+
+/*
+*  Given the title and revision id of a wiki article, get its api url..
+*
+*/
+static function get_wiki_api_url($title,$revision_id = null){
+
+                if(is_null($revision_id)){
+                        //we do nothing
+                        $url_parameters = "&titles=$title";
+                }else{
+                        $url_parameters = "&revids=$revision_id";
+                }
+
+                $api_url = "http://en.wikipedia.org/w/api.php?format=json&action=query$url_parameters";
+                $api_url .= "&prop=revisions&rvprop=content";
+
+                return($api_url);
+}
+
+/*
+ * Given a url, this function returns the title of the Wikipage that is then useful for further API calls
+ */
+        static function get_wiki_title_from_url($url){
+
+                $url_array = explode('/',$url);
+
+//                $title = array_pop($url_array); //this does not work for things like HIV/AIDS
+
+                $the_http = array_shift($url_array);
+                $nothing = array_shift($url_array);
+                $domain = array_shift($url_array);
+
+                $the_word_wiki = array_shift($url_array);
+                $title = implode('/',$url_array); //should account for HIV/AIDS
+
+
+                if(strpos($domain,'wikipedia') !== false){
+                        return($title);
+                }else{
+                        return(false);
+                }
+
+        }
+
+/*
+        stub for something that will take alink and return the label if there is one, false if there isnt
+        it would be coolish if this could take it in the form '[[heart attack|Myocardial infarction]]'
+        or 'heart attack|Myocardial infarction' and still work
+*/
+        static function get_link_label($link){
+
+                echo "WikiScrapper get_link_label() This is a stub, dont use me";
+                exit();
+        }
+
+
+
+
+
+        static function get_all_pmids_from_wikiline($wikiline){
+
+                $potential_templates = WikiData::get_citation_templates_from_wikiline($wikiline);
+                $return_array = array();
+                foreach($potential_templates as $this_template){
+                        $possible_pmid = WikiData::get_pmid_from_citation_template($this_template);
+                        if($possible_pmid){
+                                //then this is pmid...
+                                $return_array[] = $possible_pmid;
+                        }
+
+                }
+
+                return($return_array);
+
+        }
+
 
 
 
