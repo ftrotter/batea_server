@@ -91,10 +91,11 @@ class PubMedScrapper{
 		}
 
 
-		$optimize_article_type = $this->getOptomizedArticleArrayFromPubtype($this_result_array['pubtype']);
-
+		$optimized_article_type = $this->getOptomizedArticleArrayFromPubtype($this_result_array['pubtype']);
 
 		$this_result_array['abstract'] = $this_abstract;
+
+		$this_result_array = array_merge($this_result_array,$optimized_article_type);
 
 		if(is_null($this->PubMedData)){
 			$this->PubMedData = new PubMedData();
@@ -117,8 +118,10 @@ class PubMedScrapper{
 		'is_pubtype_bibliography' => false,
 		'is_pubtype_dataset' => false,
 		'is_pubtype_stronger_study_type' => false,
-		'is_pubtype_editorial' => false,
+		'is_pubtype_opinion' => false,
 		'is_pubtype_retracted' => false,
+		'is_pubtype_unknown' => false,
+		'pubtype_count' => 0,
 		);
 
 
@@ -132,15 +135,59 @@ public function getOptomizedArticleArrayFromPubtype($pubtype_array){
 
 	$my_starting_array = $this->starting_is_pubtype_defaults;	
 
-	foreach($pubtype_array as $this_pubtype){
-				if(in_array($this_pubtype
-
+	if(count($pubtype_array) == 0){
+		return($my_starting_array);
 	}
 
+	$my_starting_array['pubtype_count'] = count($pubtype_array);
 
+	foreach($pubtype_array as $this_pubtype){
+			if(in_array($this_pubtype,PubMedScrapper::$pubmed_opinion_types)){
+				$my_starting_array['is_pubtype_opinion'] = true;
+			}
 
+			if(in_array($this_pubtype,PubMedScrapper::$pubmed_good_study_types)){
+				$my_starting_array['is_pubtype_good_study_type'] = true;
+			}
+
+			if(in_array($this_pubtype,PubMedScrapper::$pubmed_data_study_types)){
+				$my_starting_array['is_pubtype_data_study'] = true;
+			}
+
+			if(in_array($this_pubtype,PubMedScrapper::$pubmed_review_types)){
+				$my_starting_array['is_pubtype_review'] = true;
+			}
+
+			if(in_array($this_pubtype,PubMedScrapper::$pubmed_retracted_types)){
+				$my_starting_array['is_pubtype_retracted'] = true;
+			}
+
+			if(in_array($this_pubtype,PubMedScrapper::$pubmed_casestudy_types)){
+				$my_starting_array['is_pubtype_casestudy'] = true;
+			}
+
+			//we use this to find types returned in the data
+			//that are not in our documentation!!
+			if(!in_array($this_pubtype,PubMedScrapper::$pubmed_publication_types)){
+				$my_starting_array['is_pubtype_unknown'] = true;
+			}
+	}
+
+	return($my_starting_array);
 
 }
+
+	public static $pubmed_review_types = array(
+  		'Review',
+	);
+
+	public static $pubmed_casestudy_types = array(
+  		'Case Reports',
+	);
+
+	public static $pubmed_retracted_types = array(
+  		'Retracted Publication',
+	);
 
 
 	public static $pubmed_opinion_types = array(
@@ -149,24 +196,23 @@ public function getOptomizedArticleArrayFromPubtype($pubtype_array){
 	);
 
 	public static $pubmed_good_study_types = array(
-
-  7 => 'Clinical Trial',
-  18 => 'Controlled Clinical Trial',
-  56 => 'Randomized Controlled Trial',
-  29 => 'Guideline',
-  35 => 'Journal Article',
-  40 => 'Meta-Analysis',
-  50 => 'Practice Guideline',
-  69 => 'Twin Study',
+  		'Review',
+  		'Clinical Trial',
+  		'Controlled Clinical Trial',
+  		'Randomized Controlled Trial',
+  		'Guideline',
+  		'Journal Article',
+  		'Meta-Analysis',
+  		'Practice Guideline',
+  		'Twin Study',
 	);
 
 	public static $pubmed_data_study_types = array(
-
-  2 => 'Bibliography',
-  20 => 'Dataset',
+		'Bibliography',
+		'Dataset',
 	);
 
-
+//lets leave the numbers on the big list...
 	public static $pubmed_publication_types = array (
   0 => 'Addresses',
   1 => 'Autobiography',
