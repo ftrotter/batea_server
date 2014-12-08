@@ -41,6 +41,7 @@ class WikiScrapper{
 	probably should just copy this function straight from the wikipedia sourcecode...	
 	this is not just a better name for wfUrlencode
 */
+/*
 	public function wikiurlencode($title){
 		$wikititle = str_replace(' ','_',$title);
 		$wikititle = ucwords($wikititle); 
@@ -51,7 +52,7 @@ class WikiScrapper{
 		$wikititle = $this->wfUrlencode($wikititle);
 		return($wikititle);
 	}
-
+*/
 /**
  *This is copied verbatum (even the weird IIS stuff) from the includes/GlobalFunctions.php
  * of the mediawiki sourcecode. I am also copying in the comments so you can see the thinking..
@@ -82,6 +83,7 @@ class WikiScrapper{
  * @param string $s
  * @return string
  */
+/*
 function wfUrlencode( $s ) {
         static $needle;
 
@@ -108,7 +110,7 @@ function wfUrlencode( $s ) {
 
         return $s;
 }
-
+*/
 
 
 
@@ -121,7 +123,7 @@ function wfUrlencode( $s ) {
 */
 	public function get_redirect($title,$return_the_title = false){
 
-		$title = $this->wikiurlencode($title);
+		$title = WikiData::wikiurlencode($title);
 
 		if(isset($this->redirect_cache[$title])){
 			if($this->redirect_cache[$title]){
@@ -139,17 +141,17 @@ function wfUrlencode( $s ) {
                 $wiki_api_json = $this->download_wiki_result($title);
 		$redirect_to = false;
 		$last_redirect = $title;
-                while($this->is_redirect($wiki_api_json)){ //sometimes wiki pages are just stubs that redirect
+                while(WikiData::is_redirect_from_json($wiki_api_json)){ //sometimes wiki pages are just stubs that redirect
 			//I cannot seem to get to the bottom of this pile...
-                        $redirect_to = $this->parse_redirect($wiki_api_json); //this returns the title that the orginal title redirects to..
+                        $redirect_to = WikiData::parse_redirect_from_json($wiki_api_json); //this returns the title that the orginal title redirects to..
 			if(strcmp($redirect_to,$last_redirect) == 0){
-				//then we are in an infinite loop because is_redirect is stupid
+				//then we are in an infinite loop because is_redirect_from_json is stupid
 				var_export($wiki_api_json);
 				echo "REDIRECT LOOP!!!\n";
 				continue;
 			}
 		//		var_export($wiki_api_json);
-			$redirect_to = $this->wikiurlencode($redirect_to);
+			$redirect_to = WikiData::wikiurlencode($redirect_to);
 			//echo "started with '$title' last run was '$last_redirect' now mining '$redirect_to'\n";
 			$wiki_api_json = $this->download_wiki_result($redirect_to);
 			$last_redirect = $redirect_to;
@@ -226,17 +228,17 @@ function wfUrlencode( $s ) {
 
 		$wiki_api_json = $this->download_wiki_result($title,$id_to_get);
 
-		if($this->is_redirect($wiki_api_json)){ //sometimes wiki pages are just stubs that redirect
+		if(WikiData::is_redirect_from_json($wiki_api_json)){ //sometimes wiki pages are just stubs that redirect
                                         //the web user just sees the right page...
                                         //but the API actually returns the redirect...
-                        $redirect_to = $this->parse_redirect($wiki_api_json); //this returns the title that the orginal title redirects to..
+                        $redirect_to = WikiData::parse_redirect_from_json($wiki_api_json); //this returns the title that the orginal title redirects to..
                         $wiki_api_json = $this->download_wiki_result($redirect_to); //this returns the wiki_json for the right title.
                 }
 
-		$uncompressed_wiki_text = $this->get_wikitext_from_json($wiki_api_json);
+		$uncompressed_wiki_text = WikiData::get_wikitext_from_json($wiki_api_json);
 		if($uncompressed_wiki_text){ //returns false on fail after all..
-			$compressed_wiki_text = $this->compress_wikitext_templates('{{','}}',$uncompressed_wiki_text);
-        		$compressed_wiki_text = $this->compress_wikitext_templates('{|','|}',$compressed_wiki_text);
+			$compressed_wiki_text = WikiData::compress_wikitext_templates('{{','}}',$uncompressed_wiki_text);
+        		$compressed_wiki_text = WikiData::compress_wikitext_templates('{|','|}',$compressed_wiki_text);
 			return($compressed_wiki_text);
 		}else{
 			return(false);
@@ -264,7 +266,7 @@ public function download_wiki_result($title,$id_to_get = null){
 		echo "\t\tdownloading $title\n";
 		sleep(1); //lets slow this down.
 
-                $api_url = $this->get_wiki_api_url($title,$id_to_get);
+                $api_url = WikiData::get_wiki_api_url($title,$id_to_get);
 		$result = $this->wikipedia_raw_download($api_url); 
 
 		if(strlen($result) < 20){
@@ -308,6 +310,7 @@ public function download_wiki_result($title,$id_to_get = null){
 /*
 	Given the json that comes from the API, get the wikitext...
 */
+/*
         function get_wikitext_from_json($json){
                 $wiki_data = json_decode($json,true);
  
@@ -332,6 +335,8 @@ public function download_wiki_result($title,$id_to_get = null){
                 }
 
         }
+*/
+
 /*
 	Given template start and end characters (i.e. {{ and }})
 	and some wikitext
@@ -339,6 +344,7 @@ public function download_wiki_result($title,$id_to_get = null){
 	Makes later parsing much simpler...
 
 */
+/*
 function compress_wikitext_templates($start,$end,$wiki_text){
 
         $wiki_lines = explode("\n",$wiki_text);
@@ -375,21 +381,12 @@ function compress_wikitext_templates($start,$end,$wiki_text){
 
         return($new_wiki_text);
 }
-
-/*
-	stub for something that will take alink and return the label if there is one, false if there isnt
-	it would be coolish if this could take it in the form '[[heart attack|Myocardial infarction]]'
-	or 'heart attack|Myocardial infarction' and still work
 */
-	function get_link_label($link){
-
-		echo "WikiScrapper get_link_label() This is a stub, dont use me";
-		exit();
-	}
 
 
-	function get_medical_links_from_wikiline($wikiline){
+	function get_medical_links_from_wikiline($wikiline,$depth){
 
+		echo "\n>$depth";
 		$all_links = $this->get_links_from_wikiline($wikiline);
 		$return_me = array();
 		foreach($all_links as $label => $wikititle){
@@ -400,7 +397,7 @@ function compress_wikitext_templates($start,$end,$wiki_text){
 				$return_me[$wikititle] = $wikititle;
 			}
 		}
-
+		echo "<\n";
 		return($return_me);
 
 	}
@@ -446,13 +443,13 @@ function compress_wikitext_templates($start,$end,$wiki_text){
 				}
         }
 
-
+/*
 	function get_all_pmids_from_wikiline($wikiline){
 
-		$potential_templates = $this->get_citation_templates_from_wikiline($wikiline);
+		$potential_templates = WikiData::get_citation_templates_from_wikiline($wikiline);
 		$return_array = array();
 		foreach($potential_templates as $this_template){
-			$possible_pmid = $this->get_pmid_from_citation_template($this_template);
+			$possible_pmid = WikiData::get_pmid_from_citation_template($this_template);
 			if($possible_pmid){
 				//then this is pmid...
 				$return_array[] = $possible_pmid;
@@ -463,12 +460,14 @@ function compress_wikitext_templates($start,$end,$wiki_text){
 		return($return_array);
 
 	}
+*/
 
 /*
         Attempts to get all of the simple links from a line of wikitext
         this is tricky because there are links inside templates...
         so we eliminate these first...
 */
+/*
 	function get_citation_templates_from_wikiline($wikiline){
 
 		                $regex = "/\{\{(.*?)\}\}/"; //should catch everything inside double curly braces..
@@ -480,7 +479,7 @@ function compress_wikitext_templates($start,$end,$wiki_text){
 				}
 
 	}
-
+*/
 
 
 /*
@@ -489,6 +488,7 @@ function compress_wikitext_templates($start,$end,$wiki_text){
 	It is also possible to convert from various other types of ids to pmids here: 
 http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 */
+/*
 	function get_pmid_from_citation_template($wikitext){
 	
 			if(!$this->is_wikiline_journal_citation($wikitext)){
@@ -525,6 +525,9 @@ http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 			return(false); //means I did not find a pmid... don't even need $found_one..
 
 	}
+*/
+
+
 /*
         does this wikitext contain a journal citation
 */
@@ -682,6 +685,7 @@ function post_to_url($url, $data) {
 /*
  * Takes a look at the json results from a wiki call, and determines if it is a redirect.
  */
+/*
 function is_redirect($wiki_json){
         $redirect_string = '"#REDIRECT ';
         if(strpos($wiki_json,$redirect_string) !== false){
@@ -690,11 +694,12 @@ function is_redirect($wiki_json){
                 return(false);
         }
 }
-
+*/
 
 /*
  * if a given json is a redirect, get the place it redirects to and return the title for that page
  */
+/*
 function parse_redirect($wiki_json){
 
         preg_match_all('/\[\[(.+?)\]\]/u',$wiki_json,$matches); // find any string inside the [[ ]] which form wiki links...
@@ -710,8 +715,9 @@ function parse_redirect($wiki_json){
         return($new_string); //we return only the first match... 
 
 }
+*/
 
-
+/*
 function get_wiki_api_url($title,$revision_id = null){
 
                 if(is_null($revision_id)){
@@ -726,34 +732,8 @@ function get_wiki_api_url($title,$revision_id = null){
 
                 return($api_url);
 }
+*/
 
-
-
-
-/*
- * Given a url, this function returns the title of the Wikipage that is then useful for further API calls
- */
-        function get_wiki_title($url){
-
-                $url_array = explode('/',$url);
-
-//                $title = array_pop($url_array); //this does not work for things like HIV/AIDS
-
-                $the_http = array_shift($url_array);
-                $nothing = array_shift($url_array);
-                $domain = array_shift($url_array);
-
-                $the_word_wiki = array_shift($url_array);
-                $title = implode('/',$url_array); //should account for HIV/AIDS
-
-
-                if(strpos($domain,'wikipedia') !== false){
-                        return($title);
-                }else{
-                        return(false);
-                }
-
-        }
 
 
 
