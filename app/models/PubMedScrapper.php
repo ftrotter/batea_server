@@ -114,7 +114,6 @@ class PubMedScrapper{
 	var $starting_is_pubtype_defaults = array(
 		'is_pubtype_review' => false,
 		'is_pubtype_casestudy' => false,
-		'is_pubtype_casestudy_and_not_review' => false,
 		'is_pubtype_bibliography' => false,
 		'is_pubtype_dataset' => false,
 		'is_pubtype_stronger_study_type' => false,
