@@ -1,0 +1,41 @@
+
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#">Home</a>
+          <a class="blog-nav-item" href="#">New features</a>
+          <a class="blog-nav-item" href="#">Press</a>
+          <a class="blog-nav-item" href="#">New hires</a>
+          <a class="blog-nav-item" href="#">About</a>
+        </nav>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <div class="blog-header">
+        <h1 class="blog-title">{pubmeddata_id}</h1>
+        <p class="lead blog-description"></p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">Sample blog post</h2>
+            <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
+
+
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1>{pubmeddata_id}</h1>
+	<p>{abstract_html|s}</p>
+        <p><a class="btn btn-primary btn-lg" href="http://Batea.DocGraph.org" role="button">DocGraph Batea</a></p>
+      </div>
+    </div>
+
+
