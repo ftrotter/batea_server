@@ -40,7 +40,8 @@ class scrapeWikiMedicine extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->daily()->hours(4)->minutes(17);
+		return $scheduler->yearly();
+		//return $scheduler->daily()->hours(4)->minutes(17);
 	}
 
 
@@ -51,11 +52,15 @@ class scrapeWikiMedicine extends ScheduledCommand {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
-	{
-		if(is_null($this->WikiScrapper)){
-                	$this->WikiScrapper = new WikiScrapper();
-		}
+	public function fire(){
+	
+		echo "hello";
+		if(is_null(
+			$this->WikiScrapper
+			)
+			){
+			$this->WikiScrapper = new WikiScrapper();
+			}
 
 		//List of all FA level Medicine articles and the articles from the 2014 UCSF class.
 		$starting_pages = array(
@@ -136,34 +141,52 @@ class scrapeWikiMedicine extends ScheduledCommand {
 			"Nicotine_replacement_therapy",
 			);
 
+		shuffle($starting_pages); //so that we can test effectively with each run...
+
+
 		$this->recurse_title_list($starting_pages);
 
 	}
 
-	function recurse_title_list($wikititle_list){
+	function recurse_title_list($wikititle_list, $depth = ''){
+
+
+		$depth .= ' ';
 
 		if(count($wikititle_list) == 0){
 			return;
 		}
 
+		
+		$to_recurse = count($wikititle_list);
+		$depth_length = strlen($depth);
+		$wont_recurse = count($this->visited_titles);
+		echo "\nrecursing $to_recurse at depth $depth_length the list to not recurse is now $wont_recurse\n";
+
 		foreach($wikititle_list as $label => $this_wikititle){
-			$new_wikititle_list = $this->expand_wikipage($this_wikititle);
-			$this->recurse_title_list($new_wikititle_list);
+			if(!isset($this->visited_titles[$this_wikititle])){
+				$new_wikititle_list = $this->expand_wikipage($this_wikititle, $depth);
+				echo "\nabout to recurse $this_wikititle\n";
+				$this->recurse_title_list($new_wikititle_list, $depth);
+			}else{
+				//I need a signal the recursing has an end... 
+			}
 		}
 
+		echo "------------------------------------------------\n";
 	}
 
-
+	private $visited_titles = array();
 
 	private $med_titles_array = array(); 
 	private $WikiScrapper = null;
 	private $PubMedScrapper = null;
 
 
-	function expand_wikipage($wikititle){
+	function expand_wikipage($wikititle,$depth){
 
 		if(is_null($this->WikiScrapper)){
-                	$this->WikiScrapper = new WikiScrapper();
+			$this->WikiScrapper = new WikiScrapper();
 		}
 
 		if(is_null($this->PubMedScrapper)){
@@ -176,9 +199,9 @@ class scrapeWikiMedicine extends ScheduledCommand {
                 foreach($wikilines as $this_wikiline){
                         if(strpos($this_wikiline,'cite') !== false){
                                 //echo "working on \n\n $this_wikiline \n\n";
-                                $links = $this->WikiScrapper->get_medical_links_from_wikiline($this_wikiline);
+                                $links = $this->WikiScrapper->get_medical_links_from_wikiline($this_wikiline,$depth);
 
-				$pmids = $this->WikiScrapper->get_all_pmids_from_wikiline($this_wikiline);
+				$pmids = WikiData::get_all_pmids_from_wikiline($this_wikiline);
 				foreach($pmids as $this_pmid){
 					$this_pubmed_summary = $this->PubMedScrapper->get_PubMed_data($this_pmid);
 					//I dont need this data here PubMed Scrapper saves it
@@ -189,7 +212,7 @@ class scrapeWikiMedicine extends ScheduledCommand {
                         }
                 }
 
-
+		$this->visited_titles[$wikititle] = true;
 		return($all_links);
 
 	}
