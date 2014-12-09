@@ -2,6 +2,7 @@
 
 class PubMedScrapper{
 
+	public $run_silent = false;
 
 	public $PMID_cache = array();
 
@@ -37,11 +38,11 @@ class PubMedScrapper{
 
 		if(isset($this->PMID_cache[$pmid])){
 			//echo "\t\tPMID $pmid is in cache\n";
-			echo 'p';
+			if(!$this->run_silent){ echo 'p';  }
 			return($this->PMID_cache[$pmid]);
 		}
 
-		echo "\t\tPMID $pmid downloading\n";
+		if(!$this->run_silent){ echo "\t\tPMID $pmid downloading\n"; }
 		sleep(1);
 		$this_abstract = file_get_contents("$this->abstract_base_url$pmid");
 		sleep(1);
@@ -82,21 +83,39 @@ class PubMedScrapper{
 		*/
 	
 		//use sorpubdate to get a pubdate that the database can use.
-		$sortpubdate_time = strtotime($this_result_array['sortpubdate']);
+		if(isset($this_result_array['sortpubdate'])){
+			$sortpubdate_time = strtotime($this_result_array['sortpubdate']);
+		}else{
+
+			if(isset($this_result_array['error'])){
+				//built to handle 22615453 for instance...
+				$result_array = array();
+				$result_array['pubmeddata_id'] = $pmid;
+				$result_array['abstract'] = 'ERROR: '.$this_result_array['error'];
+				$result_array['uid'] = $pmid;
+				$result_array['source'] = 'API Error';
+				return($result_array);
+			}
+			
+			var_export($this_result_array);
+			echo "PubMed API did not return a sortpubdate\n Callling it quits for now";
+			exit();
+		
+		}
 		$this_result_array['pubdate_js'] = new MongoDate($sortpubdate_time);
 
 
 		if(!is_array($this_result_array['history'])){
-			var_export($this_result_array);
-			exit();
+			$problem_child = var_export($this_result_array,true);
+			file_put_contents(app_path().'/storage/pmids/'."$pmid.out",$problem_child);
+			echo "No history to speak of...";
+			//exit();
+		}else{
+			foreach($this_result_array['history'] as $id => $this_event_array){
+				$better_time = strtotime($this_event_array['date']);
+				$this_result_array['history'][$id]['date_js'] = new MongoDate($better_time);
+			}
 		}
-
-	
-		foreach($this_result_array['history'] as $id => $this_event_array){
-			$better_time = strtotime($this_event_array['date']);
-			$this_result_array['history'][$id]['date_js'] = new MongoDate($better_time);
-		}
-
 
 		$optimized_article_type = $this->getOptomizedArticleArrayFromPubtype($this_result_array['pubtype']);
 
@@ -148,8 +167,10 @@ public function getOptomizedArticleArrayFromPubtype($pubtype_array){
 	$my_starting_array['pubtype_count'] = count($pubtype_array);
 
 	if(!is_array($pubtype_array)){
-		var_export($pubtype_array);	
-		exit();
+		$problem_child = var_export($pubtype_array,true);	
+		echo "PubType is not an array is it?";
+		file_put_contents(app_path().'/storage/pmids/'."$pmid.out",$problem_child);
+		return($my_starting_array);
 	}
 
 
