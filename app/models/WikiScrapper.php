@@ -4,6 +4,9 @@
 
 class WikiScrapper{
 
+
+	public $run_silent = false;
+
 	public $redirect_cache = array();
 	public $wiki_json_cache = array();
 	public $wpmed_cache = array();
@@ -65,7 +68,7 @@ class WikiScrapper{
 			if(strcmp($redirect_to,$last_redirect) == 0){
 				//then we are in an infinite loop because is_redirect_from_json is stupid
 				var_export($wiki_api_json);
-				echo "REDIRECT LOOP!!!\n";
+				if(!$this->run_silent){  echo "REDIRECT LOOP!!!\n"; }
 				continue;
 			}
 		//		var_export($wiki_api_json);
@@ -101,7 +104,15 @@ class WikiScrapper{
 		'is_Medicine' => '{{WikiProject Medicine',
 		);
 
-	
+	private $medical_page_filters = array(
+		'{{WPMED',
+		'{{WikiProject Anatomy',
+		'{{WikiProject Medicine',
+		'{{WikiProject Computational Biology',
+		'{{Wikiproject MCB',
+		'{{EvolWikiProject}}',
+		'{{WikiProject Pharmacology',
+		);	
 
 /*
 	gets talk pages and then ensures that if they are medical projects
@@ -111,16 +122,13 @@ class WikiScrapper{
 		$results =  $this->get_clean_wikitext("Talk:$title",$id_to_get);
 		
 		$this->wpmed_cache[$title] = false;
-		if(strpos($results,"WPMED") !== false){
-				//then this is a wikiproject medicine project!!!
-			//echo "CLINICAL Found WPMED \n";
-			echo 'c';
-			$this->wpmed_cache[$title] = true;	
-		}
-		if(strpos(strtolower($results),"wikiproject medicine") !== false){
-				//then this is a wikiproject medicine project!!!
-			//echo "CLINICAL Found wikiproject medicine\n";
-			$this->wpmed_cache[$title] = true;	
+		foreach($this->medical_page_filters as $this_filter){
+			if(strpos($results,$this_filter) !== false){
+					//then this is a wikiproject medicine project!!!
+				//echo "CLINICAL Found WPMED \n";
+				if(!$this->run_silent){ echo 'c'; }
+				$this->wpmed_cache[$title] = true;	
+			}
 		}
 	
 		$wikitag_id = WikiData::get_wikidata_id($title,$id_to_get);
@@ -167,6 +175,11 @@ class WikiScrapper{
  */
 public function download_wiki_result($title,$id_to_get = null){
 
+		if(strpos($title,'File:') !== false || strpos($title,'Image:') !== false){
+			return("{result: 'NO FILE DOWNLOADS'}");//no idea what this will do, but I am not downloading files anymore...
+		}
+
+
 		//lets not download a wikipage twice in a run at least...
 		if(is_null($id_to_get)){
 			$cache_id = 0;
@@ -177,11 +190,11 @@ public function download_wiki_result($title,$id_to_get = null){
 
 		if(isset($this->wiki_json_cache[$title][$cache_id])){
 			//echo "returning cache for $title\n";
-			echo 'w';
+			if(!$this->run_silent){ echo 'w'; }
 			return($this->wiki_json_cache[$title][$cache_id]);
 		}
 
-		echo "\t\tdownloading $title\n";
+		if(!$this->run_silent){ echo "\t\tdownloading $title\n"; }
 		sleep(1); //lets slow this down.
 
                 $api_url = WikiData::get_wiki_api_url($title,$id_to_get);
@@ -189,7 +202,7 @@ public function download_wiki_result($title,$id_to_get = null){
 
 		if(strlen($result) < 20){
 			//then there must be a rate limiting problem
-			echo "I got $result \n\n Now Slowing down and retrying call\n";
+			if(!$this->run_silent){ echo "I got $result \n\n Now Slowing down and retrying call\n"; }
 			sleep(5);
 			return $this->download_wiki_result($title,$id_to_get);
 		}
@@ -226,9 +239,9 @@ public function download_wiki_result($title,$id_to_get = null){
 	
 
 
-	function get_medical_links_from_wikiline($wikiline,$depth){
+	function get_medical_links_from_wikiline($wikiline,$depth = ''){
 
-		echo "\n>$depth";
+		if(!$this->run_silent){ echo "\n>$depth"; }
 		$all_links = $this->get_links_from_wikiline($wikiline);
 		$return_me = array();
 		foreach($all_links as $label => $wikititle){
@@ -239,7 +252,7 @@ public function download_wiki_result($title,$id_to_get = null){
 				$return_me[$wikititle] = $wikititle;
 			}
 		}
-		echo "<\n";
+		if(!$this->run_silent){ echo "<\n";}
 		return($return_me);
 
 	}
@@ -272,12 +285,20 @@ public function download_wiki_result($title,$id_to_get = null){
 						if(strpos($this_line_text,'|')){ //then this has a label!!!
 							//the label is different than the page title..
 							list($this_line_text,$label) = explode('|',$this_line_text);
+							if(strlen(trim($label)) ==0){
+								//it had the | but nothing to thre right... it happens...
+								$label = $this_line_text;
+	
+							}
 						}else{
 							//the label is the same as the page title...
-							$label = "$this_line_text";
+							$label = $this_line_text;
 						}
 						$return_the_title_rather_than_false = true;	
-						$results_array[$label] = $this->get_redirect($this_line_text,$return_the_title_rather_than_false);
+						$this_redirect =  $this->get_redirect($this_line_text,$return_the_title_rather_than_false);
+						if($this_redirect){
+							$results_array[$label] = $this_redirect;
+						}
 					}
 					return($results_array);
                                 }else{
