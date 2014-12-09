@@ -1,0 +1,126 @@
+array (
+  'uid' => '16950552',
+  'pubdate' => '2007 Mar 30',
+  'epubdate' => '2006 Sep 6',
+  'source' => 'Prog Neuropsychopharmacol Biol Psychiatry',
+  'authors' => '
+		
+			Cubała WJ
+			Author
+			
+		
+		
+			Landowski J
+			Author
+			
+		
+	',
+  'lastauthor' => 'Landowski J',
+  'title' => 'Seizure following sudden zolpidem withdrawal.',
+  'sorttitle' => 'seizure following sudden zolpidem withdrawal ',
+  'volume' => '31',
+  'issue' => '2',
+  'pages' => '539-40',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '8211617',
+  'issn' => '0278-5846',
+  'essn' => '1878-4216',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '256',
+  'articleids' => '
+		
+			pii
+			4
+			S0278-5846(06)00297-1
+		
+		
+			doi
+			3
+			10.1016/j.pnpbp.2006.07.009
+		
+		
+			pubmed
+			1
+			16950552
+		
+		
+			eid
+			8
+			16950552
+		
+		
+			rid
+			8
+			16950552
+		
+	',
+  'history' => '
+		
+			received
+			2006/06/09 00:00
+		
+		
+			revised
+			2006/07/25 00:00
+		
+		
+			accepted
+			2006/07/31 00:00
+		
+		
+			aheadofprint
+			2006/09/06 00:00
+		
+		
+			pubmed
+			2006/09/05 09:00
+		
+		
+			medline
+			2007/04/25 09:00
+		
+		
+			entrez
+			2006/09/05 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '3',
+  'fulljournalname' => 'Progress in neuro-psychopharmacology &amp; biological psychiatry',
+  'elocationid' => '',
+  'viewcount' => '702',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2007/03/30 00:00',
+  'sortfirstauthor' => 'Cubała WJ',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1175212800,
+     'usec' => 0,
+  )),
+)
