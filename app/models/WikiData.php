@@ -3,11 +3,14 @@
 
 class WikiData extends VeryMongo{
 
+	public $run_silent = false;
 
 	function getWikiText($wikititle = null, $revision_id = 0){
 
 		$page_array = $this->getPageArray($wikititle,$revision_id);
 
+		return($page_array['wikitext']);
+		
 	}
 /*
 	traverses the json returned by the wikipedia api to get the 
@@ -18,8 +21,8 @@ class WikiData extends VeryMongo{
 */
 	function getPageArray($wikititle = null, $revision_id = 0){
 
-		if(is_null($wikititle)){
-			if(count($this->data_array) == 0){
+		if(is_null($wikititle) || strlen($wikititle) == 0){
+			if(count($this->data_array) <= 2){
 				echo "WikiData: I either need a wikititle to load or I need to have a preloaded wiki text...\n";
 				exit();
 			}
@@ -29,15 +32,31 @@ class WikiData extends VeryMongo{
 		}
 
 		//OK here we have data!!
-
-		$pages = $this->data_array['query']['pages'];
+		if(isset($this->data_array['query']['pages'])){
+			$pages = $this->data_array['query']['pages'];
+		}else{
+			$problem_child = var_export($this->data_array,true);
+			echo "What the hell?? wikititle = $wikititle\n";
+			file_put_contents(app_path().'/storage/wikis/'."$wikititle.out",$problem_child);
+			return(array('wikitext' => ''));
+		}
 		//we dont know the name of the actual id to this array, but there is just the one so...
 		$page_array = array_pop($pages);
 
+		if(!isset($page_array['revisions'])){
+		//probably asked for a "File:... didnt we..
+			$return_array = array('wikitext' => '');
+			return($return_array);
+		}
+
+
 		//we dont want revisions considered at this level..
 		$revision_array = $page_array['revisions'][0];
+		$revision_array = array_pop($revision_array);
 		unset($page_array['revisions']);
-		$page_array = array_merge($page_array,$revision_array);
+		$page_array['wikitext'] = $revision_array;
+	//	unset($page_array['*']);
+	//	$page_array = array_merge($page_array,$revision_array);
 
 		return($page_array);
 
@@ -279,11 +298,12 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         determines if a wikiline is a citation...
 */
-        static function is_wikiline_citation($wikiline){
+        static function is_wikitemplate_citation($wikiline){
 
                 //this only works on templates...
 
-                $is_citation = strpos(strtolower($wikiline),'cite ');
+		//just to rule out false == 0 shenannigans
+                $is_citation = strpos('  '.strtolower($wikiline),'cite ');
                 if($is_citation !== false){ //because it will often be '0'
                         return(true);
                 }else{
@@ -295,11 +315,12 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         does this wikitext contain a journal citation
 */
-        static function is_wikiline_journal_citation($wikiline){
-                if(WikiData::is_wikiline_citation($wikiline)){
+        static function is_wikitemplate_journal_citation($wikiline){
+                if(!WikiData::is_wikitemplate_citation($wikiline)){
                         return(false); //cant be a web citation if its not a citation..
                 }
                 $is_journal = strpos(strtolower($wikiline),'journal');
+
                 return($is_journal);
         }
 
@@ -307,8 +328,8 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         does this wikitext contain a book citation
 */
-        static function is_wikiline_book_citation($wikiline){
-                if(!WikiData::is_wikiline_citation($wikiline)){
+        static function is_wikitemplate_book_citation($wikiline){
+                if(!WikiData::is_wikitemplate_citation($wikiline)){
                         return(false); //cant be a web citation if its not a citation..
                 }
 
@@ -321,8 +342,8 @@ static function compress_wikitext_templates($start,$end,$wiki_text){
 /*
         does this wikitext contain a web citation
 */
-        static function is_wikiline_web_citation($wikiline){
-                if(!WikiData::is_wikiline_citation($wikiline)){
+        static function is_wikitemplate_web_citation($wikiline){
+                if(!WikiData::is_wikitemplate_citation($wikiline)){
                         return(false); //cant be a web citation if its not a citation..
                 }
 
@@ -444,11 +465,15 @@ static function get_wiki_api_url($title,$revision_id = null){
                 $potential_templates = WikiData::get_citation_templates_from_wikiline($wikiline);
                 $return_array = array();
                 foreach($potential_templates as $this_template){
+
+
                         $possible_pmid = WikiData::get_pmid_from_citation_template($this_template);
                         if($possible_pmid){
                                 //then this is pmid...
                                 $return_array[] = $possible_pmid;
-                        }
+                        }else{
+				//echo "no pmid found\n";
+			}
 
                 }
 
@@ -467,7 +492,7 @@ http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 */
         static function get_pmid_from_citation_template($wikitext){
 
-                        if(!WikiData::is_wikiline_journal_citation($wikitext)){
+                        if(!WikiData::is_wikitemplate_journal_citation($wikitext)){
                                 return(false); //cant very well get a pmid from wikitext that is not a journal citation
                         }
 
@@ -491,7 +516,9 @@ http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
                                                 }else{
                                                         //then there is "something" there...
                                                         //this is a shitty pmid... I have no idea what to make of it...
-                                                        echo "thought I found a pmid of '$pmid' in \n\n$wikitext\n\n but failed\n";
+							//how can I make this silent? its static...
+							echo "thought I found a pmid of '$pmid' in \n\n$wikitext\n\n but failed\n";
+							
                                                 }
                                         }
 
