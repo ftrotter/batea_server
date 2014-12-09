@@ -12,4 +12,5 @@
 */
 
 Artisan::add(new scrapeWikiMedicine);
-
+Artisan::add(new createWikiStructure);
+Artisan::add(new createGraphStructure);
