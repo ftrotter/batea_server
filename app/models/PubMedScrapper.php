@@ -6,9 +6,12 @@ class PubMedScrapper{
 
 	public $PMID_cache = array();
 
-
-	public $abstract_base_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=text&rettype=abstract&id=";
-	public $summary_base_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract&id=";
+	//How it should be..
+	//public $abstract_base_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=text&rettype=abstract&id=";
+	//public $summary_base_url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract&id=";
+	//How it is b/c of that really weird dns error
+	public $abstract_base_url = "http://165.112.7.20/entrez/eutils/efetch.fcgi?db=pubmed&retmode=text&rettype=abstract&id=";
+	public $summary_base_url = "http://165.112.7.20/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&rettype=abstract&id=";
 
 	private $PubMedData = null;	
 
@@ -42,11 +45,16 @@ class PubMedScrapper{
 			return($this->PMID_cache[$pmid]);
 		}
 
-		if(!$this->run_silent){ echo "\t\tPMID $pmid downloading\n"; }
+	
+		$abstract_url = "$this->abstract_base_url$pmid";
+		$summary_url = "$this->summary_base_url$pmid";
+
+		//if(!$this->run_silent){ echo "\t\tPMID $pmid downloading\n$abstract_url\n$summary_url\n"; }
+		if(!$this->run_silent){ echo "\t\tPMID $pmid "; }
 		sleep(1);
-		$this_abstract = file_get_contents("$this->abstract_base_url$pmid");
+		$this_abstract = file_get_contents($abstract_url);
 		sleep(1);
-		$this_summary_json = file_get_contents("$this->summary_base_url$pmid");
+		$this_summary_json = file_get_contents($summary_url);
 		
 		$this_summary_array = json_decode($this_summary_json,true);
 
@@ -169,7 +177,7 @@ public function getOptomizedArticleArrayFromPubtype($pubtype_array){
 	if(!is_array($pubtype_array)){
 		$problem_child = var_export($pubtype_array,true);	
 		echo "PubType is not an array is it?";
-		file_put_contents(app_path().'/storage/pmids/'."$pmid.out",$problem_child);
+		file_put_contents(app_path().'/storage/pmids/'."pubmedarray.out",$problem_child);
 		return($my_starting_array);
 	}
 
