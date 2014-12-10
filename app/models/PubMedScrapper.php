@@ -50,7 +50,7 @@ class PubMedScrapper{
 		$summary_url = "$this->summary_base_url$pmid";
 
 		//if(!$this->run_silent){ echo "\t\tPMID $pmid downloading\n$abstract_url\n$summary_url\n"; }
-		if(!$this->run_silent){ echo "\t\tPMID $pmid "; }
+		if(!$this->run_silent){ echo "\t\tPMID $pmid \n"; }
 		sleep(1);
 		$this_abstract = file_get_contents($abstract_url);
 		sleep(1);
