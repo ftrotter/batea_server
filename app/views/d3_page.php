@@ -12,12 +12,86 @@
 }
 
 </style>
+
+<button class="button" onclick="$('#graph_controls').toggle();">Show graph layout controls</button>
+
+<div id='graph_controls' style='display: none' >
+ <input type="text" id="gravityInput" value=".5" />
+    Gravity <input id="gravitySlider" type="range" onchange="updateForce(); " min ="0" max="5" step =".01"  value=".13"/>
+
+ <input type="text" id="attractionInput" value="50" />
+    Attraction (Links) <input id="attractionSlider" type="range" onchange="updateForce();" min ="-200" max="2000" step ="1"  value="-24"/>
+
+  <input type="text" id="repulsionInput" value="-60" />
+    Charge (Nodes) <input id="repulsionSlider" type="range" onchange="updateForce();" min ="-700" max="0" step ="1"  value="-289" /> 
+
+
+ <input type="text" id="attractionInputG2" value="50" />
+    Attraction (Links) <input id="attractionSliderG2" type="range" onchange="updateForce(); " min ="-200" max="2000" step ="1"  value="63"/>
+
+  <input type="text" id="repulsionInputG2" value="-60" />
+    Charge (Nodes) <input id="repulsionSliderG2" type="range" onchange="updateForce(); " min ="-700" max="0" step ="1"  value="-183" /> 
+
+
+
+
+
+<br>
+  | <input type="button" onclick="force.start();" value="UnFreeze">
+    <input type="button" onclick="force.stop();" value="Freeze">
+</div>
+
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
+function updateForce() {
+  force.stop();
+  
+  var newGravity = document.getElementById('gravitySlider').value;
+  var newCharge = document.getElementById('repulsionSlider').value;
+  var newLStrength = document.getElementById('attractionSlider').value;
+  var newChargeG2 = document.getElementById('repulsionSliderG2').value;
+  var newLStrengthG2 = document.getElementById('attractionSliderG2').value;
+  
+  
+  document.getElementById('gravityInput').value = newGravity;
+  document.getElementById('repulsionInput').value = newCharge;
+  document.getElementById('attractionInput').value = newLStrength;
+  document.getElementById('repulsionInputG2').value = newChargeG2;
+  document.getElementById('attractionInputG2').value = newLStrengthG2;
+  
+  
+  force
+  .charge(
+	function (node) {
+		if(node.group == 2){
+			return newCharge;
+		}else{
+			return newChargeG2;
+		}
+	}
+)
+  .linkDistance(
+        function (link) {
+                if(link.class == 2){
+                        return newLStrength;
+                }else{
+                        return newLStrengthG2;
+                }
+        }
+	)
+  .gravity( newGravity); //gravity does not accept a function as an argument.
+  
+  
+  force.start();
+}
+
+
+
+
 //Constants for the SVG
-var width = 1000,
-    height = 1000;
+var width = 1400,
+    height = 900;
 
 //Set up the colour scale
 var color = d3.scale.category20();
@@ -25,9 +99,11 @@ var color = d3.scale.category20();
 //Set up the force layout
 var force = d3.layout.force()
 //    .charge(function(link){ if(link.class){return 100;}else{return -500;} })
-    .charge(-500)
+//    .charge(function(node) { if(node.group < 3){ return(-100); }else{ return(-3000); }  } )
+    .charge(-500 )
     .gravity(.5)
     .linkDistance(function(link){ return link.dist})
+    .linkStrength(function(link){ return link.linkStrength})
     .size([width, height]);
 
 //Append a SVG to the body of the html page. Assign this SVG as an object to svg
@@ -111,6 +187,7 @@ d3.json("<?php echo $json_data; ?>", function(error, graph) {
 	});
 });
 
+updateForce();
 
 </script>
 
