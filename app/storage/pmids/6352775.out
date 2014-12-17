@@ -1,0 +1,109 @@
+array (
+  'uid' => '6352775',
+  'pubdate' => '1983 Jul-Aug',
+  'epubdate' => '',
+  'source' => 'J Agric Food Chem',
+  'authors' => '
+		
+			Larsson BK
+			Author
+			
+		
+		
+			Sahlberg GP
+			Author
+			
+		
+		
+			Eriksson AT
+			Author
+			
+		
+		
+			Busk LA
+			Author
+			
+		
+	',
+  'lastauthor' => 'Busk LA',
+  'title' => 'Polycyclic aromatic hydrocarbons in grilled food.',
+  'sorttitle' => 'polycyclic aromatic hydrocarbons in grilled food ',
+  'volume' => '31',
+  'issue' => '4',
+  'pages' => '867-73',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '0374755',
+  'issn' => '0021-8561',
+  'essn' => '1520-5118',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			6352775
+		
+		
+			eid
+			8
+			6352775
+		
+		
+			rid
+			8
+			6352775
+		
+	',
+  'history' => '
+		
+			pubmed
+			1983/07/01 00:00
+		
+		
+			medline
+			1983/07/01 00:01
+		
+		
+			entrez
+			1983/07/01 00:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+	',
+  'pmcrefcount' => '3',
+  'fulljournalname' => 'Journal of agricultural and food chemistry',
+  'elocationid' => '',
+  'viewcount' => '61',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1983/07/01 00:00',
+  'sortfirstauthor' => 'Larsson BK',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 425865600,
+     'usec' => 0,
+  )),
+)

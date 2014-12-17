@@ -1,0 +1,285 @@
+array (
+  'uid' => '18846089',
+  'pubdate' => '2008 Oct',
+  'epubdate' => '',
+  'source' => 'Nat Biotechnol',
+  'authors' => '
+		
+			Herrgård MJ
+			Author
+			
+		
+		
+			Swainston N
+			Author
+			
+		
+		
+			Dobson P
+			Author
+			
+		
+		
+			Dunn WB
+			Author
+			
+		
+		
+			Arga KY
+			Author
+			
+		
+		
+			Arvas M
+			Author
+			
+		
+		
+			Blüthgen N
+			Author
+			
+		
+		
+			Borger S
+			Author
+			
+		
+		
+			Costenoble R
+			Author
+			
+		
+		
+			Heinemann M
+			Author
+			
+		
+		
+			Hucka M
+			Author
+			
+		
+		
+			Le Novère N
+			Author
+			
+		
+		
+			Li P
+			Author
+			
+		
+		
+			Liebermeister W
+			Author
+			
+		
+		
+			Mo ML
+			Author
+			
+		
+		
+			Oliveira AP
+			Author
+			
+		
+		
+			Petranovic D
+			Author
+			
+		
+		
+			Pettifer S
+			Author
+			
+		
+		
+			Simeonidis E
+			Author
+			
+		
+		
+			Smallbone K
+			Author
+			
+		
+		
+			Spasić I
+			Author
+			
+		
+		
+			Weichart D
+			Author
+			
+		
+		
+			Brent R
+			Author
+			
+		
+		
+			Broomhead DS
+			Author
+			
+		
+		
+			Westerhoff HV
+			Author
+			
+		
+		
+			Kirdar B
+			Author
+			
+		
+		
+			Penttilä M
+			Author
+			
+		
+		
+			Klipp E
+			Author
+			
+		
+		
+			Palsson BØ
+			Author
+			
+		
+		
+			Sauer U
+			Author
+			
+		
+		
+			Oliver SG
+			Author
+			
+		
+		
+			Mendes P
+			Author
+			
+		
+		
+			Nielsen J
+			Author
+			
+		
+		
+			Kell DB
+			Author
+			
+		
+	',
+  'lastauthor' => 'Kell DB',
+  'title' => 'A consensus yeast metabolic network reconstruction obtained from a community approach to systems biology.',
+  'sorttitle' => 'consensus yeast metabolic network reconstruction obtained from a community approach to systems biology ',
+  'volume' => '26',
+  'issue' => '10',
+  'pages' => '1155-60',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '9604648',
+  'issn' => '1087-0156',
+  'essn' => '1546-1696',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pii
+			4
+			nbt1492
+		
+		
+			doi
+			3
+			10.1038/nbt1492
+		
+		
+			pubmed
+			1
+			18846089
+		
+		
+			pmc
+			8
+			PMC4018421
+		
+		
+			mid
+			8
+			NIHMS574724
+		
+		
+			eid
+			8
+			18846089
+		
+		
+			rid
+			8
+			18846089
+		
+		
+			pmcid
+			5
+			pmc-id: PMC4018421;manuscript-id: NIHMS574724;
+		
+	',
+  'history' => '
+		
+			pubmed
+			2008/10/11 09:00
+		
+		
+			medline
+			2008/12/30 09:00
+		
+		
+			entrez
+			2008/10/11 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '125',
+  'fulljournalname' => 'Nature biotechnology',
+  'elocationid' => 'doi: 10.1038/nbt1492',
+  'viewcount' => '638',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2008/10/01 00:00',
+  'sortfirstauthor' => 'Herrgård MJ',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1222819200,
+     'usec' => 0,
+  )),
+)

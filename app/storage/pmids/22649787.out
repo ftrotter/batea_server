@@ -1,0 +1,142 @@
+array (
+  'uid' => '22649787',
+  'pubdate' => '2012',
+  'epubdate' => '2012 May 11',
+  'source' => 'Front Oncol',
+  'authors' => '
+		
+			Tabbó F
+			Author
+			
+		
+		
+			Barreca A
+			Author
+			
+		
+		
+			Piva R
+			Author
+			
+		
+		
+			Inghirami G
+			Author
+			
+		
+		
+			European T-Cell Lymphoma Study Group
+			CollectiveName
+			
+		
+	',
+  'lastauthor' => 'Inghirami G',
+  'title' => 'ALK Signaling and Target Therapy in Anaplastic Large Cell Lymphoma.',
+  'sorttitle' => 'alk signaling and target therapy in anaplastic large cell lymphoma ',
+  'volume' => '2',
+  'issue' => '',
+  'pages' => '41',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '101568867',
+  'issn' => '',
+  'essn' => '2234-943X',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed',
+  'pubstatus' => '258',
+  'articleids' => '
+		
+			doi
+			3
+			10.3389/fonc.2012.00041
+		
+		
+			pubmed
+			1
+			22649787
+		
+		
+			pmc
+			8
+			PMC3355932
+		
+		
+			eid
+			8
+			22649787
+		
+		
+			rid
+			8
+			22649787
+		
+		
+			pmcid
+			5
+			pmc-id: PMC3355932;
+		
+	',
+  'history' => '
+		
+			received
+			2012/01/04 00:00
+		
+		
+			accepted
+			2012/04/10 00:00
+		
+		
+			epublish
+			2012/05/11 00:00
+		
+		
+			entrez
+			2012/06/01 06:00
+		
+		
+			pubmed
+			2012/06/01 06:00
+		
+		
+			medline
+			2012/06/01 06:01
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '5',
+  'fulljournalname' => 'Frontiers in oncology',
+  'elocationid' => 'doi: 10.3389/fonc.2012.00041',
+  'viewcount' => '138',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2012/01/01 00:00',
+  'sortfirstauthor' => 'Tabbó F',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1325376000,
+     'usec' => 0,
+  )),
+)

@@ -1,0 +1,140 @@
+array (
+  'uid' => '9384384',
+  'pubdate' => '1997 Nov 20',
+  'epubdate' => '',
+  'source' => 'Nature',
+  'authors' => '
+		
+			Naren AP
+			Author
+			
+		
+		
+			Nelson DJ
+			Author
+			
+		
+		
+			Xie W
+			Author
+			
+		
+		
+			Jovov B
+			Author
+			
+		
+		
+			Pevsner J
+			Author
+			
+		
+		
+			Bennett MK
+			Author
+			
+		
+		
+			Benos DJ
+			Author
+			
+		
+		
+			Quick MW
+			Author
+			
+		
+		
+			Kirk KL
+			Author
+			
+		
+	',
+  'lastauthor' => 'Kirk KL',
+  'title' => 'Regulation of CFTR chloride channels by syntaxin and Munc18 isoforms.',
+  'sorttitle' => 'regulation of cftr chloride channels by syntaxin and munc18 isoforms ',
+  'volume' => '390',
+  'issue' => '6657',
+  'pages' => '302-5',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '0410462',
+  'issn' => '0028-0836',
+  'essn' => '1476-4687',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			9384384
+		
+		
+			doi
+			3
+			10.1038/36882
+		
+		
+			eid
+			8
+			9384384
+		
+		
+			rid
+			8
+			9384384
+		
+	',
+  'history' => '
+		
+			pubmed
+			1997/12/31 23:39
+		
+		
+			medline
+			2001/03/23 10:01
+		
+		
+			entrez
+			1997/12/31 23:39
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '47',
+  'fulljournalname' => 'Nature',
+  'elocationid' => '',
+  'viewcount' => '64',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1997/11/20 00:00',
+  'sortfirstauthor' => 'Naren AP',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 879984000,
+     'usec' => 0,
+  )),
+)

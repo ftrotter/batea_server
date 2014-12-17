@@ -1,0 +1,105 @@
+array (
+  'uid' => '8352597',
+  'pubdate' => '1993',
+  'epubdate' => '',
+  'source' => 'Annu Rev Biochem',
+  'authors' => '
+		
+			Lambowitz AM
+			Author
+			
+		
+		
+			Belfort M
+			Author
+			
+		
+	',
+  'lastauthor' => 'Belfort M',
+  'title' => 'Introns as mobile genetic elements.',
+  'sorttitle' => 'introns as mobile genetic elements ',
+  'volume' => '62',
+  'issue' => '',
+  'pages' => '587-622',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '2985150R',
+  'issn' => '0066-4154',
+  'essn' => '1545-4509',
+  'pubtype' => '
+		Journal Article
+		Review
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			8352597
+		
+		
+			doi
+			3
+			10.1146/annurev.bi.62.070193.003103
+		
+		
+			eid
+			8
+			8352597
+		
+		
+			rid
+			8
+			8352597
+		
+	',
+  'history' => '
+		
+			pubmed
+			1993/01/01 00:00
+		
+		
+			medline
+			1993/01/01 00:01
+		
+		
+			entrez
+			1993/01/01 00:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+	',
+  'pmcrefcount' => '154',
+  'fulljournalname' => 'Annual review of biochemistry',
+  'elocationid' => '',
+  'viewcount' => '99',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1993/01/01 00:00',
+  'sortfirstauthor' => 'Lambowitz AM',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 725846400,
+     'usec' => 0,
+  )),
+)

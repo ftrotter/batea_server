@@ -1,0 +1,118 @@
+array (
+  'uid' => '22571206',
+  'pubdate' => '2012 May 10',
+  'epubdate' => '',
+  'source' => 'N Engl J Med',
+  'authors' => '
+		
+			Badros AZ
+			Author
+			
+		
+	',
+  'lastauthor' => 'Badros AZ',
+  'title' => 'Lenalidomide in myeloma--a high-maintenance friend.',
+  'sorttitle' => 'lenalidomide in myeloma a high maintenance friend ',
+  'volume' => '366',
+  'issue' => '19',
+  'pages' => '1836-8',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '0255562',
+  'issn' => '0028-4793',
+  'essn' => '1533-4406',
+  'pubtype' => '
+		Comment
+		Editorial
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			doi
+			3
+			10.1056/NEJMe1202819
+		
+		
+			pubmed
+			1
+			22571206
+		
+		
+			eid
+			8
+			22571206
+		
+		
+			rid
+			8
+			22571206
+		
+	',
+  'history' => '
+		
+			entrez
+			2012/05/11 06:00
+		
+		
+			pubmed
+			2012/05/11 06:00
+		
+		
+			medline
+			2012/05/18 06:00
+		
+	',
+  'references' => '
+		
+			N Engl J Med. 2012 May 10;366(19):1770-81
+			Comment on
+			22571201
+			
+		
+		
+			N Engl J Med. 2012 May 10;366(19):1759-69
+			Comment on
+			22571200
+			
+		
+		
+			N Engl J Med. 2012 May 10;366(19):1782-91
+			Comment on
+			22571202
+			
+		
+	',
+  'attributes' => '
+	',
+  'pmcrefcount' => '2',
+  'fulljournalname' => 'The New England journal of medicine',
+  'elocationid' => 'doi: 10.1056/NEJMe1202819',
+  'viewcount' => '197',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2012/05/10 00:00',
+  'sortfirstauthor' => 'Badros AZ',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1336608000,
+     'usec' => 0,
+  )),
+)

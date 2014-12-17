@@ -1,0 +1,118 @@
+array (
+  'uid' => '16909338',
+  'pubdate' => '2006 Apr',
+  'epubdate' => '2006 Aug 14',
+  'source' => 'J Membr Biol',
+  'authors' => '
+		
+			Orlov SN
+			Author
+			
+		
+		
+			Hamet P
+			Author
+			
+		
+	',
+  'lastauthor' => 'Hamet P',
+  'title' => 'Intracellular monovalent ions as second messengers.',
+  'sorttitle' => 'intracellular monovalent ions as second messengers ',
+  'volume' => '210',
+  'issue' => '3',
+  'pages' => '161-72',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '0211301',
+  'issn' => '0022-2631',
+  'essn' => '1432-1424',
+  'pubtype' => '
+		Journal Article
+		Review
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '256',
+  'articleids' => '
+		
+			doi
+			3
+			10.1007/s00232-006-0857-9
+		
+		
+			pubmed
+			1
+			16909338
+		
+		
+			eid
+			8
+			16909338
+		
+		
+			rid
+			8
+			16909338
+		
+	',
+  'history' => '
+		
+			received
+			2005/11/13 00:00
+		
+		
+			revised
+			2006/02/08 00:00
+		
+		
+			aheadofprint
+			2006/08/14 00:00
+		
+		
+			pubmed
+			2006/08/16 09:00
+		
+		
+			medline
+			2006/10/04 09:00
+		
+		
+			entrez
+			2006/08/16 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '5',
+  'fulljournalname' => 'The Journal of membrane biology',
+  'elocationid' => '',
+  'viewcount' => '27',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2006/04/01 00:00',
+  'sortfirstauthor' => 'Orlov SN',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1143849600,
+     'usec' => 0,
+  )),
+)

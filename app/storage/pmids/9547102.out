@@ -1,0 +1,104 @@
+array (
+  'uid' => '9547102',
+  'pubdate' => '1998 Apr',
+  'epubdate' => '',
+  'source' => 'Gastroenterology',
+  'authors' => '
+		
+			Day CP
+			Author
+			
+		
+		
+			James OF
+			Author
+			
+		
+	',
+  'lastauthor' => 'James OF',
+  'title' => 'Steatohepatitis: a tale of two "hits"?',
+  'sorttitle' => 'steatohepatitis a tale of two hits ',
+  'volume' => '114',
+  'issue' => '4',
+  'pages' => '842-5',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '0374630',
+  'issn' => '0016-5085',
+  'essn' => '1528-0012',
+  'pubtype' => '
+		Editorial
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			9547102
+		
+		
+			pii
+			4
+			S0016508598003564
+		
+		
+			eid
+			8
+			9547102
+		
+		
+			rid
+			8
+			9547102
+		
+	',
+  'history' => '
+		
+			pubmed
+			1998/04/18 00:00
+		
+		
+			medline
+			1998/04/18 00:01
+		
+		
+			entrez
+			1998/04/18 00:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+	',
+  'pmcrefcount' => '397',
+  'fulljournalname' => 'Gastroenterology',
+  'elocationid' => '',
+  'viewcount' => '881',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1998/04/01 00:00',
+  'sortfirstauthor' => 'Day CP',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 891388800,
+     'usec' => 0,
+  )),
+)

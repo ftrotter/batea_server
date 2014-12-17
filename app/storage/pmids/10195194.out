@@ -1,0 +1,116 @@
+array (
+  'uid' => '10195194',
+  'pubdate' => '1999 Feb',
+  'epubdate' => '',
+  'source' => 'Nat Neurosci',
+  'authors' => '
+		
+			Ilardi JM
+			Author
+			
+		
+		
+			Mochida S
+			Author
+			
+		
+		
+			Sheng ZH
+			Author
+			
+		
+	',
+  'lastauthor' => 'Sheng ZH',
+  'title' => 'Snapin: a SNARE-associated protein implicated in synaptic transmission.',
+  'sorttitle' => 'snapin a snare associated protein implicated in synaptic transmission ',
+  'volume' => '2',
+  'issue' => '2',
+  'pages' => '119-24',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '9809671',
+  'issn' => '1097-6256',
+  'essn' => '1546-1726',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			10195194
+		
+		
+			doi
+			3
+			10.1038/5673
+		
+		
+			eid
+			8
+			10195194
+		
+		
+			rid
+			8
+			10195194
+		
+	',
+  'history' => '
+		
+			pubmed
+			1999/04/09 02:02
+		
+		
+			medline
+			2001/03/23 10:01
+		
+		
+			entrez
+			1999/04/09 02:02
+		
+	',
+  'references' => '
+		
+			Nat Neurosci. 1999 Feb;2(2):104-6
+			Comment in
+			10195190
+			
+		
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '49',
+  'fulljournalname' => 'Nature neuroscience',
+  'elocationid' => '',
+  'viewcount' => '186',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1999/02/01 00:00',
+  'sortfirstauthor' => 'Ilardi JM',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 917827200,
+     'usec' => 0,
+  )),
+)

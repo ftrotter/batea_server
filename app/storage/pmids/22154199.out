@@ -1,0 +1,119 @@
+array (
+  'uid' => '22154199',
+  'pubdate' => '2012 Jan',
+  'epubdate' => '2011 Dec 9',
+  'source' => 'Clin Ther',
+  'authors' => '
+		
+			Richardson AR
+			Author
+			
+		
+		
+			Maltz FN
+			Author
+			
+		
+	',
+  'lastauthor' => 'Maltz FN',
+  'title' => 'Ulipristal acetate: review of the efficacy and safety of a newly approved agent for emergency contraception.',
+  'sorttitle' => 'ulipristal acetate review of the efficacy and safety of a newly approved agent for emergency contraception ',
+  'volume' => '34',
+  'issue' => '1',
+  'pages' => '24-36',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '7706726',
+  'issn' => '0149-2918',
+  'essn' => '1879-114X',
+  'pubtype' => '
+		Journal Article
+		Review
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '256',
+  'articleids' => '
+		
+			pii
+			4
+			S0149-2918(11)00729-6
+		
+		
+			doi
+			3
+			10.1016/j.clinthera.2011.11.012
+		
+		
+			pubmed
+			1
+			22154199
+		
+		
+			eid
+			8
+			22154199
+		
+		
+			rid
+			8
+			22154199
+		
+	',
+  'history' => '
+		
+			accepted
+			2011/11/04 00:00
+		
+		
+			aheadofprint
+			2011/12/09 00:00
+		
+		
+			entrez
+			2011/12/14 06:00
+		
+		
+			pubmed
+			2011/12/14 06:00
+		
+		
+			medline
+			2012/05/19 06:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '2',
+  'fulljournalname' => 'Clinical therapeutics',
+  'elocationid' => 'doi: 10.1016/j.clinthera.2011.11.012',
+  'viewcount' => '1071',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2012/01/01 00:00',
+  'sortfirstauthor' => 'Richardson AR',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1325376000,
+     'usec' => 0,
+  )),
+)

@@ -1,0 +1,110 @@
+array (
+  'uid' => '9653118',
+  'pubdate' => '1998 Jul 7',
+  'epubdate' => '',
+  'source' => 'Proc Natl Acad Sci U S A',
+  'authors' => '
+		
+			Levy M
+			Author
+			
+		
+		
+			Miller SL
+			Author
+			
+		
+	',
+  'lastauthor' => 'Miller SL',
+  'title' => 'The stability of the RNA bases: implications for the origin of life.',
+  'sorttitle' => 'stability of the rna bases implications for the origin of life ',
+  'volume' => '95',
+  'issue' => '14',
+  'pages' => '7933-8',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '7505876',
+  'issn' => '0027-8424',
+  'essn' => '1091-6490',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			9653118
+		
+		
+			pmc
+			8
+			PMC20907
+		
+		
+			eid
+			8
+			9653118
+		
+		
+			rid
+			8
+			9653118
+		
+		
+			pmcid
+			5
+			pmc-id: PMC20907;
+		
+	',
+  'history' => '
+		
+			pubmed
+			1998/07/08 00:00
+		
+		
+			medline
+			1998/07/08 00:01
+		
+		
+			entrez
+			1998/07/08 00:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '19',
+  'fulljournalname' => 'Proceedings of the National Academy of Sciences of the United States of America',
+  'elocationid' => '',
+  'viewcount' => '44',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1998/07/07 00:00',
+  'sortfirstauthor' => 'Levy M',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 899769600,
+     'usec' => 0,
+  )),
+)

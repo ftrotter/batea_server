@@ -1,0 +1,140 @@
+array (
+  'uid' => '12819038',
+  'pubdate' => '2003 Jul',
+  'epubdate' => '',
+  'source' => 'Am J Pathol',
+  'authors' => '
+		
+			Du J
+			Author
+			
+		
+		
+			Miller AJ
+			Author
+			
+		
+		
+			Widlund HR
+			Author
+			
+		
+		
+			Horstmann MA
+			Author
+			
+		
+		
+			Ramaswamy S
+			Author
+			
+		
+		
+			Fisher DE
+			Author
+			
+		
+	',
+  'lastauthor' => 'Fisher DE',
+  'title' => 'MLANA/MART1 and SILV/PMEL17/GP100 are transcriptionally regulated by MITF in melanocytes and melanoma.',
+  'sorttitle' => 'mlana mart1 and silv pmel17 gp100 are transcriptionally regulated by mitf in melanocytes and melanoma ',
+  'volume' => '163',
+  'issue' => '1',
+  'pages' => '333-43',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '0370502',
+  'issn' => '0002-9440',
+  'essn' => '1525-2191',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			12819038
+		
+		
+			pmc
+			8
+			PMC1868174
+		
+		
+			pii
+			4
+			S0002-9440(10)63657-7
+		
+		
+			doi
+			3
+			10.1016/S0002-9440(10)63657-7
+		
+		
+			eid
+			8
+			12819038
+		
+		
+			rid
+			8
+			12819038
+		
+		
+			pmcid
+			5
+			pmc-id: PMC1868174;
+		
+	',
+  'history' => '
+		
+			pubmed
+			2003/06/24 05:00
+		
+		
+			medline
+			2003/09/04 05:00
+		
+		
+			entrez
+			2003/06/24 05:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '39',
+  'fulljournalname' => 'The American journal of pathology',
+  'elocationid' => '',
+  'viewcount' => '178',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2003/07/01 00:00',
+  'sortfirstauthor' => 'Du J',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1057017600,
+     'usec' => 0,
+  )),
+)

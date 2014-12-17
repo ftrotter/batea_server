@@ -1,0 +1,184 @@
+array (
+  'uid' => '19151382',
+  'pubdate' => '2009 Jun',
+  'epubdate' => '2009 Jan 17',
+  'source' => 'Invest Ophthalmol Vis Sci',
+  'authors' => '
+		
+			Udar N
+			Author
+			
+		
+		
+			Atilano SR
+			Author
+			
+		
+		
+			Memarzadeh M
+			Author
+			
+		
+		
+			Boyer DS
+			Author
+			
+		
+		
+			Chwa M
+			Author
+			
+		
+		
+			Lu S
+			Author
+			
+		
+		
+			Maguen B
+			Author
+			
+		
+		
+			Langberg J
+			Author
+			
+		
+		
+			Coskun P
+			Author
+			
+		
+		
+			Wallace DC
+			Author
+			
+		
+		
+			Nesburn AB
+			Author
+			
+		
+		
+			Khatibi N
+			Author
+			
+		
+		
+			Hertzog D
+			Author
+			
+		
+		
+			Le K
+			Author
+			
+		
+		
+			Hwang D
+			Author
+			
+		
+		
+			Kenney MC
+			Author
+			
+		
+	',
+  'lastauthor' => 'Kenney MC',
+  'title' => 'Mitochondrial DNA haplogroups associated with age-related macular degeneration.',
+  'sorttitle' => 'mitochondrial dna haplogroups associated with age related macular degeneration ',
+  'volume' => '50',
+  'issue' => '6',
+  'pages' => '2966-74',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '7703701',
+  'issn' => '0146-0404',
+  'essn' => '1552-5783',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '256',
+  'articleids' => '
+		
+			pii
+			4
+			iovs.08-2646
+		
+		
+			doi
+			3
+			10.1167/iovs.08-2646
+		
+		
+			pubmed
+			1
+			19151382
+		
+		
+			eid
+			8
+			19151382
+		
+		
+			rid
+			8
+			19151382
+		
+	',
+  'history' => '
+		
+			aheadofprint
+			2009/01/17 00:00
+		
+		
+			entrez
+			2009/01/20 09:00
+		
+		
+			pubmed
+			2009/01/20 09:00
+		
+		
+			medline
+			2009/06/12 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '23',
+  'fulljournalname' => 'Investigative ophthalmology &amp; visual science',
+  'elocationid' => 'doi: 10.1167/iovs.08-2646',
+  'viewcount' => '138',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2009/06/01 00:00',
+  'sortfirstauthor' => 'Udar N',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1243814400,
+     'usec' => 0,
+  )),
+)

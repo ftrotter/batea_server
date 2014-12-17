@@ -1,0 +1,164 @@
+array (
+  'uid' => '18039926',
+  'pubdate' => '2008 Apr',
+  'epubdate' => '2007 Nov 26',
+  'source' => 'FASEB J',
+  'authors' => '
+		
+			Sato-Jin K
+			Author
+			
+		
+		
+			Nishimura EK
+			Author
+			
+		
+		
+			Akasaka E
+			Author
+			
+		
+		
+			Huber W
+			Author
+			
+		
+		
+			Nakano H
+			Author
+			
+		
+		
+			Miller A
+			Author
+			
+		
+		
+			Du J
+			Author
+			
+		
+		
+			Wu M
+			Author
+			
+		
+		
+			Hanada K
+			Author
+			
+		
+		
+			Sawamura D
+			Author
+			
+		
+		
+			Fisher DE
+			Author
+			
+		
+		
+			Imokawa G
+			Author
+			
+		
+	',
+  'lastauthor' => 'Imokawa G',
+  'title' => 'Epistatic connections between microphthalmia-associated transcription factor and endothelin signaling in Waardenburg syndrome and other pigmentary disorders.',
+  'sorttitle' => 'epistatic connections between microphthalmia associated transcription factor and endothelin signaling in waardenburg syndrome and other pigmentary disorders ',
+  'volume' => '22',
+  'issue' => '4',
+  'pages' => '1155-68',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '8804484',
+  'issn' => '0892-6638',
+  'essn' => '1530-6860',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '256',
+  'articleids' => '
+		
+			pii
+			4
+			fj.07-9080com
+		
+		
+			doi
+			3
+			10.1096/fj.07-9080com
+		
+		
+			pubmed
+			1
+			18039926
+		
+		
+			eid
+			8
+			18039926
+		
+		
+			rid
+			8
+			18039926
+		
+	',
+  'history' => '
+		
+			aheadofprint
+			2007/11/26 00:00
+		
+		
+			pubmed
+			2007/11/28 09:00
+		
+		
+			medline
+			2008/05/17 09:00
+		
+		
+			entrez
+			2007/11/28 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '12',
+  'fulljournalname' => 'FASEB journal : official publication of the Federation of American Societies for Experimental Biology',
+  'elocationid' => '',
+  'viewcount' => '97',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2008/04/01 00:00',
+  'sortfirstauthor' => 'Sato-Jin K',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1207008000,
+     'usec' => 0,
+  )),
+)

@@ -1,0 +1,110 @@
+array (
+  'uid' => '8999968',
+  'pubdate' => '1997 Jan 24',
+  'epubdate' => '',
+  'source' => 'J Biol Chem',
+  'authors' => '
+		
+			Betz A
+			Author
+			
+		
+		
+			Okamoto M
+			Author
+			
+		
+		
+			Benseler F
+			Author
+			
+		
+		
+			Brose N
+			Author
+			
+		
+	',
+  'lastauthor' => 'Brose N',
+  'title' => 'Direct interaction of the rat unc-13 homologue Munc13-1 with the N terminus of syntaxin.',
+  'sorttitle' => 'direct interaction of the rat unc 13 homologue munc13 1 with the n terminus of syntaxin ',
+  'volume' => '272',
+  'issue' => '4',
+  'pages' => '2520-6',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '2985121R',
+  'issn' => '0021-9258',
+  'essn' => '1083-351X',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			8999968
+		
+		
+			eid
+			8
+			8999968
+		
+		
+			rid
+			8
+			8999968
+		
+	',
+  'history' => '
+		
+			pubmed
+			1997/01/24 00:00
+		
+		
+			medline
+			1997/01/24 00:01
+		
+		
+			entrez
+			1997/01/24 00:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '59',
+  'fulljournalname' => 'The Journal of biological chemistry',
+  'elocationid' => '',
+  'viewcount' => '96',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1997/01/24 00:00',
+  'sortfirstauthor' => 'Betz A',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 854064000,
+     'usec' => 0,
+  )),
+)

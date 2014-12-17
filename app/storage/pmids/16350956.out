@@ -1,0 +1,100 @@
+array (
+  'uid' => '16350956',
+  'pubdate' => '2005',
+  'epubdate' => '',
+  'source' => 'Methods Mol Biol',
+  'authors' => '
+		
+			Webster J
+			Author
+			
+		
+		
+			Oxley D
+			Author
+			
+		
+	',
+  'lastauthor' => 'Oxley D',
+  'title' => 'Peptide mass fingerprinting: protein identification using MALDI-TOF mass spectrometry.',
+  'sorttitle' => 'peptide mass fingerprinting protein identification using maldi tof mass spectrometry ',
+  'volume' => '310',
+  'issue' => '',
+  'pages' => '227-40',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '9214969',
+  'issn' => '1064-3745',
+  'essn' => '1940-6029',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			16350956
+		
+		
+			eid
+			8
+			16350956
+		
+		
+			rid
+			8
+			16350956
+		
+	',
+  'history' => '
+		
+			pubmed
+			2005/12/15 09:00
+		
+		
+			medline
+			2006/01/24 09:00
+		
+		
+			entrez
+			2005/12/15 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '6',
+  'fulljournalname' => 'Methods in molecular biology (Clifton, N.J.)',
+  'elocationid' => '',
+  'viewcount' => '563',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2005/01/01 00:00',
+  'sortfirstauthor' => 'Webster J',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1104537600,
+     'usec' => 0,
+  )),
+)

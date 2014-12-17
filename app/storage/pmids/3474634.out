@@ -1,0 +1,120 @@
+array (
+  'uid' => '3474634',
+  'pubdate' => '1987 Jul',
+  'epubdate' => '',
+  'source' => 'Proc Natl Acad Sci U S A',
+  'authors' => '
+		
+			Luby-Phelps K
+			Author
+			
+		
+		
+			Castle PE
+			Author
+			
+		
+		
+			Taylor DL
+			Author
+			
+		
+		
+			Lanni F
+			Author
+			
+		
+	',
+  'lastauthor' => 'Lanni F',
+  'title' => 'Hindered diffusion of inert tracer particles in the cytoplasm of mouse 3T3 cells.',
+  'sorttitle' => 'hindered diffusion of inert tracer particles in the cytoplasm of mouse 3t3 cells ',
+  'volume' => '84',
+  'issue' => '14',
+  'pages' => '4910-3',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '7505876',
+  'issn' => '0027-8424',
+  'essn' => '1091-6490',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			3474634
+		
+		
+			pmc
+			8
+			PMC305216
+		
+		
+			eid
+			8
+			3474634
+		
+		
+			rid
+			8
+			3474634
+		
+		
+			pmcid
+			5
+			pmc-id: PMC305216;
+		
+	',
+  'history' => '
+		
+			pubmed
+			1987/07/01 00:00
+		
+		
+			medline
+			1987/07/01 00:01
+		
+		
+			entrez
+			1987/07/01 00:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '104',
+  'fulljournalname' => 'Proceedings of the National Academy of Sciences of the United States of America',
+  'elocationid' => '',
+  'viewcount' => '36',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1987/07/01 00:00',
+  'sortfirstauthor' => 'Luby-Phelps K',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 552096000,
+     'usec' => 0,
+  )),
+)

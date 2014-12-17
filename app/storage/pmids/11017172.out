@@ -1,0 +1,115 @@
+array (
+  'uid' => '11017172',
+  'pubdate' => '2000 Oct',
+  'epubdate' => '',
+  'source' => 'Nat Neurosci',
+  'authors' => '
+		
+			Deken SL
+			Author
+			
+		
+		
+			Beckman ML
+			Author
+			
+		
+		
+			Boos L
+			Author
+			
+		
+		
+			Quick MW
+			Author
+			
+		
+	',
+  'lastauthor' => 'Quick MW',
+  'title' => 'Transport rates of GABA transporters: regulation by the N-terminal domain and syntaxin 1A.',
+  'sorttitle' => 'transport rates of gaba transporters regulation by the n terminal domain and syntaxin 1a ',
+  'volume' => '3',
+  'issue' => '10',
+  'pages' => '998-1003',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '9809671',
+  'issn' => '1097-6256',
+  'essn' => '1546-1726',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			11017172
+		
+		
+			doi
+			3
+			10.1038/79939
+		
+		
+			eid
+			8
+			11017172
+		
+		
+			rid
+			8
+			11017172
+		
+	',
+  'history' => '
+		
+			pubmed
+			2000/10/04 11:00
+		
+		
+			medline
+			2001/02/28 10:01
+		
+		
+			entrez
+			2000/10/04 11:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '27',
+  'fulljournalname' => 'Nature neuroscience',
+  'elocationid' => '',
+  'viewcount' => '50',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2000/10/01 00:00',
+  'sortfirstauthor' => 'Deken SL',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 970358400,
+     'usec' => 0,
+  )),
+)

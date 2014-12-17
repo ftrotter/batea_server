@@ -1,0 +1,106 @@
+array (
+  'uid' => '10736750',
+  'pubdate' => '1999',
+  'epubdate' => '',
+  'source' => 'Cell Biochem Biophys',
+  'authors' => '
+		
+			Hoppert M
+			Author
+			
+		
+		
+			Mayer F
+			Author
+			
+		
+	',
+  'lastauthor' => 'Mayer F',
+  'title' => 'Principles of macromolecular organization and cell function in bacteria and archaea.',
+  'sorttitle' => 'principles of macromolecular organization and cell function in bacteria and archaea ',
+  'volume' => '31',
+  'issue' => '3',
+  'pages' => '247-84',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '9701934',
+  'issn' => '1085-9195',
+  'essn' => '1559-0283',
+  'pubtype' => '
+		Journal Article
+		Review
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			10736750
+		
+		
+			doi
+			3
+			10.1007/BF02738242
+		
+		
+			eid
+			8
+			10736750
+		
+		
+			rid
+			8
+			10736750
+		
+	',
+  'history' => '
+		
+			pubmed
+			2000/03/29 09:00
+		
+		
+			medline
+			2000/05/20 09:00
+		
+		
+			entrez
+			2000/03/29 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '4',
+  'fulljournalname' => 'Cell biochemistry and biophysics',
+  'elocationid' => '',
+  'viewcount' => '52',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '1999/01/01 00:00',
+  'sortfirstauthor' => 'Hoppert M',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 915148800,
+     'usec' => 0,
+  )),
+)

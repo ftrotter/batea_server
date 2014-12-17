@@ -1,0 +1,135 @@
+array (
+  'uid' => '12036886',
+  'pubdate' => '2002 Jun 15',
+  'epubdate' => '',
+  'source' => 'Blood',
+  'authors' => '
+		
+			ten Berge RL
+			Author
+			
+		
+		
+			Meijer CJ
+			Author
+			
+		
+		
+			Dukers DF
+			Author
+			
+		
+		
+			Kummer JA
+			Author
+			
+		
+		
+			Bladergroen BA
+			Author
+			
+		
+		
+			Vos W
+			Author
+			
+		
+		
+			Hack CE
+			Author
+			
+		
+		
+			Ossenkoppele GJ
+			Author
+			
+		
+		
+			Oudejans JJ
+			Author
+			
+		
+	',
+  'lastauthor' => 'Oudejans JJ',
+  'title' => 'Expression levels of apoptosis-related proteins predict clinical outcome in anaplastic large cell lymphoma.',
+  'sorttitle' => 'expression levels of apoptosis related proteins predict clinical outcome in anaplastic large cell lymphoma ',
+  'volume' => '99',
+  'issue' => '12',
+  'pages' => '4540-6',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '7603509',
+  'issn' => '0006-4971',
+  'essn' => '1528-0020',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '4',
+  'articleids' => '
+		
+			pubmed
+			1
+			12036886
+		
+		
+			eid
+			8
+			12036886
+		
+		
+			rid
+			8
+			12036886
+		
+	',
+  'history' => '
+		
+			pubmed
+			2002/05/31 10:00
+		
+		
+			medline
+			2002/07/12 10:01
+		
+		
+			entrez
+			2002/05/31 10:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '15',
+  'fulljournalname' => 'Blood',
+  'elocationid' => '',
+  'viewcount' => '30',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2002/06/15 00:00',
+  'sortfirstauthor' => 'ten Berge RL',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1024099200,
+     'usec' => 0,
+  )),
+)

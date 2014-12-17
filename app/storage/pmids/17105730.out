@@ -1,0 +1,134 @@
+array (
+  'uid' => '17105730',
+  'pubdate' => '2007 Jan 19',
+  'epubdate' => '2006 Nov 14',
+  'source' => 'J Biol Chem',
+  'authors' => '
+		
+			Meadows NA
+			Author
+			
+		
+		
+			Sharma SM
+			Author
+			
+		
+		
+			Faulkner GJ
+			Author
+			
+		
+		
+			Ostrowski MC
+			Author
+			
+		
+		
+			Hume DA
+			Author
+			
+		
+		
+			Cassady AI
+			Author
+			
+		
+	',
+  'lastauthor' => 'Cassady AI',
+  'title' => 'The expression of Clcn7 and Ostm1 in osteoclasts is coregulated by microphthalmia transcription factor.',
+  'sorttitle' => 'expression of clcn7 and ostm1 in osteoclasts is coregulated by microphthalmia transcription factor ',
+  'volume' => '282',
+  'issue' => '3',
+  'pages' => '1891-904',
+  'lang' => '
+		eng
+	',
+  'nlmuniqueid' => '2985121R',
+  'issn' => '0021-9258',
+  'essn' => '1083-351X',
+  'pubtype' => '
+		Journal Article
+	',
+  'recordstatus' => 'PubMed - indexed for MEDLINE',
+  'pubstatus' => '256',
+  'articleids' => '
+		
+			pii
+			4
+			M608572200
+		
+		
+			doi
+			3
+			10.1074/jbc.M608572200
+		
+		
+			pubmed
+			1
+			17105730
+		
+		
+			eid
+			8
+			17105730
+		
+		
+			rid
+			8
+			17105730
+		
+	',
+  'history' => '
+		
+			aheadofprint
+			2006/11/14 00:00
+		
+		
+			pubmed
+			2006/11/16 09:00
+		
+		
+			medline
+			2007/02/28 09:00
+		
+		
+			entrez
+			2006/11/16 09:00
+		
+	',
+  'references' => '
+	',
+  'attributes' => '
+		Has Abstract
+	',
+  'pmcrefcount' => '11',
+  'fulljournalname' => 'The Journal of biological chemistry',
+  'elocationid' => '',
+  'viewcount' => '79',
+  'doctype' => 'citation',
+  'srccontriblist' => '
+	',
+  'booktitle' => '',
+  'medium' => '',
+  'edition' => '',
+  'publisherlocation' => '',
+  'publishername' => '',
+  'srcdate' => '',
+  'reportnumber' => '',
+  'availablefromurl' => '',
+  'locationlabel' => '',
+  'doccontriblist' => '
+	',
+  'docdate' => '',
+  'bookname' => '',
+  'chapter' => '',
+  'sortpubdate' => '2007/01/19 00:00',
+  'sortfirstauthor' => 'Meadows NA',
+  'vernaculartitle' => '',
+  'pubdate_js' => 
+  MongoDate::__set_state(array(
+     'sec' => 1169164800,
+     'usec' => 0,
+  )),
+)
