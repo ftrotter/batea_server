@@ -18,22 +18,33 @@ class PubMedLinks extends VeryMongo{
 				if(isset($this_data['wikilines'])){
 					foreach($this_data['wikilines'] as $wl_array){
 						foreach($wl_array['pmids'] as $this_pmid){
-							echo "processing $this_pmid -> $wiki_title\n";
-							$this->big_cache[$this_pmid][] = $wiki_title;
+							//echo "processing $this_pmid -> $wiki_title\n";
+							if(isset($this->big_cache[$this_pmid][$wiki_title])){;
+								$this->big_cache[$this_pmid][$wiki_title]++;
+							}else{
+								$this->big_cache[$this_pmid][$wiki_title] = 1;
+							}
 						}
 					}
 				}			
 			}
 
-			if(count($this->big_cache) > 10000){
-				var_export($this->big_cache);
-				exit();
+		}
+
+		foreach($this->big_cache as $pmid => $page_array){
+		
+			if(count($page_array) > 1){
+				//then this is juicy and should be recorded...
+				//var_export($page_array);
+				
+				$PubMedLinks = new PubMedLinks();
+				$PubMedLinks->data_array['found_in_wikititles'] = $page_array;
+				$PubMedLinks->data_array['title_count'] = count($page_array);
+				$PubMedLinks->sync($pmid);	
+				
 			}
 
 		}
-
-		var_export($this->big_cache);
-
 
 	}
 
