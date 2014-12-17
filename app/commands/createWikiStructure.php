@@ -43,6 +43,8 @@ class createWikiStructure extends ScheduledCommand {
 		return $scheduler->yearly();
 	}
 
+	
+
 	/**
 	 * Execute the console command.
 	 *
@@ -51,11 +53,24 @@ class createWikiStructure extends ScheduledCommand {
 	public function fire()
 	{
 
-		$arg = "Peanut_allergy";
+	//	$arg = "Peanut_allergy";
 
 	
 	if(!isset($arg)){
 		//then lets just process everything..
+
+		//first lets load the structures that we have already done...
+	
+		$KeepThisWikiStructure = new WikiStructure();
+		$structure_list = $KeepThisWikiStructure->get_all();
+	
+
+		$already_done_list = array();	
+		foreach($structure_list as $id => $this_wikistructure){
+			list($title, $revision_id) = explode('|',$this_wikistructure['wikistructure_id']);
+			$already_done_list[$title] = $title;
+		}
+
 	
 		$WikiTags = new WikiTags();
 		if(is_object($WikiTags)){
@@ -98,9 +113,14 @@ class createWikiStructure extends ScheduledCommand {
 
 		foreach($clinical_titles as $this_clinical_title){
 			echo "working on $this_clinical_title\n";
-			$WikiStructure = new WikiStructure();
-			$WikiStructure->buildStructureFromTitle($this_clinical_title);		
+			if(isset($already_done_list[$this_clinical_title])){
+				echo "already done once... skipping\n";
+			}else{
+				$WikiStructure = new WikiStructure();
+				$WikiStructure->buildStructureFromTitle($this_clinical_title);		
+			}
 		}
+
 	}else{
 
 		$WikiStructure = new WikiStructure();
