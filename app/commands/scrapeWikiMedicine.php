@@ -54,13 +54,9 @@ class scrapeWikiMedicine extends ScheduledCommand {
 	 */
 	public function fire(){
 	
-		echo "hello";
-		if(is_null(
-			$this->WikiScrapper
-			)
-			){
+		if(is_null($this->WikiScrapper)){
 			$this->WikiScrapper = new WikiScrapper();
-			}
+		}
 
 		//List of all FA level Medicine articles and the articles from the 2014 UCSF class.
 		$starting_pages = array(
@@ -148,8 +144,26 @@ class scrapeWikiMedicine extends ScheduledCommand {
 
 	}
 
+
+function shuffle_assoc(&$array) {
+        $keys = array_keys($array);
+
+        shuffle($keys);
+
+	$new = array();
+
+        foreach($keys as $key) {
+            $new[$key] = $array[$key];
+        }
+
+        return $new;
+}
+
+
 	function recurse_title_list($wikititle_list, $depth = ''){
 
+
+		$wikititle_list  = $this->shuffle_assoc($wikititle_list);
 
 		$depth .= ' ';
 

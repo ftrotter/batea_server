@@ -51,7 +51,7 @@ class createWikiStructure extends ScheduledCommand {
 	public function fire()
 	{
 
-		$arg = "Diabetes_mellitus";
+		$arg = "Peanut_allergy";
 
 	
 	if(!isset($arg)){
