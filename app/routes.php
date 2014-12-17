@@ -24,10 +24,17 @@ Route::get("/wiki/{wikititle}/{revision_id}", "WikiController@article");
 Route::get("/analysis/{wikititle}/graph_json", "AnalysisController@recurse_graph_json");
 Route::get("/analysis/{wikititle}", "AnalysisController@browse");
 
+Route::get("/batea/token/{user_token}/json", "BateaController@get_user_json");
+Route::get("/batea/token/{user_token}", "BateaController@show_user");
+Route::get("/batea/tree/{user_token}", "BateaController@show_tree");
+Route::get("/batea", "BateaController@index");
 
 
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('html')->nest('content','hello',array(
+
+                                                          	)
+                                    	);
 });
