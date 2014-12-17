@@ -55,4 +55,41 @@ class PubMedController extends BaseController {
 
 	}
 
+	public function view_all_links(){
+
+                $view = View::make('html')->nest('content','dust_page',array(
+                        'dust_file' => 'pubmed_index.dust',
+                        'json_data' => "/pubmedlink/json",
+                                        ));
+
+                return($view);
+
+	}
+
+
+	public function view_all_links_json(){
+
+		$PubMedData = new PubMedData();
+
+		$PubMedLinks = new PubMedLinks();
+		$links_list = $PubMedLinks->get_all();
+		$articles = array();
+		foreach($links_list as $this_link_data){
+			$pmid = $this_link_data['pubmedlinks_id'];
+			$new_array = array();
+			foreach($this_link_data['found_in_wikititles'] as $title => $found_count){
+				$new_array[] = array('title' => $title, 'found_count' => $found_count);	
+			}
+			$this_link_data['found_in_wikititles'] = $new_array;
+			$PubMedData->data_array = array(); //just in case...
+			$PubMedData->sync($pmid);
+			$articles[] = array_merge($PubMedData->data_array,$this_link_data);
+		}
+		$return_me['articles'] = $articles;
+
+		return Response::json($return_me, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
+
+	}
+
+
 }
