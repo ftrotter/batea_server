@@ -241,7 +241,7 @@ public function download_wiki_result($title,$id_to_get = null){
 
 	function get_medical_links_from_wikiline($wikiline,$depth = ''){
 
-		if(!$this->run_silent){ echo "\n>$depth"; }
+		if(!$this->run_silent){ echo "\n>"; }
 		$all_links = $this->get_links_from_wikiline($wikiline);
 		$return_me = array();
 		foreach($all_links as $label => $wikititle){

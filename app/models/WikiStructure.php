@@ -186,28 +186,50 @@ class WikiStructure extends VeryMongo{
 			$dest_index = $node_map[$to];
 
 		//	echo "$from $source_index $to $dest_index <br>";
-
+			$show_this_one = true;
 			if((strcmp($wikititle,$to) == 0)  || (strcmp($wikititle,$from) == 0)){
-				$dist = 200;
-				$strength = 10;
-				$class = true;
-				
+				$dist = 50;
+				$strength = 15;
+				$class = 1;
+				$show_this_one = false;		
 			}else{
-				$dist = 20;
-				$strength = 5;
-				$class = false;
+
+				$is_to_section = strpos($to,'Section') !== false;
+				$is_from_section = strpos($from,'Section') !== false;
+				if($is_to_section && $is_from_section){
+					$dist = 10;
+					$strength = 50;
+					$class = 2;
+					$linkStrength = 1;
+				}else{
+					$dist = 100;
+					$strength = 5;
+					$class = 3;
+					$linkStrength = .5;
+				}
 			}	
 
+			$return_me_nodes[$source_index] = array(
+								'name' => $from,
+								'group' => $from_group, 
+								'size' => $from_size
+								);
+			$return_me_nodes[$dest_index] = array(
+								'name' => $to,
+								'group' => $to_group, 	
+								'size' => $to_size
+								);
 
-			$return_me_nodes[$source_index] = array('name' => $from,'group' => $from_group, 'size' => $from_size);
-			$return_me_nodes[$dest_index] = array('name' => $to,'group' => $to_group, 'size' => $to_size);
-			$return_me_links[] = array(	'source' => $source_index,
+			if($show_this_one){
+				$return_me_links[] = array(	
+							'source' => $source_index,
 							'target' => $dest_index,
 							'value' => $strength,
 							'dist' => $dist,
 							'class' => $class,
+							'linkStrength' => $linkStrength,
 						); 
-		
+			}
 		}
 		//if we dont do this, then the out of orderness turns the json into an object and not an array...	
 		ksort($return_me_nodes);
@@ -256,7 +278,7 @@ class WikiStructure extends VeryMongo{
 
 		//start with the home page itself...
 		$page_nodes[$wikititle] = $wikititle;
-
+		$used_sections = array();
 		foreach($wikilines as $real_line_number => $this_wikiline_array){
 			//lets ignore the blank lines
                         if(strlen($this_wikiline_array['wiki_text']) > 0){
@@ -277,6 +299,9 @@ class WikiStructure extends VeryMongo{
                                 if($total_edges > 0){
 					if($link_to_sections){
 						$edges[$section][$wikititle] = true;
+						if(!in_array($section,$used_sections)){
+							$used_sections[] = $section; //by using dynamic keys I get the order right...
+						}
 					}						
 					$this_line_name = $this->_get_linename($real_line_number,$wikititle);	
 					$wikiline_nodes[$link_to_me] = $link_to_me;
@@ -295,6 +320,18 @@ class WikiStructure extends VeryMongo{
 			}
 		}	
 		
+		foreach($used_sections as $id => $this_section){
+			if($id > 0){
+				$edges[$this_section][$last_section] = true;
+			}else{
+				$first_section = $this_section;
+			}
+			$last_section = $this_section;
+		}
+		//now lets make a ring...
+		$edges[$first_section][$last_section] = true;
+
+
 		$new_edges = array();
 		foreach($edges as $inner_node => $outer_array){
 			foreach($outer_array as $outer_node => $trash){

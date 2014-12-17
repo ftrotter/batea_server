@@ -63,7 +63,18 @@ class PubMedScrapper{
 		//we dont need a data structure that has lots of results in each json...
 		//we want to end up with a flat structure that has one json file per result
 		//so we flatten this like so...
-		$this_result_array = $this_summary_array['result'][$pmid];
+		if(isset($this_summary_array['result'][$pmid])){
+			$this_result_array = $this_summary_array['result'][$pmid];
+		}else{
+				$what_i_got = var_export($this_result_array,true);
+                                $result_array = array();
+                                $result_array['pubmeddata_id'] = $pmid;
+                                $result_array['abstract'] = 'ERROR: '.$what_i_got;
+                                $result_array['uid'] = $pmid;
+                                $result_array['source'] = 'API Error';
+                                return($result_array);
+
+		}
 
 // The publication date
 // can be any of these...
