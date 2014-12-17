@@ -1,0 +1,50 @@
+
+<div class='container'>
+	<h1> PubMed Article Appearing In Wikipedia</h1>
+<table id='sorted_table' class='tablesorter'>
+<thead>
+<tr> 
+<th> PMID </th>
+<th>PubMed Title </th> 
+<th> Source </th>
+<th>Article Type(s)</th>
+<th> Wiki Titles </th>
+</tr>
+</thead>
+<tbody>
+{#articles}
+<tr>
+
+	<td>{pubmedlinks_id} </td>
+	<td>
+		<a target='_blank' href='/pubmed/{pubmedlinks_id}'>{title}</a>
+		(more on 
+		<a target='_blank' href='http://www.ncbi.nlm.nih.gov/pubmed/{pubmedlinks_id}'> pubmed</a>) 
+	</td>
+	<td> {source} </td>
+	<td> 
+	{#pubtype}
+		{.} 
+	{/pubtype}
+	</td>
+	<td>
+	<ul>
+	{#found_in_wikititles}
+		<li>
+			<a target='_blank' href='/wiki/{title}'>{title}</a> {found_count} time(s)
+			<a target='_blank' href='https://en.wikipedia.org/wiki/{title}'>on wp</a>
+		</li>	
+
+	{/found_in_wikititles}
+	</ul>
+	 </td>
+</tr>
+
+
+{/articles}
+
+
+
+
+</div>
+

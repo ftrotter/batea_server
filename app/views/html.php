@@ -46,7 +46,7 @@
         <!-- load our dust templates -->
         <script src='/dust/pubmed_article_dust.js'></script>
         <script src='/dust/wiki_article_dust.js'></script>
-        <script src='/dust/pubmed_list_dust.js'></script>
+        <script src='/dust/pubmed_index_dust.js'></script>
         <style type="text/css">
                 body {
                         padding-top: 50px;
