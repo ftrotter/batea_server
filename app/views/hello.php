@@ -22,13 +22,19 @@
 		<ul>
 			<li> 
 			<a href='/batea/'>
-			View current data donations </a></li>
+			Browser History Data Mining </a></li>
 			<li> 
 			<a href='/analysis/Diabetes_mellitus'>
 			Structure of Diabetes mellitus </a></li>
 			<li> 
 			<a href='/analysis/Peanut_allergy'>
 			Structure of Peanut allergy </a></li>
+			<li> 
+			<a href='/labellink'>
+			Link Label Data Mining  </a></li>
+			<li> 
+			<a href='/pubmedlink'>
+			PubMed Label Data Mining  </a></li>
 			<li> 
 			<a href='http://spadeserver.ft1.us/wiki_compare.php?title=Amyloidosis&diff=634805072&oldid=630754093'>
 			View Amyloidosis changes data spike</a></li>

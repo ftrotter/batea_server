@@ -2,3 +2,4 @@
 dustc pubmed_article.dust ../../public/dust/pubmed_article_dust.js 
 dustc wiki_article.dust ../../public/dust/wiki_article_dust.js 
 dustc pubmed_index.dust ../../public/dust/pubmed_index_dust.js 
+dustc label_index.dust ../../public/dust/label_index_dust.js 

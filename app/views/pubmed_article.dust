@@ -24,7 +24,7 @@
 		<ul>
 		{#authors}
 			<li>
-				{.}
+				{name}
 			</li>
 		{/authors}
 		</ul>

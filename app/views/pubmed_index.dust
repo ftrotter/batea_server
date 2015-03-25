@@ -31,8 +31,8 @@
 	<ul>
 	{#found_in_wikititles}
 		<li>
-			<a target='_blank' href='/wiki/{title}'>{title}</a> {found_count} time(s)
-			<a target='_blank' href='https://en.wikipedia.org/wiki/{title}'>on wp</a>
+			<a target='_blank' href='/wiki/{title}'>{title}</a> x {found_count} 
+			 more <a target='_blank' href='https://en.wikipedia.org/wiki/{title}'>on wp</a>
 		</li>	
 
 	{/found_in_wikititles}

@@ -17,6 +17,8 @@ Route::get("/pubmed/", "PubMedController@index");
 Route::get("/pubmedlink/json", "PubMedController@view_all_links_json");
 Route::get("/pubmedlink", "PubMedController@view_all_links");
 
+Route::get("/labellink/json", "LabelController@view_all_links_json");
+Route::get("/labellink", "LabelController@view_all_links");
 
 Route::get("/wiki/{wikititle}/", "WikiController@article");
 Route::get("/wiki/{wikititle}/json", "WikiController@get_json");

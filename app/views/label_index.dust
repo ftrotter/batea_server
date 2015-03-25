@@ -1,0 +1,38 @@
+
+<div class='container'>
+	<h1> Clinical Title Labels in Wikipedia</h1>
+<table id='sorted_table' class='tablesorter'>
+<thead>
+<tr> 
+<th> title </th>
+<th> Label Used </th> 
+<th> Places the Label is used </th>
+</tr>
+</thead>
+<tbody>
+{#titles}
+	{#labels}
+<tr>
+	<td>
+			<a target='_blank' href='/wiki/{title}'>{title}</a>
+	</td>
+	<td> {label} </td>
+	<td>
+	<ul> 
+	{#found_in}
+	<li>
+			"<a target='_blank' href='/wiki/{.}'>{.}</a>" 
+			 more <a target='_blank' href='https://en.wikipedia.org/wiki/{.}'>on wp</a>
+	</li>
+	{/found_in}
+	</ul>
+	</td>
+</tr>
+
+	{/labels}
+{/titles}
+</tbody>
+</table>
+
+</div>
+
