@@ -1,0 +1,12 @@
+Steps to setup new instance of Patch
+
+* You will probably need to turn off selinux in order to allow apache to write to disk. 
+   Or you can figure out how to configure selinux to permit that...
+* chown apache:apache tmp -R
+* chown apache:apache app/storage -R
+* cp app/config_template app/config -R
+* create a patch user and give it the ability to SELECT, INSERT, UPDATE and DELETE on all db tables...
+* edit app/config/database.php with mysql information
+* edit app/config/session.php with website
+* make sure app/config/mail.php has correct email information
+* The version 1 data sources will not work until config.yaml is corrected in the main directory
