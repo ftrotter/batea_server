@@ -308,7 +308,7 @@ public function download_wiki_result($title,$id_to_get = null){
 
 
 
-function get_html_from_wikitext($wikitext){
+static function get_html_from_wikitext($wikitext){
 
 
 	if(strlen($wikitext) == 0){
@@ -321,25 +321,20 @@ function get_html_from_wikitext($wikitext){
         );	
 
 	$parsoid_url = "http://parsoid-lb.eqiad.wikimedia.org/enwiki/";
-	$parsoid_html = $this->post_to_url($parsoid_url,$parsoid_data);
+	$parsoid_html = WikiScrapper::post_to_url($parsoid_url,$parsoid_data);
 	return($parsoid_html);
 }
 
 /*
  Generic function to post to a url so that we can call parsoid...
 */
-function post_to_url($url, $data) {
-   $fields = '';
-   foreach($data as $key => $value) {
-      $fields .= $key . '=' . $value . '&';
-   }
-   rtrim($fields, '&');
+static function post_to_url($url, $data) {
 
    $post = curl_init();
 
    curl_setopt($post, CURLOPT_URL, $url);
    curl_setopt($post, CURLOPT_POST, count($data));
-   curl_setopt($post, CURLOPT_POSTFIELDS, $fields);
+   curl_setopt($post, CURLOPT_POSTFIELDS, $data);
    curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
 
    $result = curl_exec($post);
