@@ -1,4 +1,11 @@
 <?php
+	/* 
+		This is for getting the pages of the current wikipedia
+		This ignore history and is only going for the current contents of the pages
+		There are two download options, one really huge file and lots of smaller files broken up
+		This downloads the lots of smaller files broken up.
+
+	*/
 
 	require_once('simple_html_dom.php');
 
@@ -33,8 +40,13 @@
 	$links = array();
 	foreach($html->find("a") as $a){
 		if(strpos($a->href,"-pages-meta-current.") !== false){ //this should only match one file... the recombined xml file...
-			//then this is data that we care about and want to download...
-			$links[] = $https_stub . $a->href;
+			//this is the big file...	
+	
+		}else{
+			if(strpos($a->href,"-pages-meta-current") !== false){ //this should only match one file... the recombined xml file...
+				//this is one of the small files...
+				$links[] = $https_stub . $a->href;
+			}
 		}
 	}
 
