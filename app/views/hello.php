@@ -36,10 +36,10 @@
 			<a href='/pubmedlink'>
 			PubMed Label Data Mining  </a></li>
 			<li> 
-			<a href='http://spadeserver.ft1.us/wiki_compare.php?title=Amyloidosis&diff=634805072&oldid=630754093'>
+			<a href='https://spadeserver.ft1.us/wiki_compare.php?title=Amyloidosis&diff=634805072&oldid=630754093'>
 			View Amyloidosis changes data spike</a></li>
 			<li> 
-			<a href='http://spadeserver.ft1.us/wiki_check.php?title=Amyloidosis&oldid=630754093'>
+			<a href='https://spadeserver.ft1.us/wiki_check.php?title=Amyloidosis&oldid=630754093'>
 			View Amyloidosis mashup spike  </a></li>
 
 		</ul>
