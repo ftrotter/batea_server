@@ -34,6 +34,12 @@ Route::get("/batea/tree/{user_token}", "BateaController@show_tree");
 Route::get("/batea", "BateaController@index");
 
 
+Route::get("/wikitext/", "WikitextController@index");
+Route::get("/wikitext/{wikititle?}/", "WikitextController@wikitext")->where('wikititle', '(.*)');
+
+Route::get("/project/{project}/{importance}/{quality}/","ProjectController@project_json");
+Route::get("/project/{project}/{importance}/","ProjectController@project_json");
+Route::get("/project/{project}/","ProjectController@project_json");
 
 Route::get('/', function()
 {
