@@ -2,38 +2,10 @@
 
 return array(
 
-	'referral_db' => 'npi_team_2013_2014_365',
-	'npi_med_db' => 'npi_med_2011',
-	'npi_proc_db' => 'npi_procs_2012',
-	'npi_meaningful_db' => 'npi_meaningful',
-	'npi_history_db' => 'npi_history',
-	'oldnpi_db' => 'npi',
-	'neonpi_db' => 'neonpi',
-	'core_db' => 'core',
-	'patch_db' => 'patch',
-	'oldnpi_static_db' => 'npi_static',
-	'log_db' => 'logs',
-	'npi_pecos_db' => 'npi_pecos',
-	'npi_medicareprescriber_db' => 'npi_medicareprescriber',
 
 
-        'outside_ok_urls' =>  array(
-                '/',
-                'login',
-                'register',
-                'activate',
-                'unprotected',
-                'forgotpassword',
-                'forgotconfirmation',
-                'api',
-                'myregister',
-        ),
-
-
-	'cipher' => MCRYPT_RIJNDAEL_256,
-
-        'site_name' => 'CareSet Patch',
-        'copyright' => '© CareSet 2014',
+        'site_name' => 'DocGraph Batea',
+        'copyright' => '© DocGraph Batea 2015',
 
 
 	/*
@@ -99,7 +71,9 @@ return array(
 	|
 	*/
 
-	'key' => 'CHANGEmeUPforSECURITYpurposes',
+	'cipher' => MCRYPT_RIJNDAEL_256,
+	//	 '12345678901234567890123456789012' //this is how long 32 characters are
+	'key' => 'YOU_MUST_CHANGE_ME',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -140,11 +114,6 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Dark\SmartyView\SmartyViewServiceProvider',
-		'Cartalyst\Sentry\SentryServiceProvider',
-		'Davispeixoto\LaravelSalesforce\LaravelSalesforceServiceProvider',
-//              'Datatrain\User\UserServiceProvider',
-//		'Cartalyst\SentrySocial\SentrySocialServiceProvider',
 			
 	),
 
