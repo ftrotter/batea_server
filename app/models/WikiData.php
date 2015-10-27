@@ -414,7 +414,7 @@ static function get_wiki_api_url($title,$revision_id = null){
                         $url_parameters = "&revids=$revision_id";
                 }
 
-                $api_url = "http://en.wikipedia.org/w/api.php?format=json&action=query$url_parameters";
+                $api_url = "https://en.wikipedia.org/w/api.php?format=json&action=query$url_parameters";
                 $api_url .= "&prop=revisions&rvprop=content";
 
                 return($api_url);

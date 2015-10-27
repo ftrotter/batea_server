@@ -322,7 +322,7 @@ static function get_html_from_wikitext($wikitext){
                 'body' => 1,
         );	
 
-	$parsoid_url = "http://parsoid-lb.eqiad.wikimedia.org/enwiki/";
+	$parsoid_url = "https://parsoid-lb.eqiad.wikimedia.org/enwiki/";
 	$parsoid_html = WikiScrapper::post_to_url($parsoid_url,$parsoid_data);
 	return($parsoid_html);
 }
