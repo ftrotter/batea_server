@@ -229,6 +229,8 @@ public function download_wiki_result($title,$id_to_get = null){
                 $result = curl_exec($ch);
                 if (!$result) {
 			echo "wikipedia_raw_download failed with $api_url\n"; 
+			var_export(curl_getinfo($ch));
+			echo "\n\n";
                	        exit('cURL Error: '.curl_error($ch));
                 }
 
