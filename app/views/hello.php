@@ -37,10 +37,10 @@
 			PubMed Label Data Mining  </a></li>
 			<li> 
 			<a href='https://spadeserver.ft1.us/wiki_compare.php?title=Amyloidosis&diff=634805072&oldid=630754093'>
-			View Amyloidosis changes data spike</a></li>
+			Compare two different versions of Amyloidosis</a></li>
 			<li> 
-			<a href='https://spadeserver.ft1.us/wiki_check.php?title=Amyloidosis&oldid=630754093'>
-			View Amyloidosis mashup spike  </a></li>
+			<a href='https://spadeserver.ft1.us/wiki_check.php?title=Amyloidosis'>
+			View Amyloidosis MET Beta  </a></li>
 
 		</ul>
         </div>
