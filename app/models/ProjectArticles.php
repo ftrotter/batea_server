@@ -109,7 +109,10 @@ class ProjectArticles extends VeryMongo{
 
         	$cursor = $collection->find($search);
 
-        	return(iterator_to_array($cursor));
+		$this_result = iterator_to_array($cursor);
+		sort($this_result);
+
+        	return($this_result);
 	}
 
 
