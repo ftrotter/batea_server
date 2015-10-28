@@ -502,7 +502,12 @@ http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
                                 if(strpos(strtolower($citation_block),'pmid') !== false){
                                         //then this is the pmid = XXXX block...
                                         $citation_block = str_replace(' ','',$citation_block);//remove all whitespace
-                                        list($trash,$pmid) = explode('=',$citation_block);
+					if(strpos($citation_block,'=') !== false){
+                                        	list($trash,$pmid) = explode('=',$citation_block);
+					}else{
+						echo "Citation block is does not have an equal with $citation_block\n";
+						$pmid = false;
+					}	
                                         //echo "The PMID is '$pmid'. Whos is a badass?<br>";
 
                                         if(is_numeric($pmid)){
