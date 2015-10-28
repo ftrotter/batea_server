@@ -11,6 +11,19 @@
 |
 */
 
+Route::get("/API/isURLClinical/{that_url}","APIController@isURLClinical");
+Route::get("/API/clinicalURLStubs/","APIController@clinicalURLStubs");
+Route::get("/API/Donator/{browser_token}","APIController@Donator");
+
+
+Route::post("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
+Route::post("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
+Route::post("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::post("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
+Route::post("/API/DonatorToken/new","APIController@DonatorToken");
+
+
+
 Route::get("/pubmed/{pmid}/json", "PubMedController@get_json");
 Route::get("/pubmed/{pmid}", "PubMedController@article");
 Route::get("/pubmed/", "PubMedController@index");
@@ -28,6 +41,8 @@ Route::get("/wiki/{wikititle}/{revision_id}", "WikiController@article");
 Route::get("/analysis/{wikititle}/graph_json", "AnalysisController@recurse_graph_json");
 Route::get("/analysis/{wikititle}", "AnalysisController@browse");
 
+
+// retired..
 Route::get("/batea/token/{user_token}/json", "BateaController@get_user_json");
 Route::get("/batea/token/{user_token}", "BateaController@show_user");
 Route::get("/batea/tree/{user_token}", "BateaController@show_tree");
