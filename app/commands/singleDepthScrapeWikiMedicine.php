@@ -85,14 +85,15 @@ class singleDepthScrapeWikiMedicine extends ScheduledCommand {
 
 			$this_articles = [];
 			foreach($results as $this_result){
-				$this_articles[] = urlencode($this_result['name']);
+				$this_articles[] = rawurlencode($this_result['name']);
 			}
 			
 			$articles = array_merge($articles,$this_articles);
 		}
 
-//		var_export($articles);
+		shuffle($articles);
 
+		echo "Articles loaded. Starting cache load\n";
 		$this->shallow_recurse_title_list($articles);
 
 	}
