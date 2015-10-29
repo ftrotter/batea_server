@@ -15,7 +15,7 @@ class APIController extends BaseController {
 //STUB
 	public function isURLClinical($that_url){
 
-		$the_url = urldecode($that_url);
+		$the_url = base64_decode($that_url);
 		$url_parts = parse_url($the_url);
 
 		$path = $url_parts['path'];
@@ -24,14 +24,14 @@ class APIController extends BaseController {
 		$is_clinical = true;
 
 		if($is_clinical){
-			$return_me [
+			$return_me = [
 				'is_success' => true,
 				'is_clinical' => $is_clinical,
-				'url_echo' => $url,
+				'url_echo' => $the_url,
 				'title_echo' => $title,
 			];
 		}else{
-			$return_me [
+			$return_me = [
 				'is_success' => true,
 				'is_clinical' => $is_clinical,
 				];	
@@ -49,7 +49,7 @@ class APIController extends BaseController {
 //STUB
 	public function clinicalURLStubs(){
 
-		$return_me = stdClass::__set_state(array(
+		$return_me = array(
    'is_success' => true,
    'clincalURLDomains' => 
   array (
@@ -72,8 +72,7 @@ class APIController extends BaseController {
     5 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?clevelandclinic\\.org$/',
     6 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?nejm\\.org$/',
     7 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?icsi\\.org$/',
-  ),
-));
+  ));
 
 		return Response::json($return_me);
 	
@@ -89,13 +88,17 @@ class APIController extends BaseController {
 
 		$CT = new ConsentToken();
 		$CT->sync($browser_token);
-		$is_consented = $CT->data_array['is_consented'];
-
+		if(isset($CT->data_array['is_consented'])){
+			$is_consented = $CT->data_array['is_consented'];
+		}else{
+			$is_consented = false;
+		}
 		$return_me = [
 			'is_success' => true,
 			'is_consented' => $is_consented,
 		];		
 
+		return Response::json($return_me);
 	}
 
 
@@ -129,7 +132,7 @@ class APIController extends BaseController {
 		$CT = new ConsentToken();
 		$CT->data_array['consenttoken_id'] = $browser_token;
 		$CT->data_array['is_consented'] = $got_is_consent;
-		$CT->save();
+		$CT->sync();
 
 		return($return_me);
 
@@ -179,7 +182,7 @@ class APIController extends BaseController {
 	
 		$SecureLogs = new SecureLogs();
 		$SecureLogs->data_array = $securelogs_data;
-		$SecureLogs->save();
+		$SecureLogs->sync();
 					
 
 	}
@@ -190,14 +193,14 @@ class APIController extends BaseController {
  *	to the right Mongo table
  * 	after encrypting it...
  */
-	public _justSaveAndEncrypt($token,$mongoObject){
+	public function _justSaveAndEncrypt($token,$mongoObject){
 
 		$save_me  = Input::all(); //all the json..
 		$save_me['donator_token'] = $token;
-		$encrypted_save_me = $this->encryptThis($save_me);
+		$encrypted_save_me = $this->_encryptThis($save_me);
 		$MO = new $mongoObject();
 		$MO->data_array = $encrypted_save_me;
-		$MO->save();
+		$MO->sync();
 
 		$this->_logDonation($token,"Just saved $mongoObject");	
 
@@ -224,7 +227,7 @@ class APIController extends BaseController {
 			//implement ASAP...
 
 		}else{
-			$return_me[
+			$return_me = [
 				'encrypted_passkey' => 'not_implemented_using_base64_for_now',
 				'encrypted_thing' =>	base64_encode($thing), //so that we can see what is happening for the time being...
 				];		
