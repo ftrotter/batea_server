@@ -11,16 +11,17 @@
 |
 */
 
+
+
+Route::any("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
+Route::any("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
+Route::any("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::any("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
+Route::any("/API/DonatorToken/new","APIController@DonatorToken");
+
 Route::get("/API/isURLClinical/{that_url}","APIController@isURLClinical");
 Route::get("/API/clinicalURLStubs/","APIController@clinicalURLStubs");
 Route::get("/API/Donator/{browser_token}","APIController@Donator");
-
-
-Route::post("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
-Route::post("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
-Route::post("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
-Route::post("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
-Route::post("/API/DonatorToken/new","APIController@DonatorToken");
 
 
 
@@ -58,8 +59,6 @@ Route::get("/project/{project}/","ProjectController@project_json");
 
 Route::get('/', function()
 {
-	return View::make('html')->nest('content','hello',array(
-
-                                                          	)
+	return View::make('html')->nest('content','hello',array(                                                          	)
                                     	);
 });
