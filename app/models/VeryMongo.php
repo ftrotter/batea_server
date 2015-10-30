@@ -225,6 +225,14 @@ function sync($id = 0, $versioning = false){
 
 	$which_to_upsert = [$local_id => $id];
 
+	if(isset($merged_array['_id']) && $id = 0){
+		echo "VeryMongo Error: 
+			You are trying to save an existing mongo document as a new document. 
+			You either need to not have the Mongo '_id' variable,
+			or you need to be passing in an existing $local_id";
+		exit(); 
+	}
+
         //mongo magic that saves our data...
         $collection->update($which_to_upsert,$merged_array,array('upsert' => true, 'fsync' => true));
         //save it for the other functions...

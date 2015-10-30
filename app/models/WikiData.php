@@ -5,6 +5,75 @@ class WikiData extends VeryMongo{
 
 	public $run_silent = false;
 
+
+/**  
+ * Given a particular title of a wikipage, download the JSON representation...  
+ * if you pass in a page cache, then it will be used.. if you dont then it will force a new download  
+ * the function runs silently by default  
+ */  
+public static function makeFromAPI($title,$id_to_get = null,&$cache_to_use = null,$run_slow = true,$run_silent = true){  
+  
+                if(strpos($title,'File:') !== false || strpos($title,'Image:') !== false){  
+                        return("{result: 'NO FILE DOWNLOADS'}");//no idea what this will do, but I am not downloading files anymore...  
+                }  
+  
+  
+                //lets not download a wikipage twice in a run at least...  
+                if(is_null($id_to_get)){  
+                        $cache_id = 0;  
+                }else{  
+                        $cache_id = $id_to_get;  
+                }  
+  
+  
+                if(isset($cache_to_use[$title][$cache_id])){  
+                        //echo "returning cache for $title\n";  
+                        if(!$run_silent){ echo 'w'; }  
+                        return($cache_to_use[$title][$cache_id]);  
+                }  
+  
+                if(!$run_silent){ echo "\t\tdownloading $title\n"; }
+                if($run_slow){
+                        sleep(1); //lets slow this down.
+                }
+  
+                $api_url = WikiData::get_wiki_api_url($title,$id_to_get);
+                $result_array = WikiData::rawDownload($api_url);
+  
+                if(strlen($result_array['result']) < 20){
+                        //then there must be a rate limiting problem
+                        if(!$run_silent){ echo "I got $result \n\n Now Slowing down and retrying call\n"; }
+                        sleep(5);
+                        return WikiData::makeFromAPI($title,$id_to_get,$cache_to_use,$run_slow,$run_silent);
+                }
+  
+                if($result_array['is_success']){
+                        $WikiData = new WikiData();
+                        $WikiData->fromJSON($result_array['result']);
+                        $wikidata_id = WikiData::get_wikidata_id($title,$cache_id);
+ 
+			$wikitext = WikiData::get_wikitext_from_json($result_array['result']);
+			$revision_id = WikiData::get_revision_from_json($result_array['result']);
+			$WikiData->data_array['title'] = $title;
+			$WikiData->data_array['revision_id'] = $revision_id;
+			$WikiData->data_array['wikitext'] = $wikitext;
+                        $WikiData->sync($wikidata_id);
+ 
+                        //which is why this is pass by refernce..
+                        if(!is_null($cache_to_use)){
+                                $cache_to_use[$title][$cache_id] = $result;
+                        }
+		
+			return($WikiData);
+ 
+               }else{
+			return(false);
+		}
+  
+  
+} 
+
+
 	function getWikiText($wikititle = null, $revision_id = 0){
 
 		$page_array = $this->getPageArray($wikititle,$revision_id);
@@ -192,7 +261,31 @@ static function wfUrlencode( $s ) {
 
         }
 
+	static function get_revision_from_json($json){
+                $wiki_data = json_decode($json,true);
 
+        //echo "<pre>";
+        //var_export($wiki_data);       
+        //echo "</pre>";
+
+                if(isset($wiki_data['query']['pages'])){
+
+                        $page_array = $wiki_data['query']['pages'];
+                        //we don't know the page id, so lets pop instead..
+                        $page = array_pop($page_array);
+
+                        if(isset($page['revisions'][0]['revid'])){
+                                $revision_id = $page['revisions'][0]['revid']; //does this work?
+                                return $revision_id;
+                        }else{
+                                return(false);
+                        }
+                }else{
+                        return(false);
+                }
+
+
+	}
 
 
 
@@ -413,9 +506,9 @@ static function get_wiki_api_url($title,$revision_id = null){
                 }else{
                         $url_parameters = "&revids=$revision_id";
                 }
-
-                $api_url = "https://en.wikipedia.org/w/api.php?format=json&action=query$url_parameters";
-                $api_url .= "&prop=revisions&rvprop=content";
+	
+		//this will return revision ids too!!
+		$api_url = "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content|ids&format=json$url_parameters";
 
                 return($api_url);
 }
@@ -534,8 +627,78 @@ http://www.ncbi.nlm.nih.gov/pmc/tools/id-converter-api/
 
         }
 
+/**  
+ *      The raw download function. Given an api_url, try to download it  
+ *      return an array with is_success and result  
+ */  
+        public static function rawDownload($api_url){  
+                $ch = curl_init();  
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);  
+                curl_setopt($ch, CURLOPT_USERAGENT,  
+                        'ClincalSpade/1.0 (http://www.fredtrotter.com/; fred.trotter@gmail.com)');  
+  
+                curl_setopt($ch, CURLOPT_URL, $api_url);  
+                $result = curl_exec($ch);  
+                $return_me = [];  
+                if (!$result) {
+                        $return_me['is_success'] = false;
+                        $error = "wikipedia_raw_download failed with $api_url\n";
+                        $error .= var_export(curl_getinfo($ch),true);
+                        $error .= 'cURL Error: '.curl_error($ch);
+                        $return_me['error']  = $error;
+                }else{
+                        $return_me['is_success'] = true;
+                        $return_me['result'] = $result;
+                }
+  
+  
+                return($return_me);
+        }
 
 
+
+
+
+
+/**
+ *	This is how we get HTML from a given wikitext.
+ */
+public static function getHtmlFromWikitext($wikitext){
+
+
+        if(strlen($wikitext) == 0){
+                return(''); //the translation of nothing is nothing...  
+        }
+
+        $parsoid_data = array(
+                'wt' => $wikitext,
+                'body' => 1,
+        );
+
+        $parsoid_url = "https://parsoid-lb.eqiad.wikimedia.org/enwiki/";
+        $parsoid_html = WikiData::postToUrl($parsoid_url,$parsoid_data);
+        return($parsoid_html);   
+}
+
+/*  
+ Generic function to post to a url so that we can call parsoid...  
+*/
+public static function postToUrl($url, $data) {
+
+   $post = curl_init();
+  
+   curl_setopt($post, CURLOPT_URL, $url);
+   curl_setopt($post, CURLOPT_POST, count($data));
+   curl_setopt($post, CURLOPT_POSTFIELDS, $data);
+   curl_setopt($post, CURLOPT_RETURNTRANSFER, 1);
+
+   $result = curl_exec($post);
+
+   curl_close($post);
+
+   return($result);
+
+}
 
 
 

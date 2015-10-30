@@ -6,21 +6,21 @@ use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class runOnce extends ScheduledCommand {
+class testIsClinical extends ScheduledCommand {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'runOnce:go';
+	protected $name = 'testIsClinical:go';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'This is a container for running process that only need to happen one time.';
+	protected $description = 'Make sure isClinical works';
 
 	/**
 	 * Create a new command instance.
@@ -51,23 +51,42 @@ class runOnce extends ScheduledCommand {
 	public function fire()
 	{
 
-		$search = [ 'title' =>  [ '$exists' => false ] ];
-		$WT = new WikiTags();
-		$collection = $WT->mongo->wikitags;
-		$cursor = $collection->find($search);
+		$articles = [
+			'Diagnosis_of_HIV/AIDS' => 1,
+			'Prenatal_diagnosis' => 1,
+			'Diaphragm_(contraceptive)' => 1,
+			'Diaphragmatic_rupture' => 1,
+			'Dietary_fiber' => 1,
+			'Cecum' => 1,
+			'Cerebellar_vermis' => 1,
+			'Claustrum' => 1,
+			'STDs_in_the_porn_industry' => 1,
+			'Brooke_Ashley' => 0,
+			'Ario_Pardee,_Jr.' => 0,
+			'Arno_Voss' => 0,
+			'Aztec_Club_of_1847' => 0,
+			'Colt_Army_Model_1860' => 0,
+			];
 
 
-		foreach($cursor as $thisTag){
-			$tag_id = $thisTag['wikitags_id'];
-			list($title, $revision_id) = explode('|',$tag_id);
-			echo "Moving from $tag_id to $title\n";
-			$thisWT = new WikiTags();
-			$thisWT->sync($tag_id);/// loads this record into our ORM
-			$thisWT->data_array['title'] = $title;
-			$thisWT->sync($tag_id);
-				
+		foreach($articles as $article => $expected_result){
+
+			$result = WikiTags::isTitleClinical($article);
+
+
+			if($result['is_titleclinical']){
+				$result_print = 1;
+			}else{
+				$result_print = 0;
+			}	
+
+			if($result_print == $expected_result){
+				echo "Y $article expected $expected_result got $result_print\n";
+			}else{
+				echo "N $article expected $expected_result got $result_print\n";
+			}
+
 		}
-
 
 	}
 

@@ -42,13 +42,13 @@ class WikiScrapper{
 	if not it returns false..
 	unless the return_the_title is set true then it just returns the wikititle that was passed in..
 */
-	public function get_redirect($title,$return_the_title = false){
+	public static function get_redirect($title,$return_the_title = false,$redirect_cache = null,$run_silent = true){
 
 		$title = WikiData::wikiurlencode($title);
 
-		if(isset($this->redirect_cache[$title])){
-			if($this->redirect_cache[$title]){
-				return($this->redirect_cache[$title]);
+		if(isset($redirect_cache[$title])){
+			if($redirect_cache[$title]){
+				return($redirect_cache[$title]);
 			}else{
 				if($return_the_title){
 					return($title);
@@ -59,26 +59,30 @@ class WikiScrapper{
 		}
 
 
-                $wiki_api_json = $this->download_wiki_result($title);
+                $wiki_api_result = WikiScrapper::download_wiki_result($title);
+                $wiki_api_json = $wiki_api_result['result'];
 		$redirect_to = false;
 		$last_redirect = $title;
                 while(WikiData::is_redirect_from_json($wiki_api_json)){ //sometimes wiki pages are just stubs that redirect
-			//I cannot seem to get to the bottom of this pile...
-                        $redirect_to = WikiData::parse_redirect_from_json($wiki_api_json); //this returns the title that the orginal title redirects to..
+			//I cannot seem to get to the bottom of the pile...
+                        $redirect_to = WikiData::parse_redirect_from_json($wiki_api_json); //returns the title that the orginal title redirects to..
 			if(strcmp($redirect_to,$last_redirect) == 0){
 				//then we are in an infinite loop because is_redirect_from_json is stupid
 				var_export($wiki_api_json);
-				if(!$this->run_silent){  echo "REDIRECT LOOP!!!\n"; }
+				if(!$run_silent){  echo "REDIRECT LOOP!!!\n"; }
 				continue;
 			}
 		//		var_export($wiki_api_json);
 			$redirect_to = WikiData::wikiurlencode($redirect_to);
 			//echo "started with '$title' last run was '$last_redirect' now mining '$redirect_to'\n";
-			$wiki_api_json = $this->download_wiki_result($redirect_to);
+                	$wiki_api_result = WikiScrapper::download_wiki_result($redirect_to);
+                	$wiki_api_json = $wiki_api_result['result'];
 			$last_redirect = $redirect_to;
 		}
 
-		$this->redirect_cache[$title] = $redirect_to;	
+		if(!is_null($redirect_cache)){
+			$redirect_cache[$title] = $redirect_to;	
+		}
 
 		if($redirect_to){
 			return($redirect_to);
@@ -97,14 +101,14 @@ class WikiScrapper{
 
 
 
-	private $talk_tags_map = array(
+	public static $talk_tags_map = array(
 		'is_WPMED' => '{{WPMED',
 		'is_vital' => '{{Vital',
 		'is_Anatomy' => '{{WikiProject Anatomy',
 		'is_Medicine' => '{{WikiProject Medicine',
 		);
 
-	private $medical_page_filters = array(
+	public static $medical_page_filters = array(
 		'{{WPMED',
 		'{{WikiProject Anatomy',
 		'{{WikiProject Medicine',
@@ -117,22 +121,27 @@ class WikiScrapper{
 /*
 	gets talk pages and then ensures that if they are medical projects
 	that we have them in our data cache as such...
+	WARNING I am retiring this.. it is trying to do too much
 */
-	public function get_clean_talkpage($title,$id_to_get = null){
-		$results =  $this->get_clean_wikitext("Talk:$title",$id_to_get);
-		
-		$this->wpmed_cache[$title] = false;
-		foreach($this->medical_page_filters as $this_filter){
-			if(strpos($results,$this_filter) !== false){
-					//then this is a wikiproject medicine project!!!
-				//echo "CLINICAL Found WPMED \n";
-				if(!$this->run_silent){ echo 'c'; }
-				$this->wpmed_cache[$title] = true;	
+	public static function get_clean_talkpage($title,$id_to_get = null,$wpmed_cache = null,$run_silent = true){
+		$results =  WikiScrapper::get_clean_wikitext("Talk:$title",$id_to_get);
+		return($results);
+	
+/*	
+		if(!is_null($wpmed_cache)){
+			$wpmed_cache[$title] = false;
+			foreach(WikiScrapper::medical_page_filters as $this_filter){
+				if(strpos($results,$this_filter) !== false){
+						//then this is a wikiproject medicine project!!!
+					//echo "CLINICAL Found WPMED \n";
+					if(!$run_silent){ echo 'c'; }
+					$wpmed_cache[$title] = true;	
+				}
 			}
 		}
 	
 		$wikitag_id = WikiData::get_wikidata_id($title,$id_to_get);
-		foreach($this->talk_tags_map as $tag => $search_string){
+		foreach(WikiScrapper::talk_tags_map as $tag => $search_string){
 			if(strpos($results,$search_string) !== false){
 				$wiki_tag_array[$tag] = true;		
 			}else{
@@ -145,21 +154,31 @@ class WikiScrapper{
 		$WikiTags->data_array = $wiki_tag_array;
 		$WikiTags->data_array['title'] = $title;
 		$WikiTags->sync($wikitag_id);
-
+*/
 	
-		return($results);
 	}
 
 
-	public function get_clean_wikitext($title,$id_to_get = null){
+	public static function get_clean_wikitext($title,$id_to_get = null){
 
-		$wiki_api_json = $this->download_wiki_result($title,$id_to_get);
+               	$wiki_api_result = WikiScrapper::download_wiki_result($title,$id_to_get); //this returns the wiki_json for the right title.
+		if($wiki_api_result['is_success']){
+                       	$wiki_api_json = $wiki_api_result['result'];
+		}else{
+				return(false);
+		} 
+                
 
 		if(WikiData::is_redirect_from_json($wiki_api_json)){ //sometimes wiki pages are just stubs that redirect
                                         //the web user just sees the right page...
                                         //but the API actually returns the redirect...
                         $redirect_to = WikiData::parse_redirect_from_json($wiki_api_json); //this returns the title that the orginal title redirects to..
-                        $wiki_api_json = $this->download_wiki_result($redirect_to); //this returns the wiki_json for the right title.
+                        $wiki_api_result = WikiScrapper::download_wiki_result($redirect_to); //this returns the wiki_json for the right title.
+			if($wiki_api_result['is_success']){
+                        	$wiki_api_json = $wiki_api_result['result'];
+			}else{
+				return(false);
+			} 
                 }
 
 		$uncompressed_wiki_text = WikiData::get_wikitext_from_json($wiki_api_json);
@@ -173,8 +192,10 @@ class WikiScrapper{
 	}
 /*
  * Given a particular title of a wikipage, download the JSON representation...
+ * if you pass in a page cache, then it will be used.. if you dont then it will force a new download
+ * the function runs silently by default
  */
-public function download_wiki_result($title,$id_to_get = null){
+public static function download_wiki_result($title,$id_to_get = null,&$cache_to_use = null,$run_slow = true,$run_silent = true){
 
 		if(strpos($title,'File:') !== false || strpos($title,'Image:') !== false){
 			return("{result: 'NO FILE DOWNLOADS'}");//no idea what this will do, but I am not downloading files anymore...
@@ -189,38 +210,45 @@ public function download_wiki_result($title,$id_to_get = null){
 		}
 
 
-		if(isset($this->wiki_json_cache[$title][$cache_id])){
+		if(isset($cache_to_use[$title][$cache_id])){
 			//echo "returning cache for $title\n";
-			if(!$this->run_silent){ echo 'w'; }
-			return($this->wiki_json_cache[$title][$cache_id]);
+			if(!$run_silent){ echo 'w'; }
+			return($cache_to_use[$title][$cache_id]);
 		}
 
-		if(!$this->run_silent){ echo "\t\tdownloading $title\n"; }
-		sleep(1); //lets slow this down.
+		if(!$run_silent){ echo "\t\tdownloading $title\n"; }
+		if($run_slow){
+			sleep(1); //lets slow this down.
+		}
 
                 $api_url = WikiData::get_wiki_api_url($title,$id_to_get);
-		$result = $this->wikipedia_raw_download($api_url); 
+		$result_array = WikiScrapper::wikipedia_raw_download($api_url); 
 
-		if(strlen($result) < 20){
+		if(strlen($result_array['result']) < 20){
 			//then there must be a rate limiting problem
-			if(!$this->run_silent){ echo "I got $result \n\n Now Slowing down and retrying call\n"; }
+			if(!$run_silent){ echo "I got $result \n\n Now Slowing down and retrying call\n"; }
 			sleep(5);
-			return $this->download_wiki_result($title,$id_to_get);
+			return WikiScrapper::download_wiki_result($title,$id_to_get,$cache_to_use,$run_slow,$run_silent);
 		}
 
 
-		$WikiData = new WikiData();
-		$WikiData->fromJSON($result);
-		$wikidata_id = WikiData::get_wikidata_id($title,$cache_id);
-		$WikiData->sync($wikidata_id);
+		if($result_array['is_success']){
+			$WikiData = new WikiData();
+			$WikiData->fromJSON($result_);
+			$wikidata_id = WikiData::get_wikidata_id($title,$cache_id);
+			$WikiData->sync($wikidata_id);
+	
+			//which is why this is pass by refernce..
+			if(!is_null($cache_to_use)){
+				$cache_to_use[$title][$cache_id] = $result;		
+			}
+		}		
 
-		$this->wiki_json_cache[$title][$cache_id] = $result;		
-
-                return($result);
+                return($result_array);
 
 }
 
-	function wikipedia_raw_download($api_url){
+	public static function wikipedia_raw_download($api_url){
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
                 curl_setopt($ch, CURLOPT_USERAGENT,
@@ -228,34 +256,42 @@ public function download_wiki_result($title,$id_to_get = null){
 
                 curl_setopt($ch, CURLOPT_URL, $api_url);
                 $result = curl_exec($ch);
+		$return_me = [];
                 if (!$result) {
-			echo "wikipedia_raw_download failed with $api_url\n"; 
-			var_export(curl_getinfo($ch));
-			echo "\n\n";
-               	        exit('cURL Error: '.curl_error($ch));
-                }
+			$return_me['is_success'] = false;
+			$error = "wikipedia_raw_download failed with $api_url\n"; 
+			$error .= var_export(curl_getinfo($ch),true);
+			$error .= 'cURL Error: '.curl_error($ch);
+			$return_me['error']  = $error;
+                }else{
+			$return_me['is_success'] = true;
+			$return_me['result'] = $result;
+		}
 
-		return($result);
+	
+		return($return_me);
 	}
 
 
 	
 
 
-	function get_medical_links_from_wikiline($wikiline,$depth = ''){
+	public static function get_medical_links_from_wikiline($wikiline,$depth = '',$wpmed_cache = null, $run_silent = true){
 
-		if(!$this->run_silent){ echo "\n>"; }
-		$all_links = $this->get_links_from_wikiline($wikiline);
+		if(!$run_silent){ echo "\n>"; }
+		$all_links = WikiScrapper::get_links_from_wikiline($wikiline);
 		$return_me = array();
 		foreach($all_links as $label => $wikititle){
 
-			$this->get_clean_talkpage($wikititle);
+			WikiScrapper::get_clean_talkpage($wikititle);
 			//which sets the wpmed cache...
-			if($this->wpmed_cache[$wikititle]){
-				$return_me[$wikititle] = $wikititle;
+			if(!is_null($wpmed_cache)){
+				if($wpmed_cache[$wikititle]){
+					$return_me[$wikititle] = $wikititle;
+				}
 			}
 		}
-		if(!$this->run_silent){ echo "<\n";}
+		if(!$run_silent){ echo "<\n";}
 		return($return_me);
 
 	}
@@ -267,7 +303,7 @@ public function download_wiki_result($title,$id_to_get = null){
 	this is tricky because there are links inside templates...
 	so we eliminate these first...
 */
-        function get_links_from_wikiline($wikiline){
+        public static function get_links_from_wikiline($wikiline){
 
                                 $regex = "/\{\{(.*?)\}\}/"; //should catch everything inside double curly braces..
 
@@ -284,23 +320,23 @@ public function download_wiki_result($title,$id_to_get = null){
                                 preg_match_all($regex,$wikiline,$matches);
                                 if(count($matches[0]) != 0){
 					$return_array = array();
-					foreach($matches[1] as $this_line_text){
-						if(strpos($this_line_text,'|')){ //then this has a label!!!
+					foreach($matches[1] as $a_line_text){
+						if(strpos($a_line_text,'|')){ //then it has a label!!!
 							//the label is different than the page title..
-							list($this_line_text,$label) = explode('|',$this_line_text);
+							list($a_line_text,$label) = explode('|',$a_line_text);
 							if(strlen(trim($label)) ==0){
 								//it had the | but nothing to thre right... it happens...
-								$label = $this_line_text;
+								$label = $a_line_text;
 	
 							}
 						}else{
 							//the label is the same as the page title...
-							$label = $this_line_text;
+							$label = $a_line_text;
 						}
 						$return_the_title_rather_than_false = true;	
-						$this_redirect =  $this->get_redirect($this_line_text,$return_the_title_rather_than_false);
-						if($this_redirect){
-							$results_array[$label] = $this_redirect;
+						$a_redirect =  WikiScrapper::get_redirect($a_line_text,$return_the_title_rather_than_false);
+						if($a_redirect){
+							$results_array[$label] = $a_redirect;
 						}
 					}
 					return($results_array);
@@ -311,7 +347,7 @@ public function download_wiki_result($title,$id_to_get = null){
 
 
 
-static function get_html_from_wikitext($wikitext){
+public static function get_html_from_wikitext($wikitext){
 
 
 	if(strlen($wikitext) == 0){
@@ -331,7 +367,7 @@ static function get_html_from_wikitext($wikitext){
 /*
  Generic function to post to a url so that we can call parsoid...
 */
-static function post_to_url($url, $data) {
+public static function post_to_url($url, $data) {
 
    $post = curl_init();
 

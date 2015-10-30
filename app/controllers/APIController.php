@@ -21,7 +21,9 @@ class APIController extends BaseController {
 		$path = $url_parts['path'];
 		$title = str_replace('/wiki/','',$path);	
 	
-		$is_clinical = true;
+		$result = WikiTags::isTitleClinical($title);
+
+		$is_clinical = $result['is_titleclinical'];
 
 		if($is_clinical){
 			$return_me = [
