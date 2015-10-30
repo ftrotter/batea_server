@@ -143,6 +143,7 @@ class WikiScrapper{
 
 		$WikiTags = new WikiTags();
 		$WikiTags->data_array = $wiki_tag_array;
+		$WikiTags->data_array['title'] = $title;
 		$WikiTags->sync($wikitag_id);
 
 	
