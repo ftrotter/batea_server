@@ -51,6 +51,21 @@ class runOnce extends ScheduledCommand {
 	public function fire()
 	{
 
+		$WT = new WikiTags();
+		$allTags = $WT->get_all_cursor();
+
+		foreach($allTags as $thisTag){
+			$tag_id = $thisTag['wikitags_id'];
+			list($title, $revision_id) = explode('|',$tag_id);
+			echo "Moving from $tag_id to $title\n";
+			$thisWT = new WikiTags();
+			$thisWT->sync($tag_id);/// loads this record into our ORM
+			$thisWT->data_array['title'] = $title;
+			$thisWT->sync($tag_id);
+				
+		}
+
+
 	}
 
 	/**
