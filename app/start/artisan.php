@@ -17,3 +17,4 @@ Artisan::add(new createWikiStructure);
 Artisan::add(new createGraphStructure);
 Artisan::add(new createPubMedData);
 Artisan::add(new createLabelData);
+Artisan::add(new runOnce);
