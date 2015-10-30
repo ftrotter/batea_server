@@ -93,24 +93,33 @@ function _mongoFail($e){
 //returns the cursor to all records
 function get_all(){
 
-	$name = strtolower(get_class($this));
+	$cursor = $this->get_all_cursor();
+        return(iterator_to_array($cursor));
 
+}
+
+function get_all_cursor(){
+
+	$name = strtolower(get_class($this));
         $collection = $this->mongo->$name;
         $cursor = $collection->find();
-
-        return(iterator_to_array($cursor));
+	return $cursor;
 
 }
 
 function get_all_reverse(){
 
-        $name = strtolower(get_class($this));
+	$cursor = $this->get_all_reverse_cursor();
+        return(iterator_to_array($cursor));
+	
+}
 
+function get_all_reverse_cursor(){
+
+        $name = strtolower(get_class($this));
         $collection = $this->mongo->$name;
         $cursor = $collection->find();
-	
 	$cursor = $cursor->sort(array("_id" => -1)); 
-
         return($cursor);
 
 }
@@ -214,8 +223,10 @@ function sync($id = 0, $versioning = false){
 	//
 	//End array beautification
 
+	$which_to_upsert = [$local_id => $id];
+
         //mongo magic that saves our data...
-        $collection->update(array($local_id => $id),$merged_array,array('upsert' => true, 'fsync' => true));
+        $collection->update($which_to_upsert,$merged_array,array('upsert' => true, 'fsync' => true));
         //save it for the other functions...
         $this->data_array = $merged_array;
         return($merged_array);
