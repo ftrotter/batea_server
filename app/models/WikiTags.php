@@ -213,6 +213,13 @@ class WikiTags extends VeryMongo{
 
 		$articleWikiData = WikiData::makeFromAPI($title);		
 		$talkWikiData = WikiData::makeFromAPI("Talk:$title");		
+		
+		if(!is_object($articleWikiData)){
+			return(array('is_succcess' => false));
+		}
+		if(!is_object($talkWikiData)){
+			return(array('is_succcess' => false));
+		}
 
 		$talk_text = strtolower($talkWikiData->data_array['wikitext']);
 		$article_text = strtolower($articleWikiData->data_array['wikitext']);

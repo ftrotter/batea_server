@@ -19,3 +19,4 @@ Artisan::add(new createPubMedData);
 Artisan::add(new createLabelData);
 Artisan::add(new runOnce);
 Artisan::add(new testIsClinical);
+Artisan::add(new refreshWikiData);
