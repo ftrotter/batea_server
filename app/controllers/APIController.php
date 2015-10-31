@@ -6,6 +6,7 @@
 */
 class APIController extends BaseController {
 
+	private $this_time = null;
 
 //GET functions
 
@@ -112,6 +113,13 @@ class APIController extends BaseController {
 	public function foragerComment($browser_token){
 		return($this->_justSaveAndEncrypt($browser_token,'SecureForagerComment'));
 	}
+/**
+ *  Read back foraferComment data, when it is in debug mode (i.e. not encrypted)
+ */
+	public function foragerCommentDebug($browser_token){
+		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureForagerComment')));
+	}
+
 
 
 /**
@@ -119,6 +127,13 @@ class APIController extends BaseController {
  */
 	public function historyTree($browser_token){
 		return($this->_justSaveAndEncrypt($browser_token,'SecureHistoryTree'));
+	}
+
+/**
+ *  Read back historTree data, when it is in debug mode (i.e. not encrypted)
+ */
+	public function historyTreeDebug($browser_token){
+		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureHistoryTree')));
 	}
 
 
@@ -146,7 +161,28 @@ class APIController extends BaseController {
 	public function wikiComment($browser_token){
 		return($this->_justSaveAndEncrypt($browser_token,'SecureWikiComment'));
 	}
+/**
+ *  Read back wikiComment data, when it is in debug mode (i.e. not encrypted)
+ */
+	public function wikiCommentDebug($browser_token){
+		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureWikiComment')));
+	}
 
+
+/**
+ *	We use timestamps as ids in several places (including tokens)...
+ *	We want to use the same timestamp in any API call, this lets us do that
+ */
+	public function _getTime(){
+		if(!is_null($this->this_time)){
+			return($this->this_time);
+		}
+		
+		//this is the first call this run...
+		$this->this_time = time();
+		return($this->this_time);
+			
+	}
 
 
 /**
@@ -156,8 +192,11 @@ class APIController extends BaseController {
  */
 	public function DonatorToken(){
 
+		
+		
+
 		$luhn = new Luhn();
-		$token = $luhn->generate(time());
+		$token = $luhn->generate($this->getTime());
 	
 		$this->_logDonation($token,"Created new token");
 
@@ -175,7 +214,7 @@ class APIController extends BaseController {
 */
 	public function _logDonation($token,$event){
 
-		$now = time();
+		$now = $this->_getTime();
 		$log_this  = $_SERVER;
 		$log_this['donation_token'] = $token;	
 		$log_this['event'] = $event;	
@@ -184,11 +223,44 @@ class APIController extends BaseController {
 	
 		$SecureLogs = new SecureLogs();
 		$SecureLogs->data_array = $securelogs_data;
-		$SecureLogs->sync();
+		$SecureLogs->sync($now);
 					
 
 	}
 
+/**
+ *	When _justSaveAndEncrypt is not encrypting (i.e. debug mode) this function can reverse it
+ *	Eventually this could be made to work with encryption too... perhaps if we are clever we can
+ *	Find a way to make it work with an unencrypt recent system...
+ */
+	public function _justRetrieveAndDecrypt($token,$mongoObject,$specific_id = null,$start_timestamp = null,$end_timestamp = null){
+
+		$collection_name = strtolower($mongoObject);
+		$MO = new $mongoObject();
+		$collection = $MO->mongo->$collection_name;
+		
+		$now = $this->_getTime();
+		$minus_one_day = strtotime('-1 day',$now);
+
+		//becuase our ids are always timestamps, its pretty easy to just get todays data
+		$search = ["$collection_name"."_id" => ['$gt' => $minus_one_day  ]];
+		
+		$cursor = $collection->find($search);
+	
+		$coded_by_id_array = iterator_to_array($cursor);
+		sort($coded_by_id_array); //gets rid of the keys..
+		$return_me = [];
+		$today_key = ''; //TODO implement me...
+		foreach($coded_by_id_array as $this_item){
+		
+			$data = $this->_decryptThis($this_item,$today_key);	
+			$this_item['data'] = $data;
+			$return_me[] = $this_item;
+		}
+	
+		return($return_me);
+
+	}
 
 /**
  *	This is the basic template method that just saves the data
@@ -202,13 +274,45 @@ class APIController extends BaseController {
 		$encrypted_save_me = $this->_encryptThis($save_me);
 		$MO = new $mongoObject();
 		$MO->data_array = $encrypted_save_me;
-		$MO->sync();
+		$this_time = $this->_getTime();
+		$MO->sync($this_time);
 
 		$this->_logDonation($token,"Just saved $mongoObject");	
 
 		return(Response::json(array('is_success' => true)));
 
 	}
+
+/**
+ *	This undoes the encrypt function...
+ */
+	public function _decryptThis($thing, $today_key = null, $forever_key = null){
+
+		//prefer the forever key if you have it..
+		if(!is_null($forever_key)){
+			$my_key = $forever_key;
+			$passkey_field = 'encrypted_passkey';		
+		}else{
+			if(!is_null($today_key)){
+				$my_key = $today_key;
+				$passkey_field = 'today_encrypted_passkey';		
+			}else{
+				echo "APIController.php _decryptThis error: I need to either have a today key or a forever key not be null";
+				exit();
+			}
+		}
+
+		//I will use $my_key and $passkey_field to decrypt this data..
+		//TODO implement real encryption here...
+
+		$encrypted_thing = $thing['encrypted_thing'];
+		$plain_text_json = base64_decode($encrypted_thing);
+		$data = json_decode($plain_text_json,true);
+
+		return($data);
+
+	}
+
 /**
  *	a function that accepts a thing to encrypt, and provides a assymetrically encrypted passkey
  * 	and a symetrically encrypted 'thing'.. you have to use the private key to decrypt the password
@@ -217,7 +321,7 @@ class APIController extends BaseController {
  *	So that we can do this at any time...
  */
 //STUB
-	public function _encryptThis($thing){
+	public function _encryptThis($thing, $today_key = null, $forever_key = null){
 
 		if(is_array($thing) || is_object($thing)){
 			$thing = json_encode($thing); //we just want strings...
@@ -231,6 +335,7 @@ class APIController extends BaseController {
 		}else{
 			$return_me = [
 				'encrypted_passkey' => 'not_implemented_using_base64_for_now',
+				'today_encrypted_passkey' => 'not_implemented_using_base64_for_now',
 				'encrypted_thing' =>	base64_encode($thing), //so that we can see what is happening for the time being...
 				];		
 

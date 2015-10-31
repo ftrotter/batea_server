@@ -14,9 +14,13 @@
 
 
 Route::any("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
+Route::any("/API/Donator/{browser_token}/foragerComment/debug","APIController@foragerCommentDebug");
 Route::any("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
-Route::any("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::any("/API/Donator/{browser_token}/historyTree/debug","APIController@historyTreeDebug");
 Route::any("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
+Route::any("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
+Route::any("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::any("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
 Route::any("/API/DonatorToken/new","APIController@DonatorToken");
 
 Route::get("/API/isURLClinical/{that_url}","APIController@isURLClinical");
