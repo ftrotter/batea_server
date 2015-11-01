@@ -70,7 +70,6 @@ class WikiTags extends VeryMongo{
 "[[Category:Global health",
 "pathology}}",
 "[[Category:Cognition",
-"{{Taxobox",
 "{{Viral diseases", 
 "{{PBB",
 "{{PDB Gallery",
