@@ -40,14 +40,15 @@ public static function makeFromAPI($title,$id_to_get = null,&$cache_to_use = nul
                 $api_url = WikiData::get_wiki_api_url($title,$id_to_get);
                 $result_array = WikiData::rawDownload($api_url);
   
-                if(strlen($result_array['result']) < 20){
+		
+
+
+                if(!$result_array['is_success']){
                         //then there must be a rate limiting problem
                         if(!$run_silent){ echo "I got $result \n\n Now Slowing down and retrying call\n"; }
                         sleep(5);
                         return WikiData::makeFromAPI($title,$id_to_get,$cache_to_use,$run_slow,$run_silent);
-                }
-  
-                if($result_array['is_success']){
+                }else{
                         $WikiData = new WikiData();
                         $WikiData->fromJSON($result_array['result']);
                         $wikidata_id = WikiData::get_wikidata_id($title,$cache_id);
@@ -65,10 +66,7 @@ public static function makeFromAPI($title,$id_to_get = null,&$cache_to_use = nul
                         }
 		
 			return($WikiData);
- 
-               }else{
-			return(false);
-		}
+		} 
   
   
 } 
@@ -144,7 +142,7 @@ public static function makeFromAPI($title,$id_to_get = null,&$cache_to_use = nul
         How do we keep them up to date? Hmm, good question...
         I wish the wikipedia API gave you the latest revision number along with the page id when it returned..
 */
-        static function get_wikidata_id($title,$revision_id){
+        static public function get_wikidata_id($title,$revision_id){
                 $wikidata_id = "$title"."|$revision_id";
                 return($wikidata_id);
         }
