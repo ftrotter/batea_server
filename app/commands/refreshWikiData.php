@@ -51,9 +51,11 @@ class refreshWikiData extends ScheduledCommand {
 	public function fire()
 	{
 
+		$remove_cruft = true;
 
 		$MetaTools = new MetaTools();
-		
+		$WT = new WikiTags();	
+	
 		$articles = $MetaTools->getBigClinicalArticleList();
 
 		$article_count = count($articles);
@@ -70,7 +72,9 @@ class refreshWikiData extends ScheduledCommand {
 			if(strpos($title,':') === false){ //avoids Talk: and Template: etc
 				//$result = WikiTags::isTitleClinical($title);
 				$result = WikiTags::isTitleClinicalFromAPI($title);  //lets force the use of the API
-
+				if($remove_cruft){
+					$WT->trimOldVersionsOfTitle($title); //lets get rid of the 	
+				}
 				if($result['is_success']){
 					if($result['is_titleclinical']){
 				//		echo "$title is clinical\n";
