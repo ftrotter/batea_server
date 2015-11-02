@@ -59,13 +59,13 @@ class refreshWikiData extends ScheduledCommand {
 		$articles = $MetaTools->getBigClinicalArticleList();
 
 		$article_count = count($articles);
-			
+	
 		echo "Looking at $article_count articles\n";	
 
 		$i = 0;
 		foreach($articles as $title){
 			$i++;
-			if($i%10000 == 0){
+			if($i%100 == 0){
 				echo "\non $i out of $article_count\n"; 
 			}
 			echo "$title";
