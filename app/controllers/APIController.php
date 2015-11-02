@@ -196,7 +196,7 @@ class APIController extends BaseController {
 		
 
 		$luhn = new Luhn();
-		$token = $luhn->generate($this->getTime());
+		$token = $luhn->generate($this->_getTime());
 	
 		$this->_logDonation($token,"Created new token");
 
