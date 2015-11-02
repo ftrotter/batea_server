@@ -24,13 +24,13 @@ Route::post("/debugpost", function() {
 });
 
 Route::post("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
-Route::post("/API/Donator/{browser_token}/foragerComment/debug","APIController@foragerCommentDebug");
+Route::get("/API/Donator/{browser_token}/foragerComment/debug","APIController@foragerCommentDebug");
 Route::post("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
-Route::post("/API/Donator/{browser_token}/historyTree/debug","APIController@historyTreeDebug");
+Route::get("/API/Donator/{browser_token}/historyTree/debug","APIController@historyTreeDebug");
 Route::post("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
-Route::post("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
+Route::get("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
 Route::post("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
-Route::post("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
+Route::get("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
 Route::post("/API/DonatorToken/new","APIController@DonatorToken");
 
 Route::get("/API/isURLClinical/{that_url}","APIController@isURLClinical");
