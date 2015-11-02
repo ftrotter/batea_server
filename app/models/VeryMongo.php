@@ -233,8 +233,12 @@ function sync($id = 0, $versioning = false){
 
 	$name = strtolower(get_class($this));
 	$local_id = $name.'_id';
-        $collection = $this->mongo->$name; //mongo comes from the MongoObject class...
-
+	if(is_object($this->mongo)){
+        	$collection = $this->mongo->$name; //mongo comes from the MongoObject class...
+	}else{
+		echo "Error: this->mongo was not an object for $name\n";	
+		exit();
+	}
 	$new_data = false;
         if($id !== 0){
 		$find = array($name.'_id' => $id);

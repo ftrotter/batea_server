@@ -1,7 +1,7 @@
 <?php
 
 
-class SecureForagerComment  extends VeryMongo{
+class SecureForagerComment  extends VerySecure{
 
 
 

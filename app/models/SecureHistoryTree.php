@@ -1,7 +1,7 @@
 <?php
 
 
-class  SecureHistoryTree extends VeryMongo{
+class  SecureHistoryTree extends VerySecure{
 
 
 

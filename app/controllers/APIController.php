@@ -269,13 +269,13 @@ class APIController extends BaseController {
  */
 	public function _justSaveAndEncrypt($token,$mongoObject){
 
+		$this_time = $this->_getTime();
+
 		$save_me  = Input::all(); //all the json..
 		$save_me['donator_token'] = $token;
-		$encrypted_save_me = $this->_encryptThis($save_me);
+
 		$MO = new $mongoObject();
-		$MO->data_array = $encrypted_save_me;
-		$this_time = $this->_getTime();
-		$MO->sync($this_time);
+		$MO->secureAndSync($this_time,$save_me);
 
 		$this->_logDonation($token,"Just saved $mongoObject");	
 
