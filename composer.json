@@ -8,7 +8,8 @@
 		"laravel/framework": "4.2.*",
 		"indatus/dispatcher": "~1.4",
 		"jenssegers/mongodb": "~2.0",
-		"xi/algorithm": "dev-master"
+		"xi/algorithm": "dev-master",
+		"ircmaxell/random-lib": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
