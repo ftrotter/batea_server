@@ -22,6 +22,7 @@ class WikiTags extends VeryWiki{
 
 
 	static public $article_is_clinical_tags = [
+"| GraySubject",
 "{{Infobox disease",
 "{{Infobox anatomy",
 "{{Infobox symptom",
