@@ -66,13 +66,18 @@ class testIsClinical extends ScheduledCommand {
 			'Arno_Voss' => 0,
 			'Aztec_Club_of_1847' => 0,
 			'Colt_Army_Model_1860' => 0,
+			'Dog' => 0,
 			];
 
+		$force_api = true;
 
 		foreach($articles as $article => $expected_result){
 
-			$result = WikiTags::isTitleClinical($article);
-
+			if($force_api){
+				$result = WikiTags::isTitleClinicalFromAPI($article);
+			}else{
+				$result = WikiTags::isTitleClinical($article);
+			}
 
 			if($result['is_titleclinical']){
 				$result_print = 1;
