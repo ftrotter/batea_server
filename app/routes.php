@@ -11,17 +11,27 @@
 |
 */
 
+Route::post("/debugpost", function() {
+	
+	$all_input = Input::all();
 
+	Log::info(var_export($all_input,true));
 
-Route::any("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
-Route::any("/API/Donator/{browser_token}/foragerComment/debug","APIController@foragerCommentDebug");
-Route::any("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
-Route::any("/API/Donator/{browser_token}/historyTree/debug","APIController@historyTreeDebug");
-Route::any("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
-Route::any("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
-Route::any("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
-Route::any("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
-Route::any("/API/DonatorToken/new","APIController@DonatorToken");
+	$return_me = ['is_success' => true, 'sent_in' => $all_input];
+	
+	return(Response::json($return_me));
+
+});
+
+Route::post("/API/Donator/{browser_token}/foragerComment/new","APIController@foragerComment");
+Route::post("/API/Donator/{browser_token}/foragerComment/debug","APIController@foragerCommentDebug");
+Route::post("/API/Donator/{browser_token}/historyTree/new","APIController@historyTree");
+Route::post("/API/Donator/{browser_token}/historyTree/debug","APIController@historyTreeDebug");
+Route::post("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
+Route::post("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
+Route::post("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::post("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
+Route::post("/API/DonatorToken/new","APIController@DonatorToken");
 
 Route::get("/API/isURLClinical/{that_url}","APIController@isURLClinical");
 Route::get("/API/clinicalURLStubs/","APIController@clinicalURLStubs");
