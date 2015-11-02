@@ -24,7 +24,7 @@ class VeryWiki  extends VeryMongo{
 			}	
 		}
 
-		echo "Revision to keep $latest_revision\n";
+	//	echo "Revision to keep $latest_revision\n";
 
 		//now I know which record to keep, and I am going to delete the rest of them
 		$delete_us = [];
