@@ -98,6 +98,75 @@ function get_all(){
 
 }
 
+function myRemove($query = null,$justOne = false){
+
+	$name = strtolower(get_class($this));
+	if(is_null($query)){
+		echo "VeryMongo error on $name: remove requires an argument, if you want to delete all us '{}'";
+		exit();
+	}
+
+	if(!is_array($query)){
+		echo "VeryMongo error on $name: query must be an array";
+		var_export($query);
+		exit();
+	}
+
+	if(!is_array($justOne)){
+		if(is_bool($justOne)){
+			$justOne = ['justOne' => $justOne];
+		}else{
+			echo "VeryMongo error on $name: justOne must either be an array or a boolean\n";
+			exit();	
+		}
+
+	}
+
+	$collection = $this->mongo->$name;	
+
+	$simulate = false;
+	if($simulate){
+		echo "Would have run remove on $name using:\n";
+		var_export($query);
+		if($justOne){
+			echo "\nBut just one\n";
+		}
+		 
+	}else{
+		$collection->remove($query,$justOne);
+	
+	}
+
+}
+
+
+/*
+	run mongos find against this collection
+	this version returns an array... good when you know there only a few results
+*/
+function find($search){
+	$cursor = $this->find_cursor($search);
+	return(iterator_to_array($cursor));
+}
+
+/*
+	runs mongo find against this collection
+	this version returns a memory-efficient cursor
+*/
+function find_cursor($search = null){
+
+	$name = strtolower(get_class($this));
+	if(is_null($search)){
+		echo "VeryMongo Error in $name find_cursor: the find functions need a search query... otherwise just run get_all()";
+		exit(); 
+	}
+
+        $collection = $this->mongo->$name;
+        $cursor = $collection->find($search);
+	return $cursor;	
+
+}
+
 function get_all_cursor(){
 
 	$name = strtolower(get_class($this));
@@ -241,7 +310,7 @@ function sync($id = 0, $versioning = false){
 }
 
 //my delete function
-function remove($id = 0){
+function removeById($id = 0){
 
 	if($id === 0){
 		echo "VeryMongo: Calling remove with no argument. Fail. $id";

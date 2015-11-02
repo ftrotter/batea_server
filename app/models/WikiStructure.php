@@ -1,7 +1,7 @@
 <?php
 
 
-class WikiStructure extends VeryMongo{
+class WikiStructure extends VeryWiki{
 
 
 	public $run_silent = false;

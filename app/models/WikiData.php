@@ -1,7 +1,7 @@
 <?php
 
 
-class WikiData extends VeryMongo{
+class WikiData extends VeryWiki{
 
 	public $run_silent = false;
 

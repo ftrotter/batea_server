@@ -1,7 +1,7 @@
 <?php
 
 
-class WikiTags extends VeryMongo{
+class WikiTags extends VeryWiki{
 
 	static public $talk_tags_maps = [
                 'is_WPMED' => '{{WPMED',
