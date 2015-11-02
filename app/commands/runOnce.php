@@ -50,7 +50,7 @@ class runOnce extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-
+/*
 		$search = [ 'title' =>  [ '$exists' => false ] ];
 		$WT = new WikiTags();
 		$collection = $WT->mongo->wikitags;
@@ -67,6 +67,11 @@ class runOnce extends ScheduledCommand {
 			$thisWT->sync($tag_id);
 				
 		}
+*/
+
+		$WT = new WikiTags();
+		$WT->trimOldVersionsOfTitle('Dog');
+
 
 
 	}
