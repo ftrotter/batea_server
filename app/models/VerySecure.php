@@ -17,6 +17,10 @@ class VerySecure  extends VeryMongo{
 
 	private $cipher = 'aes-256-cbc';
 
+	private $this_time;
+
+	private $had_to_refresh;
+
 	public function __construct(){
 
 
@@ -40,7 +44,10 @@ class VerySecure  extends VeryMongo{
 		}
 		
 		if($is_need_to_refresh_keys){
+			$this->had_to_refresh = true;
 			$this->refresh_keys();
+		}else{
+			$this->had_to_refresh = false;
 		}
 
 		$this->load_keys();
@@ -77,12 +84,18 @@ class VerySecure  extends VeryMongo{
  */
 	private function refresh_keys(){
 
-		$PKEY_obj = openssl_pkey_new();
-		openssl_pkey_export($PKEY_obj,$privkey,null);
-		file_put_contents($this->temp_private_key_file,$privkey);
+		$config = [
+		'private_key_bits' => 2048,      // Size of Key.
+    		'private_key_type' => OPENSSL_KEYTYPE_RSA,
+			];
+
+		$PKEY_obj = openssl_pkey_new($config);
+		openssl_pkey_export_to_file($PKEY_obj,$this->temp_private_key_file);
 		
 		$pubkey = openssl_pkey_get_details($PKEY_obj);
 		file_put_contents($this->temp_public_key_file,$pubkey['key']);
+
+		openssl_free_key($PKEY_obj);
 	}
 
 
@@ -104,13 +117,28 @@ class VerySecure  extends VeryMongo{
 
 	public function loadRecent(){
 
+		$debug_encrypt = true;
+
 		$now = $this->getTime();
 
-		$starting_from = $now - Config::get('seconds_to_keep_temp_keys',86400); // a time before now...
+		$seconds_to_keep_temp_keys = Config::get('seconds_to_keep_temp_keys',86400); // a time before now...
+		$test_starting_from = (int) $now - (int) $seconds_to_keep_temp_keys; // a time before now...
 
 		$name = strtolower(get_class($this));
 	
 		$my_id = $name."_id";
+
+		$now = $this->getTime();
+		$starting_from = strtotime('-1 day',$now);
+
+		//TODO figure out why the first method (used to make test_starting_from
+		//results in the just the same as "now"?? Why did we need to use (int);
+		//thats messed up... but I have to move on.
+
+		/*
+		echo "now is $now starting_from is $starting_from and $test_starting_from is also";
+		exit();
+		*/
 
 		$search_query = [$my_id => ['$gt' => $starting_from]];
 
@@ -118,12 +146,14 @@ class VerySecure  extends VeryMongo{
 		
 		foreach($my_results as $index => $this_result){
 
-			$decrypted = VerySecure::decryptThis(	$this_result['encrypted_thing'],
-								$this_result['temp_encrypted_pass_key'],
+			$decrypted = VerySecure::decryptThis(	
+								$this_result,
 								$this->tempPrivateKey,
-								$this->cipher);
+								$this->cipher,
+								$this->had_to_refresh);
 
 			$my_results[$index]['decrypted'] = $decrypted;
+
 		}
 
 		return($my_results);
@@ -133,26 +163,42 @@ class VerySecure  extends VeryMongo{
 /**
  *	Given an encrypted password, and a private key which can decrypte the password, this can decrypt a thing
  */
-	public static function decryptThis(	$encrypted_thing,
-						$encrypted_passkey,
+	public static function decryptThis(	$result_row,
 						$private_key,
-						$cipher){
+						$cipher,
+						$had_to_refresh){
 
-		$encrypted_passkey = base64_decode($encrypted_passkey);
+		$encrypted_pass_key = $result_row['encrypted_pass_key'];
+		$encrypted_thing = $result_row['encrypted_thing'];		
 
-		$success = @openssl_private_decrypt($encrypted_passkey,$cleartext_passkey,$private_key);
+		$encrypted_pass_key = base64_decode($encrypted_pass_key);
+
+		$success = @openssl_private_decrypt($encrypted_pass_key,$cleartext_passkey,$private_key);
 
 		if(!$success){
-			echo "Failed to decryptThis\n";
+                        $error = openssl_error_string();
+			echo "Failed to decryptThis\n with error<br> $error";
+			if($had_to_refresh){
+				echo "<br>I just did a refresh!!!<br>";
+			}
 			exit();
 		}
 
+		if(isset($result_row['plaintext_passkey_going_in'])){
+
+			echo "Here is my result row<br><pre>";
+			var_export($result_row);
+			echo "</pre><br> And my calculated passkey is $cleartext_passkey... <>br>";
+			exit();
+			
+		}
+
+
 		$encrypted_thing = base64_decode($encrypted_thing);
 
-		list($encrypted, $iv) = explode(':'.$encrypted_thing); 		
+		list($encrypted, $iv) = explode(':',$encrypted_thing); 		
 
 		$decrypted = openssl_decrypt($encrypted_thing, $cipher, $cleartext_passkey, 0, $iv);
-
 
 		return($decrypted);
 	
@@ -169,6 +215,8 @@ class VerySecure  extends VeryMongo{
 	}
 
 	public static function encryptThis($thing,$cipher,$publicKey,$tempPublicKey){
+
+		$debug_encrypt = true;
 	
 		if(is_array($thing) || is_object($thing)){
                         $thing = json_encode($thing); //we just want strings...
@@ -187,6 +235,10 @@ class VerySecure  extends VeryMongo{
 		$passwordLength = 32; // Or more
 		$pass_key = $generator->generateString($passwordLength);
 		
+		if($debug_encrypt){
+			$return_me['plaintext_passkey_going_in'] = $pass_key;
+		}
+
 		$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
 
 		$encrypted = openssl_encrypt($thing, $cipher, $pass_key, 0, $iv);

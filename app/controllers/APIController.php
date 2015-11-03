@@ -233,30 +233,10 @@ class APIController extends BaseController {
  *	Eventually this could be made to work with encryption too... perhaps if we are clever we can
  *	Find a way to make it work with an unencrypt recent system...
  */
-	public function _justRetrieveAndDecrypt($token,$mongoObject,$specific_id = null,$start_timestamp = null,$end_timestamp = null){
+	public function _justRetrieveAndDecrypt($token,$mongoObject,$specific_id = null){
 
-		$collection_name = strtolower($mongoObject);
 		$MO = new $mongoObject();
-		$collection = $MO->mongo->$collection_name;
-		
-		$now = $this->_getTime();
-		$minus_one_day = strtotime('-1 day',$now);
-
-		//becuase our ids are always timestamps, its pretty easy to just get todays data
-		$search = ["$collection_name"."_id" => ['$gt' => $minus_one_day  ]];
-		
-		$cursor = $collection->find($search);
-	
-		$coded_by_id_array = iterator_to_array($cursor);
-		sort($coded_by_id_array); //gets rid of the keys..
-		$return_me = [];
-		$today_key = ''; //TODO implement me...
-		foreach($coded_by_id_array as $this_item){
-		
-			$data = $this->_decryptThis($this_item,$today_key);	
-			$this_item['data'] = $data;
-			$return_me[] = $this_item;
-		}
+		$return_me = $MO->loadRecent();	
 	
 		return($return_me);
 
