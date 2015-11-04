@@ -1,7 +1,7 @@
 <?php
 
 
-class SecureWikiComment  extends VeryMongo{
+class SecureWikiComment  extends VerySecure{
 
 
 

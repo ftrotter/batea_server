@@ -1,7 +1,7 @@
 <?php
 
 
-class SecureSettings  extends VeryMongo{
+class SecureSettings  extends VerySecure{
 
 
 
