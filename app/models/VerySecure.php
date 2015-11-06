@@ -25,10 +25,10 @@ class VerySecure  extends VeryMongo{
 
 
 		$temp_key_dir = app_path()."/storage/temp_keys/";
-		$this->temp_public_key_file = $temp_key_dir."temp_public_key.pem";
-		$this->temp_private_key_file = $temp_key_dir."temp_private_key.pem";
+		$this->temp_public_key_file = $temp_key_dir."temp_public_key.key";
+		$this->temp_private_key_file = $temp_key_dir."temp_private_key.key";
 		
-		$this->public_key_file = app_path()."/config/keys/public.pem";
+		$this->public_key_file = app_path()."/config/keys/public.key";
 	
 		$is_need_to_refresh_keys = false;
 		if(!file_exists($this->temp_private_key_file)){
@@ -85,8 +85,8 @@ class VerySecure  extends VeryMongo{
 	private function refresh_keys(){
 
 		$config = [
-		'private_key_bits' => 2048,      // Size of Key.
-    		'private_key_type' => OPENSSL_KEYTYPE_RSA,
+			'private_key_bits' => 2048,      // Size of Key.
+    			'private_key_type' => OPENSSL_KEYTYPE_RSA,
 			];
 
 		$PKEY_obj = openssl_pkey_new($config);
@@ -148,9 +148,7 @@ class VerySecure  extends VeryMongo{
 
 			$decrypted = VerySecure::decryptThis(	
 								$this_result,
-								$this->tempPrivateKey,
-								$this->cipher,
-								$this->had_to_refresh);
+								$this->tempPrivateKey);
 
 			$my_results[$index]['decrypted'] = $decrypted;
 
@@ -164,41 +162,14 @@ class VerySecure  extends VeryMongo{
  *	Given an encrypted password, and a private key which can decrypte the password, this can decrypt a thing
  */
 	public static function decryptThis(	$result_row,
-						$private_key,
-						$cipher,
-						$had_to_refresh){
+						$private_key){
 
-		$encrypted_pass_key = $result_row['encrypted_pass_key'];
-		$encrypted_thing = $result_row['encrypted_thing'];		
+		$encrypted_pass_key = base64_decode($result_row['encrypted_pass_key']);
+		$encrypted_thing = base64_decode($result_row['encrypted_thing']);		
 
-		$encrypted_pass_key = base64_decode($encrypted_pass_key);
+		$pass_key = decrypt_using_private_key($encrypted_pass_key,$private_key);
 
-		$success = @openssl_private_decrypt($encrypted_pass_key,$cleartext_passkey,$private_key);
-
-		if(!$success){
-                        $error = openssl_error_string();
-			echo "Failed to decryptThis\n with error<br> $error";
-			if($had_to_refresh){
-				echo "<br>I just did a refresh!!!<br>";
-			}
-			exit();
-		}
-
-		if(isset($result_row['plaintext_passkey_going_in'])){
-
-			echo "Here is my result row<br><pre>";
-			var_export($result_row);
-			echo "</pre><br> And my calculated passkey is $cleartext_passkey... <>br>";
-			exit();
-			
-		}
-
-
-		$encrypted_thing = base64_decode($encrypted_thing);
-
-		list($encrypted, $iv) = explode(':',$encrypted_thing); 		
-
-		$decrypted = openssl_decrypt($encrypted_thing, $cipher, $cleartext_passkey, 0, $iv);
+		$decrypted = decrypt_using_passkey($encrypted_thing,$pass_key);
 
 		return($decrypted);
 	
@@ -208,13 +179,13 @@ class VerySecure  extends VeryMongo{
 
 	public function secureAndSync($id,$data){
 
-		$encryptedData = VerySecure::encryptThis($data,$this->cipher,$this->publicKey,$this->tempPublicKey);
+		$encryptedData = VerySecure::encryptThis($data,$this->publicKey,$this->tempPublicKey);
 		$this->data_array = $encryptedData;
 		$this->sync($id); 
 
 	}
 
-	public static function encryptThis($thing,$cipher,$publicKey,$tempPublicKey){
+	public static function encryptThis($thing,$publicKey,$tempPublicKey){
 
 		$debug_encrypt = true;
 	
@@ -229,45 +200,30 @@ class VerySecure  extends VeryMongo{
 			$return_me['base64_insurance'] = base64_encode($thing);
 		}
 
-		$factory = new RandomLib\Factory;
-		$generator = $factory->getGenerator(new SecurityLib\Strength(SecurityLib\Strength::MEDIUM));
-
-		$passwordLength = 32; // Or more
-		$pass_key = $generator->generateString($passwordLength);
-		
+	
+		$pass_key = Crypto::make_random_passkey();
+	
 		if($debug_encrypt){
 			$return_me['plaintext_passkey_going_in'] = $pass_key;
 		}
 
-		$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher));
+		$ecnrypted_thing = Crypto::encrypt_using_passkey($thing,$pass_key);
 
-		$encrypted = openssl_encrypt($thing, $cipher, $pass_key, 0, $iv);
-
-		$store_me = $encrypted . ':' . $iv;
-
-		$return_me['encrypted_thing'] = base64_encode($store_me);
+		$return_me['encrypted_thing'] = base64_encode($encrypted_thing);
 		
 		//now lets store the pass_key, after using assymetric encrypt on it.. 
 
-		$success = @openssl_public_encrypt($data,$temp_pass_key,$tempPublicKey);	
-		if(!$success){
-			$error = openssl_error_string();
-			echo "VerySecure encryptThis openssl_public_encrypt with tempPublicKey failed\n<br> $error \n";
-			
-			exit();
-		}	
 
+		$temp_pass_key = Crypto::encrypt_using_public_key($pass_key,$tempPublicKey);
+	
 		$return_me['temp_encrypted_pass_key'] = base64_encode($temp_pass_key);
 
-		$success = @openssl_public_encrypt($data,$pass_key,$publicKey);	
-		if(!$success){
-			$error = openssl_error_string();
-			echo "VerySecure encryptThis openssl_public_encrypt with publicKey failed <br>\n $error \n";
-			exit();
-		}	
+		$enc_pass_key = Crypto::encrypt_using_public_key($pass_key,$tempPublicKey);
 
-		$return_me['encrypted_pass_key'] = base64_encode($pass_key);
+		$return_me['encrypted_pass_key'] = base64_encode($enc_pass_key);
 		
+		$pass_key = 'forgotten'; //just in case...
+
                 return($return_me);
 
 	}
