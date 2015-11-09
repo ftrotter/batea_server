@@ -29,7 +29,7 @@ Route::post("/API/Donator/{browser_token}/historyTree/new","APIController@histor
 Route::get("/API/Donator/{browser_token}/historyTree/debug","APIController@historyTreeDebug");
 Route::post("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
 Route::get("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
-Route::post("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::any("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
 Route::get("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
 Route::post("/API/DonatorToken/new","APIController@DonatorToken");
 
@@ -37,6 +37,7 @@ Route::get("/API/isURLClinical/{that_url}","APIController@isURLClinical");
 Route::get("/API/clinicalURLStubs/","APIController@clinicalURLStubs");
 Route::get("/API/Donator/{browser_token}","APIController@Donator");
 
+Route::any("/TestAPI/CryptoTest/","APIController@cryptoTest");
 
 
 Route::get("/pubmed/{pmid}/json", "PubMedController@get_json");

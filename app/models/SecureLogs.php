@@ -1,7 +1,7 @@
 <?php
 
 
-class SecureLogs extends VeryMongo{
+class SecureLogs extends VerySecure{
 
 
 }

@@ -164,12 +164,13 @@ class VerySecure  extends VeryMongo{
 	public static function decryptThis(	$result_row,
 						$private_key){
 
+
 		$encrypted_pass_key = base64_decode($result_row['encrypted_pass_key']);
 		$encrypted_thing = base64_decode($result_row['encrypted_thing']);		
 
-		$pass_key = decrypt_using_private_key($encrypted_pass_key,$private_key);
+		$pass_key = Crypto::decrypt_using_private_key($encrypted_pass_key,$private_key);
 
-		$decrypted = decrypt_using_passkey($encrypted_thing,$pass_key);
+		$decrypted = Crypto::decrypt_using_passkey($encrypted_thing,$pass_key);
 
 		return($decrypted);
 	
@@ -204,10 +205,10 @@ class VerySecure  extends VeryMongo{
 		$pass_key = Crypto::make_random_passkey();
 	
 		if($debug_encrypt){
-			$return_me['plaintext_passkey_going_in'] = $pass_key;
+			$return_me['plaintext_passkey_going_in'] = base64_encode($pass_key);
 		}
 
-		$ecnrypted_thing = Crypto::encrypt_using_passkey($thing,$pass_key);
+		$encrypted_thing = Crypto::encrypt_using_passkey($thing,$pass_key);
 
 		$return_me['encrypted_thing'] = base64_encode($encrypted_thing);
 		

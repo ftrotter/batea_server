@@ -40,6 +40,8 @@ class Crypto{
  
     		$decrypted = '';
     		if (!openssl_private_decrypt($encrypted_thing, $decrypted, $privateKey)){
+                        $error = openssl_error_string();
+                        echo "Failed to Crypto.class.php\n with error<br> $error";
         		die('Failed to decrypt data');
     		}
 
@@ -53,6 +55,10 @@ class Crypto{
 
 
 	public static function encrypt_using_public_key($thing_to_encrypt,$public_key_contents){
+
+		if(is_array($thing_to_encrypt) || is_object($thing_to_encrypt)){
+			$thing_to_encrypt = json_encode($thing_to_encrypt);
+		}
 
 		$publicKey = openssl_pkey_get_public($public_key_contents);
 		$a_key = openssl_pkey_get_details($publicKey);

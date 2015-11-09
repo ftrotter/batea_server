@@ -8,6 +8,43 @@ class APIController extends BaseController {
 
 	private $this_time = null;
 
+
+	public function cryptoTest(){
+
+
+		$test_array = [
+			'test' => 'of the emergency broadcast station',
+			'only' => 'this is only a test',
+			'followed' => 'this would have had instructions',
+			];
+		
+		echo "<h1> encryption tests </h1>";
+		echo "Starting data: <pre>";
+		var_export($test_array);
+		echo "</pre>";
+
+		$SL = new SecureLogs();
+
+		$new_id = $SL->getTime();
+		$SL->secureAndSync($new_id,$test_array);
+
+		echo "<br><br>Encrypted data: <pre>";
+		var_export($SL->data_array);
+		echo "</pre>";
+		
+		$recent = $SL->loadRecent();
+
+		echo "<br><br>Recent: <pre>";
+		var_export($recent);
+		echo "</pre>";
+
+
+		exit();
+
+	}
+
+
+
 //GET functions
 
 /**
