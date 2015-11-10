@@ -41,8 +41,7 @@ class Crypto{
     		$decrypted = '';
     		if (!openssl_private_decrypt($encrypted_thing, $decrypted, $privateKey)){
                         $error = openssl_error_string();
-                        echo "Failed to Crypto.class.php\n with error<br> $error";
-        		die('Failed to decrypt data');
+                        return("Decryption error with <br> $error <br> Perhaps this was not the right decryption key");
     		}
 
 		openssl_free_key($privateKey);
