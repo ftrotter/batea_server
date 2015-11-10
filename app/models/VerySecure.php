@@ -158,6 +158,8 @@ class VerySecure  extends VeryMongo{
 								$this_result,
 								$this->tempPrivateKey);
 
+
+
 			$my_results[$index]['decrypted'] = $decrypted;
 
 		}
@@ -184,7 +186,9 @@ class VerySecure  extends VeryMongo{
 
 		$pass_key = Crypto::decrypt_using_private_key($encrypted_pass_key,$private_key);
 
-		$decrypted = Crypto::decrypt_using_passkey($encrypted_thing,$pass_key);
+		$decrypted_json = Crypto::decrypt_using_passkey($encrypted_thing,$pass_key);
+
+		$decrypted  = json_decode($decrypted_json,true);
 
 		return($decrypted);
 	
@@ -202,16 +206,15 @@ class VerySecure  extends VeryMongo{
 
 	public static function encryptThis($thing,$publicKey,$tempPublicKey){
 
-		$debug_encrypt = true;
+		$debug_encrypt = false;
 	
 		if(is_array($thing) || is_object($thing)){
                         $thing = json_encode($thing); //we just want strings...
                 }
 
-		$use_base64 = Config::get('app.base64_plaintext_debug_encryption',false);
 		$return_me = [];
 
-		if($use_base64){
+		if($debug_encrypt){
 			$return_me['base64_insurance'] = base64_encode($thing);
 		}
 
