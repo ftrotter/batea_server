@@ -36,13 +36,21 @@ class VerySecure  extends VeryMongo{
 		}else{
 			$key_last_written_time = filemtime($this->temp_private_key_file); 
 			$now = time();
-			$seconds_to_keep_temp_keys = Config::get('seconds_to_keep_temp_keys',86400); //default to one day
+			$seconds_to_keep_temp_keys = Config::get('app.seconds_to_keep_temp_keys',86400); //default to one day
 			$seconds_kept = $now - $key_last_written_time;
 			if($seconds_kept > $seconds_to_keep_temp_keys){
 				$is_need_to_refresh_keys = true;
 			} 
+/*
+			echo "key_last_written_time = $key_last_written_time<br>";
+			echo "now = $now<br>";
+			echo "seconds_to_keep_temp_keys = $seconds_to_keep_temp_keys<br>";
+			echo "seconds_kept = $seconds_kept<br>";
+*/			
+
+
 		}
-		
+	
 		if($is_need_to_refresh_keys){
 			$this->had_to_refresh = true;
 			$this->refresh_keys();
@@ -164,6 +172,12 @@ class VerySecure  extends VeryMongo{
 	public static function decryptThis(	$result_row,
 						$private_key){
 
+
+		if(!isset($result_row['encrypted_pass_key'])){
+			echo "VerySecure.php error: the decryptThis function expects a row of results.. but instead I got <br><pre>";
+			var_export($result_row);
+			exit();
+		}
 
 		$encrypted_pass_key = base64_decode($result_row['encrypted_pass_key']);
 		$encrypted_thing = base64_decode($result_row['encrypted_thing']);		
