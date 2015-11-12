@@ -30,6 +30,8 @@ Route::get("/API/Donator/{browser_token}/historyTree/debug","APIController@histo
 Route::post("/API/Donator/{browser_token}/wikiComment/new","APIController@wikiComment");
 Route::get("/API/Donator/{browser_token}/wikiComment/debug","APIController@wikiCommentDebug");
 Route::any("/API/Donator/{browser_token}/saveSettings/","APIController@saveSettings");
+Route::any("/API/saveSettings/","APIController@saveSettings"); //support for an URL that does not have the token in the URL
+								//to support Alan's preferences.
 Route::get("/API/Donator/{browser_token}/saveSettings/debug","APIController@saveSettingsDebug");
 Route::post("/API/DonatorToken/new","APIController@DonatorToken");
 
