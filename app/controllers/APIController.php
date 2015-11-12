@@ -104,15 +104,32 @@ class APIController extends BaseController {
   ),
    'clinicalURLRegex' => 
   array (
-    0 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?medscape\\.com$/',
-    1 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?webmd\\.com$/',
-    2 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?nih\\.gov$/',
-    3 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?merckmanuals\\.com$/',
-    4 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?mayoclinic\\.org$/',
-    5 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?clevelandclinic\\.org$/',
-    6 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?nejm\\.org$/',
-    7 => '/^(?:http(?:s)?:\\/\\/)?(?:[^\\.]+\\.)?icsi\\.org$/',
-  ));
+    0 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?medscape\.com/.*',
+    1 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?webmd\.com/.*',
+    2 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nih\.gov/.*',
+    3 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?merckmanuals\.com/.*',
+    4 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?mayoclinic\.org/.*',
+    5 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?clevelandclinic\.org/.*',
+    6 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nejm\.org/.*',
+    7 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?icsi\.org/.*',
+  ),
+   'clinicalURLRegex_escp' =>
+  array (
+    0 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?medscape\\.com/.*',
+    1 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?webmd\\.com/.*',
+    2 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?nih\\.gov/.*',
+    3 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?merckmanuals\\.com/.*',
+    4 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?mayoclinic\\.org/.*',
+    5 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?clevelandclinic\\.org/.*',
+    6 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?nejm\\.org/.*',
+    7 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?icsi\\.org/.*',
+  ),
+
+
+
+
+
+);
 
 		return Response::json($return_me);
 	
@@ -124,19 +141,39 @@ class APIController extends BaseController {
  * This one should be rate limited for security....
  * and should always return with a 'no' for unknown token to prevent hacking
  */
-	public function Donator($browser_token){
+	public function Donator($browser_token = null){
+
+		$debug_saving = false; //by turning this on, you reveal whether the value returned is loading from the db.
+
+		$browser_token = $this->_getToken($browser_token);
 
 		$CT = new ConsentToken();
 		$CT->sync($browser_token);
 		if(isset($CT->data_array['is_consented'])){
 			$is_consented = $CT->data_array['is_consented'];
+			$is_loading = true;
 		}else{
+			$is_loading = false;
 			$is_consented = false;
 		}
+
+		if(isset($CT->data_array['email_provided'])){
+			$email_provided = $CT->data_array['email_provided'];
+		}else{
+			$email_provided = false;
+		}
+
+		$email_provided = false;
+
 		$return_me = [
 			'is_success' => true,
 			'is_consented' => $is_consented,
-		];		
+			'email_provided' => $email_provided,
+		];
+
+		if($debug_saving){
+			$return_me['is_loading'] = $is_loading;
+		}		
 
 		return Response::json($return_me);
 	}
@@ -147,13 +184,23 @@ class APIController extends BaseController {
 /**
  *	Given a browser token... save a forager Comment
  */
-	public function foragerComment($browser_token){
+	public function foragerComment($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
+
+                if($mw_config_set_results){
+			if(is_object(json_decode($my_config_set_results))){
+                        	$new_config = json_decode($mw_config_set_results,true);
+				Input::merge(array('my_config_set_results' => $new_config));
+			}
+                }
+
 		return($this->_justSaveAndEncrypt($browser_token,'SecureForagerComment'));
 	}
 /**
  *  Read back foraferComment data, when it is in debug mode (i.e. not encrypted)
  */
-	public function foragerCommentDebug($browser_token){
+	public function foragerCommentDebug($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
 		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureForagerComment')));
 	}
 
@@ -162,46 +209,122 @@ class APIController extends BaseController {
 /**
  * given a browser token, save a history of the users browser session
  */
-	public function historyTree($browser_token){
+	public function historyTree($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
 		return($this->_justSaveAndEncrypt($browser_token,'SecureHistoryTree'));
 	}
 
 /**
- *  Read back historTree data, when it is in debug mode (i.e. not encrypted)
+ *  Read back historyTree data, when it is in debug mode (i.e. not encrypted)
  */
-	public function historyTreeDebug($browser_token){
+	public function historyTreeDebug($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
 		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureHistoryTree')));
+	}
+
+
+	public function _getToken($token_from_argument){
+
+		if(!is_null($token_from_argument)){
+			return($token_from_argument);	//we prefer the one in the url
+		}else{
+			$browser_token = Input::get('token',false);
+			if(!$browser_token){
+
+				$result = [
+					'is_success' => false,
+					'error_message' => 'I either need a URL with a token, or I need '
+					];
+
+				echo json_encode($result);
+				exit();
+			}else{
+				return($browser_token);
+			}
+		}
+
 	}
 
 
 /**
  * save a users settings (used to track consent and demographics etc)
  */
-	public function saveSettings($browser_token){
-		$return_me = $this->_justSaveAndEncrypt($browser_token,'SecureSettings');
+	public function saveSettings($browser_token = null){
+		
+		$browser_token = $this->_getToken($browser_token);
+
+		$CT = new ConsentToken();
 
 		//if is_consented is missing or false, we set consent to false...
 		// is_consented must be resent along with any settings changess..
-		$got_is_consent = Input::get('is_consented',false);
-		$CT = new ConsentToken();
-		$CT->data_array['consenttoken_id'] = $browser_token;
-		$CT->data_array['is_consented'] = $got_is_consent;
-		$CT->sync();
+		$got_is_consent = Input::get('is_consented',null);
+		if(!is_null($got_is_consent)){
+			$CT->data_array['is_consented'] = $got_is_consent;
+		}
 
+		$email = Input::get('email',false);
+		$atLeast18 = Input::get('atLeast18',false);
+		$english = Input::get('english',false);
+		if($email && !$atLeast18 && !$english){	// this is janky but needed for full integration of the projects
+			//if we get here, then just email was submitted and atLeast18 and english were not submitted.
+			//which means that the options page on the extension page is having the email set rather than the 
+			$private_email_provided = true;	
+
+			//We save 
+			$UE = new UnlinkedEmails();
+			$UE->sync($email);
+
+			$CT->data_array['email_provided'] = true;
+		
+			$return_me = Response::json(array('is_success' => true, 'short_save' => true));
+	
+		}else{
+
+			if($atLeast18 && $english){
+				//then we know that this is the consent form submitting so we ensure that is_consented = true
+				Input::merge(array('is_consented' => true));
+				$CT->data_array['is_consented'] = true;
+				//this will be saved to the database...
+			}
+
+			//we only save Settings for stuff OTHER than private_email... which we save in unlinked emails
+			//this ensures that this information is always distinct from browser tokens
+			$return_me = $this->_justSaveAndEncrypt($browser_token,'SecureSettings');
+		}
+
+		$CT->sync($browser_token);
 		return($return_me);
 
 	}
 
+	public function saveSettingsDebug($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
+		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureSettings')));
+	}
+
+
+
+
 /**
  * save a comment on a specific wiki text... 
  */
-	public function wikiComment($browser_token){
+	public function wikiComment($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
+                $mw_config_set_results = Input::get('mw_config_set_results',false);
+                if($mw_config_set_results){
+			if(is_object(json_decode($my_config_set_results))){
+                        	$new_config = json_decode($mw_config_set_results,true);
+				Input::merge(array('my_config_set_results' => $new_config));
+			}
+                }
+
 		return($this->_justSaveAndEncrypt($browser_token,'SecureWikiComment'));
 	}
 /**
  *  Read back wikiComment data, when it is in debug mode (i.e. not encrypted)
  */
-	public function wikiCommentDebug($browser_token){
+	public function wikiCommentDebug($browser_token = null){
+		$browser_token = $this->_getToken($browser_token);
 		return(Response::json($this->_justRetrieveAndDecrypt($browser_token,'SecureWikiComment')));
 	}
 
@@ -229,9 +352,6 @@ class APIController extends BaseController {
  */
 	public function DonatorToken(){
 
-		
-		
-
 		$luhn = new Luhn();
 		$token = $luhn->generate($this->_getTime());
 	
@@ -251,16 +371,14 @@ class APIController extends BaseController {
 */
 	public function _logDonation($token,$event){
 
-		$now = $this->_getTime();
+		$this_time = $this->_getTime();
 		$log_this  = $_SERVER;
 		$log_this['donation_token'] = $token;	
 		$log_this['event'] = $event;	
-		$log_this['when_logged'] = $now;
-		$securelogs_data = $this->_encryptThis($log_this);
+		$log_this['when_logged'] = $this_time;
 	
 		$SecureLogs = new SecureLogs();
-		$SecureLogs->data_array = $securelogs_data;
-		$SecureLogs->sync($now);
+		$SecureLogs->secureAndSync($this_time,$log_this);
 					
 
 	}
@@ -286,12 +404,25 @@ class APIController extends BaseController {
  */
 	public function _justSaveAndEncrypt($token,$mongoObject){
 
-		$this_time = $this->_getTime();
 
+/*
+	This is a note to my future self who will envitably be deeply confused when a certain API does not work..
+	First, Laravel will interpret a POST to a url with an extra trailing slash as a GET. 
+	https://github.com/postmanlabs/postman-app-support/issues/450
+	Second, if the Content-Type on the request is not application/json then it does not work...
+	Apparently, there should also be an Accept: application/json on the headers going in too...
+*/
 		$save_me  = Input::all(); //all the json..
+		//$save_me = Input::json()->all();
+		//the following is helpful for showing what Laravel thinks is happening...
+		//var_export(Request::__toString());
+		//var_export($save_me);
+		//exit();
+
 		$save_me['donator_token'] = $token;
 
 		$MO = new $mongoObject();
+		$this_time = $this->_getTime();
 		$MO->secureAndSync($this_time,$save_me);
 
 		$this->_logDonation($token,"Just saved $mongoObject");	
