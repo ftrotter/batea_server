@@ -104,30 +104,19 @@ class APIController extends BaseController {
   ),
    'clinicalURLRegex' => 
   array (
-    0 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?medscape\.com/.*',
-    1 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?webmd\.com/.*',
-    2 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nih\.gov/.*',
-    3 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?merckmanuals\.com/.*',
-    4 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?mayoclinic\.org/.*',
-    5 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?clevelandclinic\.org/.*',
-    6 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nejm\.org/.*',
-    7 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?icsi\.org/.*',
+    0 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?medscape\.com.*',
+    1 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?webmd\.com.*',
+    2 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nih\.gov.*',
+    3 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?merckmanuals\.com.*',
+    4 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?mayoclinic\.org.*',
+    5 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?clevelandclinic\.org.*',
+    6 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nejm\.org.*',
+    7 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?icsi\.org.*',
+    8 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?ncbi.nlm.nih\.gov.*',
+    9 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?nlm.nih\.gov.*',
+    10 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?clinicaltrials\.gov.*',
+    11 => '^(?:http(?:s)?://)?(?:[^\.]+\.)?locatorplus\.gov.*',
   ),
-   'clinicalURLRegex_escp' =>
-  array (
-    0 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?medscape\\.com/.*',
-    1 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?webmd\\.com/.*',
-    2 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?nih\\.gov/.*',
-    3 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?merckmanuals\\.com/.*',
-    4 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?mayoclinic\\.org/.*',
-    5 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?clevelandclinic\\.org/.*',
-    6 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?nejm\\.org/.*',
-    7 => '^(?:http(?:s)?://)?(?:[^\\.]+\\.)?icsi\\.org/.*',
-  ),
-
-
-
-
 
 );
 
