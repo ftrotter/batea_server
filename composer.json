@@ -9,7 +9,8 @@
 		"indatus/dispatcher": "~1.4",
 		"jenssegers/mongodb": "~2.0",
 		"xi/algorithm": "dev-master",
-		"ircmaxell/random-lib": "dev-master"
+		"ircmaxell/random-lib": "dev-master",
+		"barryvdh/laravel-cors": "0.2.x"
 	},
 	"autoload": {
 		"classmap": [
