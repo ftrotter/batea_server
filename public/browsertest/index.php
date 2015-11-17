@@ -40,6 +40,7 @@ echo "
         <!--[if lt IE 9]>
           <script src='//html5shim.googlecode.com/svn/trunk/html5.js'></script>
         <![endif]-->
+<base target='_parent' />
 </head>
 <body >
         <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
