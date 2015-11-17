@@ -14,8 +14,8 @@
 App::before(function($request)
 {
 	//
-    header("Access-Control-Allow-Origin: *");
-    header('Access-Control-Allow-Credentials: true');
+//    header("Access-Control-Allow-Origin: *");
+//    header('Access-Control-Allow-Credentials: true');
 
     if (Request::getMethod() == "OPTIONS") {
         // The client-side application can set only headers allowed in Access-Control-Allow-Headers
