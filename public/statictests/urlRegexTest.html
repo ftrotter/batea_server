@@ -1,0 +1,98 @@
+<html><head>
+
+
+        <script type="text/javascript" language="javascript" src="/js/jquery.min.js"></script>
+
+
+<script>
+
+
+	function runThoseRegex(myRegexArray){
+
+
+		theseUrls = [
+"http://medscape.com",
+"http://www.medscape.com",
+"http://webmd.com",
+"http://www.webmd.com",
+"http://nih.gov",
+"http://www.ncbi.nlm.nih.gov/pubmed",
+"http://blast.ncbi.nlm.nih.gov/Blast.cgi",
+"http://pubchem.ncbi.nlm.nih.gov/",
+"http://merckmanuals.com",
+"http://www.merckmanuals.com/professional/resourcespages/disclaimer",
+"http://mayoclinic.org",
+"http://www.mayoclinic.org/diseases-conditions/diabetes/basics/definition/con-20033091",
+"http://clevelandclinic.org",
+"http://my.clevelandclinic.org/services/heart",
+"http://nejm.org",
+"http://www.nejm.org/medical-articles/review",
+"http://icsi.org",
+"http://www.icsi.org/education__services/",
+"https://medscape.com",
+"https://www.medscape.com",
+"https://webmd.com",
+"https://www.webmd.com",
+"https://nih.gov",
+"https://www.nlm.nih.gov",
+"https://www.ncbi.nlm.nih.gov/pubmed",
+"http://blast.ncbi.nlm.nih.gov/Blast.cgi",
+"http://locatorplus.gov/",
+"https://merckmanuals.com",
+"https://www.merckmanuals.com/professional/resourcespages/disclaimer",
+"https://mayoclinic.org",
+"https://www.mayoclinic.org/diseases-conditions/diabetes/basics/definition/con-20033091",
+"https://clevelandclinic.org",
+"https://my.clevelandclinic.org/services/heart",
+"https://nejm.org",
+"https://www.nejm.org/medical-articles/review",
+"https://icsi.org",
+"https://www.icsi.org/education__services/",
+];
+
+		theseUrls.map(function (this_test_url) {
+			myRegexArray.map( function (this_regex_string) {	
+
+
+				re = new RegExp(this_regex_string, "i");
+
+				if(re.test(this_test_url)){
+					console.log('MATCHES: ' + this_regex_string + ' on ' + this_test_url);
+				}
+			});
+		});
+
+
+	}
+
+	webserviceUrl = 'https://bateaapi.docgraph.com/API/clinicalURLStubs';
+
+    $.ajax(webserviceUrl, {
+        dataType: "json",
+        type: "GET",
+        data: {},
+        success: function(result) {
+            if (result.is_success) {
+		console.log('well that works');
+		runThoseRegex(result.clinicalURLRegex);
+            }
+    }});
+
+
+
+
+
+
+
+</script>
+
+
+
+</head><body>
+
+
+Not much here... look at the console...
+
+
+</body></html>
+
