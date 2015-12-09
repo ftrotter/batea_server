@@ -6,7 +6,7 @@ It is intended to work hand in hand with the [Wikiproject Medicine](https://en.w
 
 Or at least thats the idea anyway.
 
-This is a [DocGraph](http://docgraph.org)  project, generously sponsored by [RWJF](http://www.rwjf.org). Batea is not endorsed by or affiliated with the Wikimedia Foundation.
+This is a [DocGraph](http://docgraph.org)  project, generously sponsored by [RWJF](http://www.rwjf.org). Batea is not endorsed by or affiliated with the [Wikimedia Foundation] (https://wikimediafoundation.org/).
 
 Server side code is primarily by [Fred Trotter](http://fredtrotter.com).
 
